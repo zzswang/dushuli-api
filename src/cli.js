@@ -18,7 +18,7 @@ program
     console.log(`generating ${count} invitation code`);
     for (let i = 0; i < count; i++) {
       writeStream.write(nanoid(8));
-      writeStream.write("\n");
+      writeStream.write("\r\n");
     }
     console.log("done");
   });
