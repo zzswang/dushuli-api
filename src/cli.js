@@ -2,7 +2,6 @@ import program from "commander";
 import fs from "fs-extra";
 import nanoid from "nanoid";
 import path from "path";
-import QRCode from "qrcode";
 import moment from "moment";
 import { generate } from "branded-qr-code";
 
@@ -28,7 +27,7 @@ program
 
 program
   .command("qrcode")
-  .description("generate icode")
+  .description("generate everyday qrcode")
   .action(async () => {
     const start = moment("2019-01-01T12:12:12.000Z");
     const end = moment("2020-01-01T12:12:12.000Z");
@@ -36,9 +35,14 @@ program
 
     for (let d = start; d < end; d.add(1, "days")) {
       const name = d.format("YYYYMMDD");
-      const url = `https://yuewen365.com/${name}`;
+      const url = `https://www.yuewen365.com/read/calendar/${name}`;
       const file = path.resolve(process.cwd(), `build/qrcode/${name}.png`);
-      const buf = await generate({ text: url, path: logo, ratio: 4 });
+      const buf = await generate({
+        text: url,
+        path: logo,
+        ratio: 5,
+        opt: { width: 1024 },
+      });
       await fs.ensureFile(file);
       await fs.writeFileSync(file, buf);
 
