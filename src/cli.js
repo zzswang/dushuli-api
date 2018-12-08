@@ -19,7 +19,7 @@ program
     const writeStream = fs.createWriteStream(file);
     console.log(`generating ${count} invitation code`);
     for (let i = 0; i < count; i++) {
-      const id = generateId("2345678abcdefhjkmnpqrstuwxyz", 12);
+      const id = generateId("345678abcdefhjkmnpqrstuwxy", 12);
       writeStream.write(id);
       writeStream.write("\r\n");
     }
