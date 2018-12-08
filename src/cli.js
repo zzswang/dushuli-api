@@ -1,9 +1,9 @@
 import program from "commander";
 import fs from "fs-extra";
-import nanoid from "nanoid";
 import path from "path";
 import moment from "moment";
 import { generate } from "branded-qr-code";
+import generateId from "nanoid/generate";
 
 import pkg from "../package.json";
 
@@ -19,7 +19,8 @@ program
     const writeStream = fs.createWriteStream(file);
     console.log(`generating ${count} invitation code`);
     for (let i = 0; i < count; i++) {
-      writeStream.write(nanoid(8));
+      const id = generateId("1234567890abcdefghjkmnpqrstuwxyz", 12);
+      writeStream.write(id);
       writeStream.write("\r\n");
     }
     console.log("done");
