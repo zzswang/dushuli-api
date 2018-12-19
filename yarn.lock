@@ -38,9 +38,9 @@
     lodash "^4.17.11"
     node-fetch "^2.2.0"
 
-"@36node/mongoose-helper@^0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@36node/mongoose-helper/-/mongoose-helper-0.1.7.tgz#c189fa64f943bf6d8b8abbfecc147a7fb262bdf4"
+"@36node/mongoose-helper@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@36node/mongoose-helper/-/mongoose-helper-0.1.8.tgz#4d8f5031942eb0b57d13cffb03d7f897b9a71498"
   dependencies:
     humps "^2.0.1"
     mongoose-hidden "^1.6.0"

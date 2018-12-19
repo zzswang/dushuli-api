@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "@36node/fetch": "^0.4.6",
-    "@36node/mongoose-helper": "^0.1.7",
+    "@36node/mongoose-helper": "^0.1.8",
     "@koa/cors": "^2.2.2",
     "@types/koa": "^2.0.46",
     "@types/mongoose": "^5.2.19",
