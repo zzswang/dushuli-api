@@ -34,7 +34,7 @@ export function env(name, init) {
  * exports
  */
 export const PORT = env("PORT", 9527);
-export const BASE = env("BASE", "/petstore/v0");
+export const BASE = env("BASE", "/dushuli/v0");
 
 /**
  * Mongodb
@@ -42,5 +42,5 @@ export const BASE = env("BASE", "/petstore/v0");
 
 export const MONGODB_CONNECTION = env(
   "MONGODB_CONNECTION",
-  "mongodb://localhost/petstore"
+  "mongodb://localhost/dushulistore"
 );

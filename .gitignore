@@ -58,3 +58,4 @@ tmp
 # try files
 .try*
 .playground
+package-lock.json
