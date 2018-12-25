@@ -1,7 +1,8 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: Swagger Petstore
+  title: Dushuli
+  description: "读书历CRUD服务"
   license:
     name: MIT
 servers:
@@ -18,7 +19,7 @@ paths:
       tags:
         - books
       parameters:
-        - name: limit
+        - name: _limit
           in: query
           description: How many items to return at one time
           required: false
@@ -26,38 +27,31 @@ paths:
             type: integer
             format: int32
             default: 100
-        - name: sort
+        - name: _sort
           in: query
           description: Sort Name
           required: false
           schema:
             type: string
-            default: updatedAt
-        - name: order
-          in: query
-          description: Sort order(1 || -1)
-          required: false
-          schema:
-            type: string
-            default: -1
+            default: -updatedAt
         - name: date_gt
           in: query
           description: Return Books Date greater than given date
           required: false
           schema:
-            type: date
+            type: string
         - name: date_lt
           in: query
           description: Return Books Date less than given date
           required: false
           schema:
-            type: date
+            type: string
       responses:
         "200":
           description: A paged array of books
           headers:
-            x-next:
-              description: A link to the next page of responses
+            X-Total-Count:
+              description: Total count of all categories match the query
               schema:
                 type: string
           content:
@@ -71,7 +65,7 @@ paths:
                   value: |
                     [
                       {
-                        "date": "2018-12-24T05:32:40.000Z",
+                        "date": "2018-12-24",
                         "holiday": "春节1",
                         "solarTerm": "春分1",
                         "book": "一本书2",
@@ -83,7 +77,7 @@ paths:
                         "id": "5c2075a6fe46ab69eec17de0"
                       },
                       {
-                        "date": "2018-12-24T05:30:40.000Z",
+                        "date": "2018-12-24",
                         "holiday": "春节2",
                         "solarTerm": "春分2",
                         "book": "一本书3",
@@ -111,12 +105,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/NewBook"
+              $ref: "#/components/schemas/Books"
             examples:
               default:
                 value: |
                   {
-                    "date": "2018-12-24T13:32:40+08:00",
+                    "date": "2018-12-24",
                     "holiday": "春节1",
                     "solarTerm": "春分1",
                     "book": "一本书2",
@@ -135,7 +129,7 @@ paths:
                 default:
                   value: |
                     {
-                      "date": "2018-12-24T13:32:40+08:00",
+                      "date": "2018-12-24",
                       "holiday": "春节1",
                       "solarTerm": "春分1",
                       "book": "一本书2",
@@ -149,17 +143,23 @@ paths:
         "500":
           $ref: "#/components/responses/InternalError"
 
-  /books/{bookId}:
+  /books/{bookIdOrSlug}:
     get:
-      summary: Find book by id
-      operationId: showBookById
+      summary: Find book by id or slug
+      operationId: showBookByIdOrSlug
       tags:
         - books
       parameters:
-        - name: bookId
+        - name: bookIdOrSlug
           in: path
           required: true
-          description: The id of the book to retrieve
+          description: The id or slug of the book to retrieve
+          schema:
+            type: string
+        - name: identify
+          in: query
+          required: true
+          description: The identify of id or slug 
           schema:
             type: string
       responses:
@@ -173,7 +173,7 @@ paths:
                 default:
                   value: |
                     {
-                      "date": "2018-12-24T13:32:40+08:00",
+                      "date": "2018-12-24",
                       "holiday": "春节1",
                       "solarTerm": "春分1",
                       "book": "一本书2",
@@ -189,18 +189,23 @@ paths:
         "500":
           $ref: "#/components/responses/InternalError"
     delete:
-      description: deletes a single book based on the ID supplied
-      operationId: deleteBookById
+      description: deletes a single book based on the ID or slug supplied
+      operationId: deleteBookByIdOrSlug
       tags:
         - books
       parameters:
-        - name: bookId
+        - name: bookIdOrSlug
           in: path
-          description: ID of book to delete
           required: true
+          description: The id or slug of the book to retrieve
           schema:
-            type: integer
-            format: int64
+            type: string
+        - name: identify
+          in: query
+          required: true
+          description: The identify of id or slug 
+          schema:
+            type: string
       responses:
         "204":
           description: book deleted
@@ -211,30 +216,35 @@ paths:
         "500":
           $ref: "#/components/responses/InternalError"
     put:
-      description: update a single book based on the ID supplied
-      operationId: updateBookById
+      description: update a single book based on the ID or slug supplied
+      operationId: updateBookByIdOrSlug
       tags:
         - books
       parameters:
-        - name: bookId
+        - name: bookIdOrSlug
           in: path
-          description: ID of book to update
           required: true
+          description: The id or slug of the book to retrieve
           schema:
-            type: integer
-            format: int64
+            type: string
+        - name: identify
+          in: query
+          required: true
+          description: The identify of id or slug 
+          schema:
+            type: string
       requestBody:
         description: book to update to the store
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/NewBook"
+              $ref: "#/components/schemas/Books"
             examples:
               default:
                 value: |
                   {
-                    "date": "2018-12-24T13:32:40+08:00",
+                    "date": "2018-12-24",
                     "holiday": "春节1",
                     "solarTerm": "春分1",
                     "book": "一本书2",
@@ -253,7 +263,7 @@ paths:
                 default:
                   value: |
                     {
-                      "date": "2018-12-24T13:32:40+08:00",
+                      "date": "2018-12-24",
                       "holiday": "春节1",
                       "solarTerm": "春分1",
                       "book": "一本书2",
@@ -298,33 +308,9 @@ components:
     Books:
       required:
         - date
-        - book
-        - content
       properties:
         date: 
-          type: date
-        holiday:
           type: string
-        solarTerm:
-          type: string
-        book:
-          type: string
-        author:
-          type: string
-        summary:
-          type: string
-        content:
-          type: string
-        audio:
-          type: string
-    NewBook:
-      required:
-        - date
-        - book
-        - content
-      properties:
-        date: 
-          type: date
         holiday:
           type: string
         solarTerm:

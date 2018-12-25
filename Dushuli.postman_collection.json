@@ -1,0 +1,742 @@
+{
+  "item": [
+    {
+      "id": "886419a2-0196-4561-96ac-8ad0f23dd230",
+      "name": "books",
+      "item": [
+        {
+          "id": "6a2dacbf-82e8-447f-a9f6-af2146dc53a1",
+          "response": [
+            {
+              "id": "c446e9f1-9867-4ea6-9ce8-e91cd4ff2248",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-Total-Count",
+                  "value": "unset"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "books"
+                  ],
+                  "host": "{{host}}",
+                  "query": [
+                    {
+                      "key": "_limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "_sort",
+                      "value": ""
+                    },
+                    {
+                      "key": "date_gt",
+                      "value": ""
+                    },
+                    {
+                      "key": "date_lt",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "A paged array of books",
+              "body": "[\n  {\n    \"date\": \"2018-12-24\",\n    \"holiday\": \"春节1\",\n    \"solarTerm\": \"春分1\",\n    \"book\": \"一本书2\",\n    \"author\": \"作者2\",\n    \"summary\": \"一些summary123\",\n    \"content\": \"<p>dasdhadd3123<a>dasdad</a></p>\",\n    \"updatedAt\": \"2018-12-24T05:59:02.250Z\",\n    \"createdAt\": \"2018-12-24T05:59:02.250Z\",\n    \"id\": \"5c2075a6fe46ab69eec17de0\"\n  },\n  {\n    \"date\": \"2018-12-24\",\n    \"holiday\": \"春节2\",\n    \"solarTerm\": \"春分2\",\n    \"book\": \"一本书3\",\n    \"author\": \"作者3\",\n    \"summary\": \"一些summary1232344\",\n    \"content\": \"<p>dasdhadd3123<b>dasdad</b></p>\",\n    \"updatedAt\": \"2018-12-24T05:59:12.250Z\",\n    \"createdAt\": \"2018-12-24T05:59:12.250Z\",\n    \"id\": \"5c2075a6fe46ab69eec17de1\"\n  }\n]\n"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "4b9bf78f-799e-4423-a672-e0388d079d3d",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"array\",",
+                  "  \"items\": {",
+                  "    \"required\": [",
+                  "      \"date\"",
+                  "    ],",
+                  "    \"properties\": {",
+                  "      \"date\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"holiday\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"solarTerm\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"book\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"author\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"summary\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"content\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"audio\": {",
+                  "        \"type\": \"string\"",
+                  "      }",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "books"
+              ],
+              "host": "{{host}}",
+              "query": [
+                {
+                  "key": "_limit",
+                  "value": ""
+                },
+                {
+                  "key": "_sort",
+                  "value": ""
+                },
+                {
+                  "key": "date_gt",
+                  "value": ""
+                },
+                {
+                  "key": "date_lt",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "List all books",
+          "description": "List all books"
+        },
+        {
+          "id": "e076ae91-d07e-49e8-a454-931dc8f0958e",
+          "response": [
+            {
+              "id": "c582dbff-80cb-4097-bf05-93caa6fa3ed2",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_201",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "books"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"{{date}}\",\n  \"holiday\": \"{{holiday}}\",\n  \"solarTerm\": \"{{solarTerm}}\",\n  \"book\": \"{{book}}\",\n  \"author\": \"{{author}}\",\n  \"summary\": \"{{summary}}\",\n  \"content\": \"{{content}}\",\n  \"audio\": \"{{audio}}\"\n}"
+                }
+              },
+              "code": 201,
+              "status": "The Book created",
+              "body": "{\n  \"date\": \"2018-12-24\",\n  \"holiday\": \"春节1\",\n  \"solarTerm\": \"春分1\",\n  \"book\": \"一本书2\",\n  \"author\": \"作者2\",\n  \"summary\": \"一些summary123\",\n  \"content\": \"<p>dasdhadd3123<b>dasdad</b></p>\",\n  \"id\": \"5c2075a6fe46ab69eec17de1\"\n}\n"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "3a112ba6-2b41-4955-b02e-6eeaba47db78",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"required\": [",
+                  "    \"date\"",
+                  "  ],",
+                  "  \"properties\": {",
+                  "    \"date\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"holiday\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"solarTerm\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"book\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"author\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"summary\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"content\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"audio\": {",
+                  "      \"type\": \"string\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "books"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"{{date}}\",\n  \"holiday\": \"{{holiday}}\",\n  \"solarTerm\": \"{{solarTerm}}\",\n  \"book\": \"{{book}}\",\n  \"author\": \"{{author}}\",\n  \"summary\": \"{{summary}}\",\n  \"content\": \"{{content}}\",\n  \"audio\": \"{{audio}}\"\n}"
+            }
+          },
+          "name": "Create a book",
+          "description": "Create a book"
+        },
+        {
+          "id": "8a03a517-f0c3-4347-9e13-57e50c7f0d8f",
+          "response": [
+            {
+              "id": "233a52e8-ba67-49c2-b682-24f9100f4e09",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "books/:bookIdOrSlug"
+                  ],
+                  "host": "{{host}}",
+                  "query": [
+                    {
+                      "key": "identify",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "bookIdOrSlug",
+                      "type": "string",
+                      "value": "bookIdOrSlug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request",
+              "body": "{\n  \"date\": \"2018-12-24\",\n  \"holiday\": \"春节1\",\n  \"solarTerm\": \"春分1\",\n  \"book\": \"一本书2\",\n  \"author\": \"作者2\",\n  \"summary\": \"一些summary123\",\n  \"content\": \"<p>dasdhadd3123<b>dasdad</b></p>\",\n  \"id\": \"5c2075a6fe46ab69eec17de1\"\n}\n"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2738758b-5bea-43de-a3b6-b332cf4ab88e",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"required\": [",
+                  "    \"date\"",
+                  "  ],",
+                  "  \"properties\": {",
+                  "    \"date\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"holiday\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"solarTerm\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"book\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"author\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"summary\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"content\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"audio\": {",
+                  "      \"type\": \"string\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "books/:bookIdOrSlug"
+              ],
+              "host": "{{host}}",
+              "query": [
+                {
+                  "key": "identify",
+                  "value": ""
+                }
+              ],
+              "variable": [
+                {
+                  "id": "bookIdOrSlug",
+                  "type": "string",
+                  "value": "bookIdOrSlug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "Find book by id or slug",
+          "description": "Find book by id or slug"
+        },
+        {
+          "id": "532be110-b918-4b09-b87c-cfc063cb1e72",
+          "response": [
+            {
+              "id": "80d45c78-b82d-4f5d-a3cc-f748f4293892",
+              "header": [],
+              "cookie": [],
+              "name": "Response_204",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "books/:bookIdOrSlug"
+                  ],
+                  "host": "{{host}}",
+                  "query": [
+                    {
+                      "key": "identify",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "bookIdOrSlug",
+                      "type": "string",
+                      "value": "bookIdOrSlug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 204,
+              "status": "book deleted"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "3055c295-0de9-47f2-b0a2-f8d6ae1dde75",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "  pm.response.to.have.status(204);",
+                  "});",
+                  "",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "books/:bookIdOrSlug"
+              ],
+              "host": "{{host}}",
+              "query": [
+                {
+                  "key": "identify",
+                  "value": ""
+                }
+              ],
+              "variable": [
+                {
+                  "id": "bookIdOrSlug",
+                  "type": "string",
+                  "value": "bookIdOrSlug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "deleteBookByIdOrSlug",
+          "description": "deleteBookByIdOrSlug"
+        },
+        {
+          "id": "90fba0a6-ccfa-40e8-9199-e44cf112e017",
+          "response": [
+            {
+              "id": "72816492-bd0e-4b0a-b136-35d9f1dc14b3",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "books/:bookIdOrSlug"
+                  ],
+                  "host": "{{host}}",
+                  "query": [
+                    {
+                      "key": "identify",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "bookIdOrSlug",
+                      "type": "string",
+                      "value": "bookIdOrSlug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"{{date}}\",\n  \"holiday\": \"{{holiday}}\",\n  \"solarTerm\": \"{{solarTerm}}\",\n  \"book\": \"{{book}}\",\n  \"author\": \"{{author}}\",\n  \"summary\": \"{{summary}}\",\n  \"content\": \"{{content}}\",\n  \"audio\": \"{{audio}}\"\n}"
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request",
+              "body": "{\n  \"date\": \"2018-12-24\",\n  \"holiday\": \"春节1\",\n  \"solarTerm\": \"春分1\",\n  \"book\": \"一本书2\",\n  \"author\": \"作者2\",\n  \"summary\": \"一些summary123\",\n  \"content\": \"<p>dasdhadd3123<b>dasdad</b></p>\",\n  \"id\": \"5c2075a6fe46ab69eec17de1\"\n}\n"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "0b99de1a-77ed-42f2-9490-ede7e3145d67",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"required\": [",
+                  "    \"date\"",
+                  "  ],",
+                  "  \"properties\": {",
+                  "    \"date\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"holiday\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"solarTerm\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"book\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"author\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"summary\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"content\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"audio\": {",
+                  "      \"type\": \"string\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "books/:bookIdOrSlug"
+              ],
+              "host": "{{host}}",
+              "query": [
+                {
+                  "key": "identify",
+                  "value": ""
+                }
+              ],
+              "variable": [
+                {
+                  "id": "bookIdOrSlug",
+                  "type": "string",
+                  "value": "bookIdOrSlug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"{{date}}\",\n  \"holiday\": \"{{holiday}}\",\n  \"solarTerm\": \"{{solarTerm}}\",\n  \"book\": \"{{book}}\",\n  \"author\": \"{{author}}\",\n  \"summary\": \"{{summary}}\",\n  \"content\": \"{{content}}\",\n  \"audio\": \"{{audio}}\"\n}"
+            }
+          },
+          "name": "updateBookByIdOrSlug",
+          "description": "updateBookByIdOrSlug"
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [],
+  "info": {
+    "_postman_id": "70b71d95-566d-43d7-8584-ee726dce4e26",
+    "name": "Dushuli",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  }
+}

@@ -1,7 +1,19 @@
 import API from "../api/dushuli";
 import Dushuli from "../models/dushuli";
+import CheckRoleMiddleware from "../lib/CheckRoleMiddleware";
 
 export class Service extends API {
+  middlewares(operation) {
+    if (
+      ["createBook", "updateBookByIdOrSlug", "deleteBookByIdOrSlug"].includes(
+        operation
+      )
+    ) {
+      return [CheckRoleMiddleware];
+    }
+    return [];
+  }
+
   /**
    * List all books
    *
@@ -10,28 +22,20 @@ export class Service extends API {
    */
 
   async listBooks(req) {
-    const limit = Number(req.query.limit) || 100;
+    const _limit = Number(req.query._limit) || 100;
+    const _sort = req.query._sort;
     const date_gt = req.query.date_gt;
     const date_lt = req.query.date_lt;
-    const _sort = req.query.sort;
-    const _order = req.query.order;
-    let sort = { updatedAt: -1 };
-
-    if (_sort && _order) {
-      sort = {};
-      sort[_sort] = _order;
-    }
+    let sort = _sort ? _sort : "-updatedAt";
 
     const result = await Dushuli.list({
-      limit,
+      limit: _limit,
       filter: { date_gt, date_lt },
       sort,
     });
     return {
       body: result.docs,
-      headers: {
-        xNext: "nextLink",
-      },
+      headers: { xTotalCount: result.total },
     };
   }
 
@@ -49,39 +53,69 @@ export class Service extends API {
   }
 
   /**
-   * Find book by id
+   * Find book by id or slug
    *
-   * @param {ShowBookByIdRequest} req showBookById request
-   * @returns {ShowBookByIdResponse} Expected response to a valid request
+   * @param {showBookByIdOrSlugRequest} req showBookByIdOrSlug request
+   * @returns {showBookByIdOrSlugResponse} Expected response to a valid request
    */
 
-  async showBookById(req) {
-    const { bookId } = req;
-    const book = await Dushuli.get(bookId);
+  async showBookByIdOrSlug(req) {
+    const { bookIdOrSlug } = req;
+    const identify = req.query.identify;
+
+    const book =
+      identify === "slug"
+        ? await Dushuli.findOne({
+            date: bookIdOrSlug,
+          })
+        : await Dushuli.get(bookIdOrSlug);
+
     return { body: book };
   }
 
   /**
-   * delete book by id
+   * delete book by id or slug
    *
    * @param {DeleteBookByIdRequest} req deleteBookById request
    * @returns {DeleteBookByIdResponse} Expected response to a valid request
    */
-  async deleteBookById(req) {
-    const { bookId } = req;
-    const book = await Dushuli.findOneAndDelete(bookId);
+  async deleteBookByIdOrSlug(req) {
+    const { bookIdOrSlug } = req;
+    const identify = req.query.identify;
+
+    const book =
+      identify === "slug"
+        ? await Dushuli.findOneAndDelete({
+            date: bookIdOrSlug,
+          })
+        : await Dushuli.findOneAndDelete(bookIdOrSlug);
+
     return { body: book };
   }
 
   /**
-   * update book by id
+   * update book by id or slug
    *
    * @param {UpdateBookByIdRequest} req updateBookById request
    * @returns {UpdateBookByIdResponse} Expected response to a valid request
    */
-  async updateBookById(req) {
-    const { bookId, body } = req;
-    const book = await Dushuli.findOneAndUpdate(bookId, body, { new: true });
+  async updateBookByIdOrSlug(req) {
+    const { bookIdOrSlug, body } = req;
+    const identify = req.query.identify;
+
+    const book =
+      identify === "slug"
+        ? await Dushuli.findOneAndUpdate(
+            {
+              date: bookIdOrSlug,
+            },
+            body,
+            {
+              new: true,
+            }
+          )
+        : await Dushuli.findOneAndUpdate(bookIdOrSlug, body, { new: true });
+
     return { body: book };
   }
 }

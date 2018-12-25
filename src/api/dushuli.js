@@ -11,11 +11,10 @@ export default class API {
     const listBooks = async ctx => {
       const req = {
         query: {
-          limit: ctx.query.limit,
+          _limit: ctx.query._limit,
+          _sort: ctx.query._sort,
           date_gt: ctx.query.date_gt,
           date_lt: ctx.query.date_lt,
-          sort: ctx.query.sort,
-          order: ctx.query.order,
         },
         context: ctx, // here we put koa context in request
       };
@@ -24,11 +23,11 @@ export default class API {
 
       if (!res.body) throw createError(500, "should have body in response");
 
-      if (!res.headers.xNext)
-        throw createError(500, "should have header x-next in response");
+      if (!res.headers || res.headers.xTotalCount === undefined)
+        throw createError(500, "should have header X-Total-Count in response");
 
       ctx.body = res.body;
-      ctx.set("x-next", res.headers.xNext);
+      ctx.set("X-Total-Count", res.headers.xTotalCount);
       ctx.status = 200;
     };
 
@@ -43,19 +42,25 @@ export default class API {
       if (!res.body) throw createError(500, "should have body in response");
 
       ctx.body = res.body;
-      ctx.status = 200;
+      ctx.status = 201;
     };
 
-    const showBookById = async ctx => {
-      if (!ctx.params.bookId)
-        throw createError(400, "bookId in path is required.");
+    const showBookByIdOrSlug = async ctx => {
+      if (!ctx.params.bookIdOrSlug)
+        throw createError(400, "bookIdOrSlug in path is required.");
+
+      if (!ctx.query.identify)
+        throw createError(400, "identify in query is required.");
 
       const req = {
-        bookId: ctx.params.bookId,
+        bookIdOrSlug: ctx.params.bookIdOrSlug,
+        query: {
+          identify: ctx.query.identify,
+        },
         context: ctx, // here we put koa context in request
       };
 
-      const res = await this.showBookById(req);
+      const res = await this.showBookByIdOrSlug(req);
 
       if (!res.body) throw createError(500, "should have body in response");
 
@@ -63,34 +68,43 @@ export default class API {
       ctx.status = 200;
     };
 
-    const deleteBookById = async ctx => {
-      if (!ctx.params.bookId)
-        throw createError(400, "bookId in path is required.");
+    const deleteBookByIdOrSlug = async ctx => {
+      if (!ctx.params.bookIdOrSlug)
+        throw createError(400, "bookIdOrSlug in path is required.");
+
+      if (!ctx.query.identify)
+        throw createError(400, "identify in query is required.");
 
       const req = {
-        bookId: ctx.params.bookId,
+        bookIdOrSlug: ctx.params.bookIdOrSlug,
+        query: {
+          identify: ctx.query.identify,
+        },
         context: ctx, // here we put koa context in request
       };
 
-      const res = await this.deleteBookById(req);
+      await this.deleteBookByIdOrSlug(req);
 
-      if (!res.body) throw createError(500, "should have body in response");
-
-      ctx.body = res.body;
-      ctx.status = 200;
+      ctx.status = 204;
     };
 
-    const updateBookById = async ctx => {
-      if (!ctx.params.bookId)
-        throw createError(400, "bookId in path is required.");
+    const updateBookByIdOrSlug = async ctx => {
+      if (!ctx.params.bookIdOrSlug)
+        throw createError(400, "bookIdOrSlug in path is required.");
+
+      if (!ctx.query.identify)
+        throw createError(400, "identify in query is required.");
 
       const req = {
-        bookId: ctx.params.bookId,
+        bookIdOrSlug: ctx.params.bookIdOrSlug,
+        query: {
+          identify: ctx.query.identify,
+        },
         body: ctx.request.body,
         context: ctx, // here we put koa context in request
       };
 
-      const res = await this.updateBookById(req);
+      const res = await this.updateBookByIdOrSlug(req);
 
       if (!res.body) throw createError(500, "should have body in response");
 
@@ -98,18 +112,22 @@ export default class API {
       ctx.status = 200;
     };
 
-    router.get("/books", this.authorize("listBooks"), listBooks);
-    router.post("/books", this.authorize("createBook"), createBook);
-    router.get("/books/:bookId", this.authorize("showBookById"), showBookById);
+    router.get("/books", ...this.middlewares("listBooks"), listBooks);
+    router.post("/books", ...this.middlewares("createBook"), createBook);
+    router.get(
+      "/books/:bookIdOrSlug",
+      ...this.middlewares("showBookByIdOrSlug"),
+      showBookByIdOrSlug
+    );
     router.delete(
-      "/books/:bookId",
-      this.authorize("deleteBookById"),
-      deleteBookById
+      "/books/:bookIdOrSlug",
+      ...this.middlewares("deleteBookByIdOrSlug"),
+      deleteBookByIdOrSlug
     );
     router.put(
-      "/books/:bookId",
-      this.authorize("updateBookById"),
-      updateBookById
+      "/books/:bookIdOrSlug",
+      ...this.middlewares("updateBookByIdOrSlug"),
+      updateBookByIdOrSlug
     );
   }
 
@@ -118,15 +136,13 @@ export default class API {
    */
 
   /**
-   * Authorize current operation
-   * rewrite it if you want to control operation permission
+   * Ability to inject some middlewares
    *
    * @param {string} operation name of operation
+   * @returns {function[]} middlewares
    */
-  authorize(operation) {
-    return (ctx, next) => {
-      return next();
-    };
+  middlewares(operation) {
+    return [];
   }
 
   /**
@@ -152,35 +168,34 @@ export default class API {
   }
 
   /**
-   * Find book by id
+   * Find book by id or slug
    *
    * @abstract
-   * @param {ShowBookByIdRequest} req showBookById request
-   * @returns {ShowBookByIdResponse} Expected response to a valid request
+   * @param {ShowBookByIdOrSlugRequest} req showBookByIdOrSlug request
+   * @returns {ShowBookByIdOrSlugResponse} Expected response to a valid request
    */
-  showBookById(req) {
+  showBookByIdOrSlug(req) {
     throw new Error("not implemented");
   }
 
   /**
-   * delete book by id
+   *
    *
    * @abstract
-   * @param {DeleteBookByIdRequest} req deleteBookById request
-   * @returns {DeleteBookByIdResponse} Expected response to a valid request
+   * @param {DeleteBookByIdOrSlugRequest} req deleteBookByIdOrSlug request
    */
-  deleteBookById(req) {
+  deleteBookByIdOrSlug(req) {
     throw new Error("not implemented");
   }
 
   /**
-   * update book by id
+   *
    *
    * @abstract
-   * @param {UpdateBookByIdRequest} req updateBookById request
-   * @returns {UpdateBookByIdResponse} Expected response to a valid request
+   * @param {UpdateBookByIdOrSlugRequest} req updateBookByIdOrSlug request
+   * @returns {UpdateBookByIdOrSlugResponse} Expected response to a valid request
    */
-  updateBookById(req) {
+  updateBookByIdOrSlug(req) {
     throw new Error("not implemented");
   }
 }

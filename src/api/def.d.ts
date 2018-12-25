@@ -1,49 +1,73 @@
-type ListPetsRequest = {
+interface ListBooksRequest {
   query: {
     _limit?: number;
-    tag?: string;
-    age_gt?: number;
+    _sort?: string;
+    date_gt?: string;
+    date_lt?: string;
   };
   context?: Object;
-};
+}
 
-type ListPetsResponse = {
-  body: Array<Pet>;
+interface ListBooksResponse {
+  body: Array<Books>;
   headers: {
-    xNext: string;
+    xTotalCount: string;
   };
-};
+}
 
-type CreatePetsRequest = {
-  body: NewPet;
+interface CreateBookRequest {
+  body: Books;
   context?: Object;
-};
+}
 
-type CreatePetsResponse = {
-  body: Pet;
-};
+interface CreateBookResponse {
+  body: Books;
+}
 
-type ShowPetByIdRequest = {
-  petId: string;
+interface ShowBookByIdOrSlugRequest {
+  bookIdOrSlug: string;
+  query: {
+    identify: string;
+  };
   context?: Object;
-};
+}
 
-type ShowPetByIdResponse = {
-  body: Pet;
-};
+interface ShowBookByIdOrSlugResponse {
+  body: Books;
+}
 
-type Pet = {
-  id: number;
-  age: number;
-  name: string;
-  tag: string;
-};
-type NewPet = {
-  name: string;
-  tag: string;
-  age: number;
-};
-type Err = {
+interface DeleteBookByIdOrSlugRequest {
+  bookIdOrSlug: string;
+  query: {
+    identify: string;
+  };
+  context?: Object;
+}
+
+interface UpdateBookByIdOrSlugRequest {
+  bookIdOrSlug: string;
+  query: {
+    identify: string;
+  };
+  body: Books;
+  context?: Object;
+}
+
+interface UpdateBookByIdOrSlugResponse {
+  body: Books;
+}
+
+interface Books {
+  date: string;
+  holiday: string;
+  solarTerm: string;
+  book: string;
+  author: string;
+  summary: string;
+  content: string;
+  audio: string;
+}
+interface Err {
   code: string;
   message: string;
-};
+}
