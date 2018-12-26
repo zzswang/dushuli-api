@@ -12,7 +12,7 @@ import mongoose from "mongoose";
 import Router from "koa-tree-router";
 
 import { BASE, MONGODB_CONNECTION } from "./config";
-import petsService from "./services/pet";
+import dushuliService from "./services/dushuli";
 
 const app = new Koa2();
 const router = new Router({ prefix: BASE });
@@ -33,7 +33,7 @@ mongoose.connection.on("error", console.error.bind(console, "数据库连接错�
  * register services
  */
 
-petsService.bind(router);
+dushuliService.bind(router);
 
 /**
  * spec openapi.yml

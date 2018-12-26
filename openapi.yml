@@ -1,7 +1,8 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: Swagger Petstore
+  title: Dushuli
+  description: "读书历CRUD服务"
   license:
     name: MIT
 servers:
@@ -9,41 +10,48 @@ servers:
     description: The production API server
     variables:
       basePath:
-        default: /petstore/v0
+        default: /dushuli/v0
 paths:
-  /pets:
+  /books:
     get:
-      summary: List all pets
-      operationId: listPets
+      summary: List all books
+      operationId: listBooks
       tags:
-        - pet
+        - books
       parameters:
         - name: _limit
           in: query
-          description: How many items to return at one time (max 100)
+          description: How many items to return at one time
           required: false
           schema:
             type: integer
             format: int32
-            default: 10
-        - name: tag
+            default: 100
+        - name: _sort
           in: query
-          description: Tag of pet
+          description: Sort Name
           required: false
           schema:
             type: string
-        - name: age_gt
+            default: -updatedAt
+        - name: date_gt
           in: query
-          description: Return Pet older than given age
+          description: Return Books Date greater than given date
           required: false
           schema:
-            type: integer
+            type: string
+        - name: date_lt
+          in: query
+          description: Return Books Date less than given date
+          required: false
+          schema:
+            type: string
       responses:
         "200":
-          description: A paged array of pets
+          description: A paged array of books
           headers:
-            x-next:
-              description: A link to the next page of responses
+            X-Total-Count:
+              description: Total count of all categories match the query
               schema:
                 type: string
           content:
@@ -51,28 +59,34 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Pet"
+                  $ref: "#/components/schemas/Books"
               examples:
                 default:
                   value: |
                     [
                       {
-                        "id": 1,
-                        "name": "aa",
-                        "tag": "red",
-                        "age": 3
+                        "date": "2018-12-24",
+                        "holiday": "春节1",
+                        "solarTerm": "春分1",
+                        "book": "一本书2",
+                        "author": "作者2",
+                        "summary": "一些summary123",
+                        "content": "<p>dasdhadd3123<a>dasdad</a></p>",
+                        "updatedAt": "2018-12-24T05:59:02.250Z",
+                        "createdAt": "2018-12-24T05:59:02.250Z",
+                        "id": "5c2075a6fe46ab69eec17de0"
                       },
                       {
-                        "id": 2,
-                        "name": "bb",
-                        "tag": "happy",
-                        "age": 5
-                      },
-                      {
-                        "id": 3,
-                        "name": "cc",
-                        "tag": "husky",
-                        "age": 6
+                        "date": "2018-12-24",
+                        "holiday": "春节2",
+                        "solarTerm": "春分2",
+                        "book": "一本书3",
+                        "author": "作者3",
+                        "summary": "一些summary1232344",
+                        "content": "<p>dasdhadd3123<b>dasdad</b></p>",
+                        "updatedAt": "2018-12-24T05:59:12.250Z",
+                        "createdAt": "2018-12-24T05:59:12.250Z",
+                        "id": "5c2075a6fe46ab69eec17de1"
                       }
                     ]
         "401":
@@ -81,57 +95,71 @@ paths:
           $ref: "#/components/responses/InternalError"
 
     post:
-      summary: Create a pet
-      operationId: createPets
+      summary: Create a book
+      operationId: createBook
       tags:
-        - pet
+        - books
       requestBody:
-        description: Pet to add to the store
+        description: book to add to the store
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/NewPet"
+              $ref: "#/components/schemas/Books"
             examples:
               default:
                 value: |
                   {
-                    "name": "dd",
-                    "tag": "red",
-                    "age": 5
+                    "date": "2018-12-24",
+                    "holiday": "春节1",
+                    "solarTerm": "春分1",
+                    "book": "一本书2",
+                    "author": "作者2",
+                    "summary": "一些summary123",
+                    "content": "<p>dasdhadd3123<b>dasdad</b></p>"
                   }
       responses:
         "201":
-          description: The Pet created
+          description: The Book created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Pet"
+                $ref: "#/components/schemas/Books"
               examples:
                 default:
                   value: |
                     {
-                      "id": 4,
-                      "name": "dd",
-                      "tag": "red",
-                      "age": 5
+                      "date": "2018-12-24",
+                      "holiday": "春节1",
+                      "solarTerm": "春分1",
+                      "book": "一本书2",
+                      "author": "作者2",
+                      "summary": "一些summary123",
+                      "content": "<p>dasdhadd3123<b>dasdad</b></p>",
+                      "id": "5c2075a6fe46ab69eec17de1"
                     }
         "401":
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalError"
 
-  /pets/{petId}:
+  /books/{bookIdOrSlug}:
     get:
-      summary: Find pet by id
-      operationId: showPetById
+      summary: Find book by id or slug
+      operationId: showBookByIdOrSlug
       tags:
-        - pet
+        - books
       parameters:
-        - name: petId
+        - name: bookIdOrSlug
           in: path
           required: true
-          description: The id of the pet to retrieve
+          description: The id or slug of the book to retrieve
+          schema:
+            type: string
+        - name: identify
+          in: query
+          required: true
+          description: The identify of id or slug 
           schema:
             type: string
       responses:
@@ -140,15 +168,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Pet"
+                $ref: "#/components/schemas/Books"
               examples:
                 default:
                   value: |
                     {
-                      "id": 3,
-                      "name": "cc",
-                      "tag": "red",
-                      "age": 6
+                      "date": "2018-12-24",
+                      "holiday": "春节1",
+                      "solarTerm": "春分1",
+                      "book": "一本书2",
+                      "author": "作者2",
+                      "summary": "一些summary123",
+                      "content": "<p>dasdhadd3123<b>dasdad</b></p>",
+                      "id": "5c2075a6fe46ab69eec17de1"
                     }
         "401":
           $ref: "#/components/responses/Unauthorized"
@@ -157,21 +189,89 @@ paths:
         "500":
           $ref: "#/components/responses/InternalError"
     delete:
-      description: deletes a single pet based on the ID supplied
-      operationId: deletePet
+      description: deletes a single book based on the ID or slug supplied
+      operationId: deleteBookByIdOrSlug
       tags:
-        - pet
+        - books
       parameters:
-        - name: id
+        - name: bookIdOrSlug
           in: path
-          description: ID of pet to delete
           required: true
+          description: The id or slug of the book to retrieve
           schema:
-            type: integer
-            format: int64
+            type: string
+        - name: identify
+          in: query
+          required: true
+          description: The identify of id or slug 
+          schema:
+            type: string
       responses:
         "204":
-          description: pet deleted
+          description: book deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+    put:
+      description: update a single book based on the ID or slug supplied
+      operationId: updateBookByIdOrSlug
+      tags:
+        - books
+      parameters:
+        - name: bookIdOrSlug
+          in: path
+          required: true
+          description: The id or slug of the book to retrieve
+          schema:
+            type: string
+        - name: identify
+          in: query
+          required: true
+          description: The identify of id or slug 
+          schema:
+            type: string
+      requestBody:
+        description: book to update to the store
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Books"
+            examples:
+              default:
+                value: |
+                  {
+                    "date": "2018-12-24",
+                    "holiday": "春节1",
+                    "solarTerm": "春分1",
+                    "book": "一本书2",
+                    "author": "作者2",
+                    "summary": "一些summary123",
+                    "content": "<p>dasdhadd3123<b>dasdad</b></p>"
+                  }
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Books"
+              examples:
+                default:
+                  value: |
+                    {
+                      "date": "2018-12-24",
+                      "holiday": "春节1",
+                      "solarTerm": "春分1",
+                      "book": "一本书2",
+                      "author": "作者2",
+                      "summary": "一些summary123",
+                      "content": "<p>dasdhadd3123<b>dasdad</b></p>",
+                      "id": "5c2075a6fe46ab69eec17de1"
+                    }
         "401":
           $ref: "#/components/responses/Unauthorized"
         "404":
@@ -205,31 +305,26 @@ components:
           schema:
             $ref: "#/components/schemas/Err"
   schemas:
-    Pet:
+    Books:
       required:
-        - id
-        - name
+        - date
       properties:
-        id:
-          type: integer
-          format: int64
-        age:
-          type: integer
-          format: int32
-        name:
+        date: 
           type: string
-        tag:
+        holiday:
           type: string
-    NewPet:
-      required:
-        - name
-      properties:
-        name:
+        solarTerm:
           type: string
-        tag:
+        book:
           type: string
-        age:
-          type: integer
+        author:
+          type: string
+        summary:
+          type: string
+        content:
+          type: string
+        audio:
+          type: string
     Err:
       type: object
       properties:
