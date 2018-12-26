@@ -16,7 +16,7 @@ const CheckRoleMiddleware = async (ctx, next) => {
     .toLowerCase()
     .split("~");
   if (!roles.includes("admin")) {
-    throw createError(401, "Permission denied");
+    throw createError(403, "Permission denied");
   }
   await next();
 };
