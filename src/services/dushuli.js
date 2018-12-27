@@ -1,6 +1,6 @@
 import API from "../api/dushuli";
 import Dushuli from "../models/dushuli";
-import CheckRoleMiddleware from "../lib/CheckRoleMiddleware";
+import CheckRoleMiddleware from "../lib/checkRoleMiddleware";
 
 export class Service extends API {
   middlewares(operation) {
