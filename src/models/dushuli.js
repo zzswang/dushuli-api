@@ -4,7 +4,8 @@ import helper from "@36node/mongoose-helper";
 export const dushuliSchema = new mongoose.Schema(
   {
     date: {
-      type: Date,
+      type: String,
+      unique: true,
       required: true,
     },
     holiday: String,
