@@ -10,6 +10,7 @@ export const dushuliSchema = new mongoose.Schema(
     },
     holiday: String,
     solarTerm: String,
+    slogan: String,
     book: String,
     author: String,
     summary: String,
@@ -30,19 +31,21 @@ export const dushuliSchema = new mongoose.Schema(
 class Dushuli {
   /** @type {date} */
   date;
-  /** @type {string} */
+  /** @type {string} 节日 以及标语 */
   holiday;
-  /** @type {string} */
+  /** @type {string} 节气 以及标语 */
   solarTerm;
-  /** @type {string} */
+  /** @type {string} 口号 */
+  slogan;
+  /** @type {string} 书名 */
   book;
-  /** @type {string} */
+  /** @type {string} 作者 */
   author;
-  /** @type {string} */
+  /** @type {string} 摘要 */
   summary;
-  /** @type {string} */
+  /** @type {string} 内容详情 */
   content;
-  /** @type {string} */
+  /** @type {string} 音频 */
   audio;
 }
 

@@ -313,20 +313,37 @@ components:
       properties:
         date:
           type: string
+          description: 日期对应的 slug，例如 20190101
         holiday:
           type: string
+          description: 节日 以及标语
+          example: 元旦 如沐春风
         solarTerm:
           type: string
+          description: 节气 以及标语
+          example: 谷雨 好时节
+        slogan:
+          type: string
+          description: 口号之 每日宜
+          example: 宜写代码
         book:
           type: string
+          description: 书名
+          example: 双城记
         author:
           type: string
+          description: 作者
+          example: 雅马哈
         summary:
           type: string
+          description: 摘要
+          example: 小楼一夜听春雨，深巷明朝卖杏花
         content:
           type: string
+          description: 内容
         audio:
           type: string
+          description: 音频的 url
     Err:
       type: object
       properties:

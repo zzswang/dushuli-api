@@ -61,6 +61,7 @@ interface Books {
   date: string;
   holiday: string;
   solarTerm: string;
+  slogan: string;
   book: string;
   author: string;
   summary: string;
