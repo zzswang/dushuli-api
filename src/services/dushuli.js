@@ -4,13 +4,13 @@ import CheckRoleMiddleware from "../lib/checkRoleMiddleware";
 
 export class Service extends API {
   middlewares(operation) {
-    if (
-      ["createBook", "updateBookByIdOrSlug", "deleteBookByIdOrSlug"].includes(
-        operation
-      )
-    ) {
-      return [CheckRoleMiddleware];
-    }
+    // if (
+    //   ["createBook", "updateBookByIdOrSlug", "deleteBookByIdOrSlug"].includes(
+    //     operation
+    //   )
+    // ) {
+    //   return [CheckRoleMiddleware];
+    // }
     return [];
   }
 
@@ -88,7 +88,7 @@ export class Service extends API {
         ? await Dushuli.findOneAndDelete({
             date: bookIdOrSlug,
           })
-        : await Dushuli.findOneAndDelete(bookIdOrSlug);
+        : await Dushuli.findByIdAndDelete(bookIdOrSlug);
 
     return { body: book };
   }
@@ -114,7 +114,7 @@ export class Service extends API {
               new: true,
             }
           )
-        : await Dushuli.findOneAndUpdate(bookIdOrSlug, body, { new: true });
+        : await Dushuli.findByIdAndUpdate(bookIdOrSlug, body, { new: true });
 
     return { body: book };
   }
