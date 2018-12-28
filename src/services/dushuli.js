@@ -1,6 +1,7 @@
 import API from "../api/dushuli";
 import Dushuli from "../models/dushuli";
 import CheckRoleMiddleware from "../lib/checkRoleMiddleware";
+import dayjs from "dayjs";
 
 export class Service extends API {
   middlewares(operation) {
@@ -48,6 +49,7 @@ export class Service extends API {
 
   async createBook(req) {
     const { body } = req;
+    body.date = dayjs(body.date).format("YYYYMMDD");
     const book = await Dushuli.create(body);
     return { body: book };
   }
@@ -88,7 +90,7 @@ export class Service extends API {
         ? await Dushuli.findOneAndDelete({
             date: bookIdOrSlug,
           })
-        : await Dushuli.findOneAndDelete(bookIdOrSlug);
+        : await Dushuli.findByIdAndDelete(bookIdOrSlug);
 
     return { body: book };
   }
@@ -103,6 +105,7 @@ export class Service extends API {
     const { bookIdOrSlug, body } = req;
     const identify = req.query.identify;
 
+    body.date = dayjs(body.date).format("YYYYMMDD");
     const book =
       identify === "slug"
         ? await Dushuli.findOneAndUpdate(
@@ -114,7 +117,7 @@ export class Service extends API {
               new: true,
             }
           )
-        : await Dushuli.findOneAndUpdate(bookIdOrSlug, body, { new: true });
+        : await Dushuli.findByIdAndUpdate(bookIdOrSlug, body, { new: true });
 
     return { body: book };
   }
