@@ -5,13 +5,13 @@ import dayjs from "dayjs";
 
 export class Service extends API {
   middlewares(operation) {
-    // if (
-    //   ["createBook", "updateBookByIdOrSlug", "deleteBookByIdOrSlug"].includes(
-    //     operation
-    //   )
-    // ) {
-    //   return [CheckRoleMiddleware];
-    // }
+    if (
+      ["createBook", "updateBookByIdOrSlug", "deleteBookByIdOrSlug"].includes(
+        operation
+      )
+    ) {
+      return [CheckRoleMiddleware];
+    }
     return [];
   }
 
