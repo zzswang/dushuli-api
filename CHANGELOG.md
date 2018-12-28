@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.1.3"></a>
+## [0.1.3](https://github.com/zzswang/dushuli/compare/v0.1.2...v0.1.3) (2018-12-28)
+
+
+### Bug Fixes
+
+* correct model, remove auth check and use findById api ([a4d082a](https://github.com/zzswang/dushuli/commit/a4d082a))
+* openapi.yml for date_gt and date_lt ([2302445](https://github.com/zzswang/dushuli/commit/2302445))
+* put back authority validation ([b69ce38](https://github.com/zzswang/dushuli/commit/b69ce38))
+* store date as string, its format should be YYYYMMDD ([84cbe02](https://github.com/zzswang/dushuli/commit/84cbe02))
+
+
+
 <a name="0.1.2"></a>
 ## [0.1.2](https://github.com/zzswang/dushuli/compare/v0.1.1...v0.1.2) (2018-12-27)
 
