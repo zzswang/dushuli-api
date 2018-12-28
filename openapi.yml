@@ -36,13 +36,15 @@ paths:
             default: -updatedAt
         - name: date_gt
           in: query
-          description: Return Books Date greater than given date
+          description: Return Books Date greater than given date, format YYYYMMDD
+          example: "20190101"
           required: false
           schema:
             type: string
         - name: date_lt
           in: query
-          description: Return Books Date less than given date
+          description: Return Books Date less than given date, format YYYYMMDD
+          example: "20190331"
           required: false
           schema:
             type: string
@@ -159,7 +161,7 @@ paths:
         - name: identify
           in: query
           required: true
-          description: The identify of id or slug 
+          description: The identify of id or slug
           schema:
             type: string
       responses:
@@ -203,7 +205,7 @@ paths:
         - name: identify
           in: query
           required: true
-          description: The identify of id or slug 
+          description: The identify of id or slug
           schema:
             type: string
       responses:
@@ -230,7 +232,7 @@ paths:
         - name: identify
           in: query
           required: true
-          description: The identify of id or slug 
+          description: The identify of id or slug
           schema:
             type: string
       requestBody:
@@ -309,7 +311,7 @@ components:
       required:
         - date
       properties:
-        date: 
+        date:
           type: string
         holiday:
           type: string
