@@ -1,7 +1,9 @@
+import createError from "http-errors";
+import dayjs from "dayjs";
+
 import API from "../api/dushuli";
 import Dushuli from "../models/dushuli";
 import CheckRoleMiddleware from "../lib/checkRoleMiddleware";
-import dayjs from "dayjs";
 
 export class Service extends API {
   middlewares(operation) {
@@ -71,6 +73,12 @@ export class Service extends API {
             date: bookIdOrSlug,
           })
         : await Dushuli.get(bookIdOrSlug);
+
+    if (!book) {
+      throw createError(404, {
+        message: `book ${bookIdOrSlug} not found`,
+      });
+    }
 
     return { body: book };
   }
