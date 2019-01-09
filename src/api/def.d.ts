@@ -67,6 +67,7 @@ interface Books {
   summary: string;
   content: string;
   audio: string;
+  audioUrl: string;
 }
 interface Err {
   code: string;

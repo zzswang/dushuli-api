@@ -343,7 +343,10 @@ components:
           description: 内容
         audio:
           type: string
-          description: 音频的 url
+          description: 七牛音频的文件名
+        audioUrl:
+          type: string
+          description: 直接填入的音频链接
     Err:
       type: object
       properties:

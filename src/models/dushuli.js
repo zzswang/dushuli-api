@@ -16,6 +16,7 @@ export const dushuliSchema = new mongoose.Schema(
     summary: String,
     content: String,
     audio: String,
+    audioUrl: String,
   },
   {
     timestamps: true,
@@ -47,6 +48,8 @@ class Dushuli {
   content;
   /** @type {string} 音频 */
   audio;
+  /** @type {string} 音频链接 */
+  audioUrl;
 }
 
 /**
