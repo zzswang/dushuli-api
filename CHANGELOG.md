@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/zzswang/dushuli/compare/v0.1.5...v0.2.0) (2019-01-13)
+
+
+### Features
+
+* add audio url ([#10](https://github.com/zzswang/dushuli/issues/10)) ([ba0ea1b](https://github.com/zzswang/dushuli/commit/ba0ea1b))
+
+
+
 <a name="0.1.5"></a>
 ## [0.1.5](https://github.com/zzswang/dushuli/compare/v0.1.4...v0.1.5) (2018-12-31)
 
