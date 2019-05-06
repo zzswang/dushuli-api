@@ -65,7 +65,11 @@ app
   .use(cors({ exposeHeaders: "*" }))
   .use(
     jwt({ secret: publicKey }).unless({
-      path: [`${BASE}/openapi.yml`, `${BASE}/health`],
+      path: [
+        `${BASE}/openapi.yml`,
+        `${BASE}/health`,
+        `${BASE}/wechat/payment-callback`,
+      ],
     })
   )
   .use(health(`${BASE}/health`))
