@@ -51,6 +51,10 @@
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
                   }
                 ],
                 "method": "GET",
@@ -63,6 +67,10 @@
                       "key": "token"
                     }
                   ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"openid\": \"{{openid}}\",\n  \"sandbox\": \"{{sandbox}}\"\n}"
                 }
               },
               "code": 200,
@@ -153,6 +161,10 @@
               {
                 "key": "Accept",
                 "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
               }
             ],
             "method": "GET",
@@ -165,6 +177,10 @@
                   "key": "token"
                 }
               ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"openid\": \"{{openid}}\",\n  \"sandbox\": \"{{sandbox}}\"\n}"
             }
           },
           "name": "List all books",
@@ -189,7 +205,12 @@
                     "books"
                   ],
                   "host": "{{host}}",
-                  "query": [],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": ""
+                    }
+                  ],
                   "variable": []
                 },
                 "header": [
@@ -279,7 +300,12 @@
                 "books"
               ],
               "host": "{{host}}",
-              "query": [],
+              "query": [
+                {
+                  "key": "url",
+                  "value": ""
+                }
+              ],
               "variable": []
             },
             "header": [
@@ -348,6 +374,10 @@
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
                   }
                 ],
                 "method": "GET",
@@ -360,6 +390,10 @@
                       "key": "token"
                     }
                   ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appid\": \"{{appid}}\"\n}"
                 }
               },
               "code": 200,
@@ -441,6 +475,10 @@
               {
                 "key": "Accept",
                 "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
               }
             ],
             "method": "GET",
@@ -453,6 +491,10 @@
                   "key": "token"
                 }
               ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appid\": \"{{appid}}\"\n}"
             }
           },
           "name": "Find book by id or slug",
@@ -727,6 +769,368 @@
           },
           "name": "updateBookByIdOrSlug",
           "description": "updateBookByIdOrSlug"
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9389766d-8cc0-4b57-b6db-b86da8535f88",
+      "name": "payment",
+      "item": [
+        {
+          "id": "2886cbf7-494b-4045-8c84-eeb83bc5c865",
+          "response": [
+            {
+              "id": "1b1fa0cd-b1a6-4cea-857f-f61d48f2f6f4",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"openid\": \"{{openid}}\"\n}"
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "13c34199-0be6-4827-bb45-9f2d13abd1ad",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"appid\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"公众号 appid\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "payment"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"openid\": \"{{openid}}\"\n}"
+            }
+          },
+          "name": "initiate a payment process",
+          "description": "initiate a payment process"
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e743fb60-2221-4159-9c9b-ffa39826968d",
+      "name": "signature",
+      "item": [
+        {
+          "id": "63722f15-8a1b-4bd1-bc9e-33749d072ac3",
+          "response": [
+            {
+              "id": "8bcbdb8d-b8fa-4aaa-8443-6d8806e75261",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature"
+                  ],
+                  "host": "{{host}}",
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "4377219c-966e-4fc1-adc0-1f96d54702b0",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"appid\": {",
+                  "      \"type\": \"string\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "signature"
+              ],
+              "host": "{{host}}",
+              "query": [
+                {
+                  "key": "url",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "get wechat js sdk signature",
+          "description": "get wechat js sdk signature"
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5c67931b-fffc-4a8d-8841-05dbf4e5740b",
+      "name": "notify",
+      "item": [
+        {
+          "id": "15c9f40f-526f-476b-8cfb-9787e8955581",
+          "response": [
+            {
+              "id": "06306cba-537e-4f5e-b4b0-c89c2369cb6f",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wechat-pay-notifynotify"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"appid\": \"{{appid}}\"\n}"
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "d0b3b660-e719-41b7-8d9e-c920546c59b7",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"string\"",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "wechat-pay-notifynotify"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appid\": \"{{appid}}\"\n}"
+            }
+          },
+          "name": "wechat pay callback",
+          "description": "wechat pay callback"
         }
       ],
       "event": []

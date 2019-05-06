@@ -12,156 +12,44 @@ servers:
       basePath:
         default: /dushuli/v0
 paths:
-  /books:
-    get:
-      summary: List all books
-      operationId: listBooks
-      tags:
-        - books
-      parameters:
-        - name: _limit
-          in: query
-          description: How many items to return at one time
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 100
-        - name: _sort
-          in: query
-          description: Sort Name
-          required: false
-          schema:
-            type: string
-            default: -updatedAt
-        - name: date_gt
-          in: query
-          description: Return Books Date greater than given date, format YYYYMMDD
-          example: "20190101"
-          required: false
-          schema:
-            type: string
-        - name: date_lt
-          in: query
-          description: Return Books Date less than given date, format YYYYMMDD
-          example: "20190331"
-          required: false
-          schema:
-            type: string
-      responses:
-        "200":
-          description: A paged array of books
-          headers:
-            X-Total-Count:
-              description: Total count of all categories match the query
-              schema:
-                type: string
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Books"
-              examples:
-                default:
-                  value: |
-                    [
-                      {
-                        "date": "2018-12-24",
-                        "holiday": "春节1",
-                        "solarTerm": "春分1",
-                        "book": "一本书2",
-                        "author": "作者2",
-                        "summary": "一些summary123",
-                        "content": "<p>dasdhadd3123<a>dasdad</a></p>",
-                        "updatedAt": "2018-12-24T05:59:02.250Z",
-                        "createdAt": "2018-12-24T05:59:02.250Z",
-                        "id": "5c2075a6fe46ab69eec17de0"
-                      },
-                      {
-                        "date": "2018-12-24",
-                        "holiday": "春节2",
-                        "solarTerm": "春分2",
-                        "book": "一本书3",
-                        "author": "作者3",
-                        "summary": "一些summary1232344",
-                        "content": "<p>dasdhadd3123<b>dasdad</b></p>",
-                        "updatedAt": "2018-12-24T05:59:12.250Z",
-                        "createdAt": "2018-12-24T05:59:12.250Z",
-                        "id": "5c2075a6fe46ab69eec17de1"
-                      }
-                    ]
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "500":
-          $ref: "#/components/responses/InternalError"
-
+  /wechat/payment:
     post:
-      summary: Create a book
-      operationId: createBook
+      summary: initiate a payment process
+      operationId: createPayment
       tags:
-        - books
+        - wechat
       requestBody:
-        description: book to add to the store
+        description: payment info
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Books"
-            examples:
-              default:
-                value: |
-                  {
-                    "date": "2018-12-24",
-                    "holiday": "春节1",
-                    "solarTerm": "春分1",
-                    "book": "一本书2",
-                    "author": "作者2",
-                    "summary": "一些summary123",
-                    "content": "<p>dasdhadd3123<b>dasdad</b></p>"
-                  }
+              $ref: "#/components/schemas/CreatePaymentBody"
       responses:
-        "201":
-          description: The Book created
+        "200":
+          description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Books"
-              examples:
-                default:
-                  value: |
-                    {
-                      "date": "2018-12-24",
-                      "holiday": "春节1",
-                      "solarTerm": "春分1",
-                      "book": "一本书2",
-                      "author": "作者2",
-                      "summary": "一些summary123",
-                      "content": "<p>dasdhadd3123<b>dasdad</b></p>",
-                      "id": "5c2075a6fe46ab69eec17de1"
-                    }
+                $ref: "#/components/schemas/CreatePaymentResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
         "500":
           $ref: "#/components/responses/InternalError"
 
-  /books/{bookIdOrSlug}:
+  /wechat/signature:
     get:
-      summary: Find book by id or slug
-      operationId: showBookByIdOrSlug
+      summary: get wechat js sdk signature
+      operationId: getSignature
       tags:
-        - books
+        - wechat
       parameters:
-        - name: bookIdOrSlug
-          in: path
-          required: true
-          description: The id or slug of the book to retrieve
-          schema:
-            type: string
-        - name: identify
+        - name: url
           in: query
+          description: 调用 jssdk 的网页链接
           required: true
-          description: The identify of id or slug
           schema:
             type: string
       responses:
@@ -170,117 +58,43 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Books"
-              examples:
-                default:
-                  value: |
-                    {
-                      "date": "2018-12-24",
-                      "holiday": "春节1",
-                      "solarTerm": "春分1",
-                      "book": "一本书2",
-                      "author": "作者2",
-                      "summary": "一些summary123",
-                      "content": "<p>dasdhadd3123<b>dasdad</b></p>",
-                      "id": "5c2075a6fe46ab69eec17de1"
-                    }
+                $ref: "#/components/schemas/GetSignatureResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
           $ref: "#/components/responses/InternalError"
-    delete:
-      description: deletes a single book based on the ID or slug supplied
-      operationId: deleteBookByIdOrSlug
+  /wechat/payment-callback:
+    post:
+      summary: wechat pay callback
+      operationId: wechatPayCallback
       tags:
-        - books
-      parameters:
-        - name: bookIdOrSlug
-          in: path
-          required: true
-          description: The id or slug of the book to retrieve
-          schema:
-            type: string
-        - name: identify
-          in: query
-          required: true
-          description: The identify of id or slug
-          schema:
-            type: string
-      responses:
-        "204":
-          description: book deleted
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "500":
-          $ref: "#/components/responses/InternalError"
-    put:
-      description: update a single book based on the ID or slug supplied
-      operationId: updateBookByIdOrSlug
-      tags:
-        - books
-      parameters:
-        - name: bookIdOrSlug
-          in: path
-          required: true
-          description: The id or slug of the book to retrieve
-          schema:
-            type: string
-        - name: identify
-          in: query
-          required: true
-          description: The identify of id or slug
-          schema:
-            type: string
+        - wechat
       requestBody:
-        description: book to update to the store
+        description: wechat pay callback data
         required: true
         content:
           application/json:
-            schema:
-              $ref: "#/components/schemas/Books"
-            examples:
-              default:
-                value: |
-                  {
-                    "date": "2018-12-24",
-                    "holiday": "春节1",
-                    "solarTerm": "春分1",
-                    "book": "一本书2",
-                    "author": "作者2",
-                    "summary": "一些summary123",
-                    "content": "<p>dasdhadd3123<b>dasdad</b></p>"
-                  }
+              schema:
+                $ref: "#/components/schemas/WechatPayCallback"
       responses:
         "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Books"
-              examples:
-                default:
-                  value: |
-                    {
-                      "date": "2018-12-24",
-                      "holiday": "春节1",
-                      "solarTerm": "春分1",
-                      "book": "一本书2",
-                      "author": "作者2",
-                      "summary": "一些summary123",
-                      "content": "<p>dasdhadd3123<b>dasdad</b></p>",
-                      "id": "5c2075a6fe46ab69eec17de1"
-                    }
+                $ref: "#/components/schemas/WechatPayCallbackResponse"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
           $ref: "#/components/responses/InternalError"
+        
 
+
+      
 security:
   - bearerAuth: []
 
@@ -307,46 +121,122 @@ components:
           schema:
             $ref: "#/components/schemas/Err"
   schemas:
-    Books:
+    CreatePaymentBody:
+      type: object
       required:
-        - date
+        - openid
       properties:
-        date:
+        openid:
           type: string
-          description: 日期对应的 slug，例如 20190101
-        holiday:
+          description: 付款用户的openid
+        sandbox:
+          type: boolean
+          description: 是否是沙盒模式
+    
+    CreatePaymentResponse:
+      type: object
+      properties:
+        appid:
           type: string
-          description: 节日 以及标语
-          example: 元旦 如沐春风
-        solarTerm:
+          description: 公众号 appid
+          example: "wx8888888888888888"
+        timeStamp: 
           type: string
-          description: 节气 以及标语
-          example: 谷雨 好时节
-        slogan:
+          description: 时间戳
+          example: "1414561699"
+        nonceStr:
           type: string
-          description: 口号之 每日宜
-          example: 宜写代码
-        book:
+          description: 随机字符串
+          example: "5K8264ILTKCH16CQ2502SI8ZNMTM67VS"
+        package:
           type: string
-          description: 书名
-          example: 双城记
-        author:
+          description: 订单详情扩展字符串
+          example: "prepay_id=123456789"
+        signType:
           type: string
-          description: 作者
-          example: 雅马哈
-        summary:
+          description: 签名方式
+          example: "MD5"
+        paySign:
           type: string
-          description: 摘要
-          example: 小楼一夜听春雨，深巷明朝卖杏花
-        content:
+          description: 签名
+          example: "C380BEC2BFD727A4B6845133519F3AD6"
+
+    GetSignatureResponse:
+      type: object
+      properties:
+        debug:
+          type: boolean
+        appId:
           type: string
-          description: 内容
-        audio:
+          description: 公众号 appid
+          example: "wx8888888888888888"
+        timestamp:
           type: string
-          description: 七牛音频的文件名
-        audioUrl:
+          description: 时间戳
+          example: "1414561699"
+        nonceStr:
           type: string
-          description: 直接填入的音频链接
+          description: 随机字符串
+          example: "5K8264ILTKCH16CQ2502SI8ZNMTM67VS"
+        signature:
+          type: string
+          description: 签名
+          example: "5bfc8633f9c2127508296408c64f99068ad9dcb5"
+        jsApiList:
+          type: array
+          items:
+            type: string
+          description: js api 列表
+          example: [
+            "checkJsApi",
+            "onMenuShareTimeline",
+            "onMenuShareAppMessage",
+            "onMenuShareQQ",
+            "onMenuShareWeibo",
+            "onMenuShareQZone",
+            "chooseImage",
+            "previewImage",
+            "uploadImage",
+            "startRecord",
+            "stopRecord",
+            "onVoiceRecordEnd",
+            "playVoice",
+            "pauseVoice",
+            "stopVoice",
+            "onVoicePlayEnd",
+            "uploadVoice",
+            "downloadVoice",
+            "translateVoice",
+            "getNetworkType",
+            "openLocation",
+            "getLocation",
+            "startSearchBeacons",
+            "stopSearchBeacons",
+            "onSearchBeacons",
+            "closeWindow",
+            "hideMenuItems",
+            "showMenuItems",
+            "hideAllNonBaseMenuItem",
+            "showAllNonBaseMenuItem",
+            "scanQRCode",
+            "openProductSpecificView",
+            "chooseCard",
+            "addCard",
+            "openCard",
+            "chooseWXPay"
+          ]
+        
+    WechatPayCallback:
+      type: object
+      properties:
+        appid:
+          type: string
+          description: 公众号 appid
+          example: "wx8888888888888888"
+    
+    WechatPayCallbackResponse:
+      type: string
+
     Err:
       type: object
       properties:

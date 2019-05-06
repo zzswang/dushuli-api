@@ -44,3 +44,23 @@ export const MONGODB_CONNECTION = env(
   "MONGODB_CONNECTION",
   "mongodb://localhost/dushulistore"
 );
+
+/**
+ * wechat pay
+ */
+export const WECHAT_PAY = {
+  APP_ID: env("WECHAT_APP_ID", ""),
+  MCH_ID: env("WECHAT_PAY_MCH_ID", ""),
+  PARTNER_KEY: env("WECHAT_PAY_PARTNER_KEY", ""),
+  PFX: env("WECHAT_PAY_PFX", ""),
+  NOTIFY_URL: env("WECHAT_PAY_NOTIFY_URL", ""),
+  SPBILL_CREATE_IP: env("WECHAT_PAY_SPBILL_CREATE_IP", ""),
+};
+
+/**
+ * wechat
+ */
+export const WECHAT = {
+  APP_ID: env("WECHAT_APP_ID", ""),
+  APP_SECRET: env("WECHAT_APP_SECRET", ""),
+};

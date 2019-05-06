@@ -1,73 +1,54 @@
-interface ListBooksRequest {
+interface CreatePaymentRequest {
+  body: CreatePaymentBody;
+  context?: Object;
+}
+
+interface CreatePaymentResponse {
+  body: CreatePaymentResponse;
+}
+
+interface GetSignatureRequest {
   query: {
-    _limit?: number;
-    _sort?: string;
-    date_gt?: string;
-    date_lt?: string;
+    url: string;
   };
   context?: Object;
 }
 
-interface ListBooksResponse {
-  body: Array<Books>;
-  headers: {
-    xTotalCount: string;
-  };
+interface GetSignatureResponse {
+  body: GetSignatureResponse;
 }
 
-interface CreateBookRequest {
-  body: Books;
+interface WechatPayCallbackRequest {
+  body: WechatPayCallback;
   context?: Object;
 }
 
-interface CreateBookResponse {
-  body: Books;
+interface WechatPayCallbackResponse {
+  body: WechatPayCallbackResponse;
 }
 
-interface ShowBookByIdOrSlugRequest {
-  bookIdOrSlug: string;
-  query: {
-    identify: string;
-  };
-  context?: Object;
+interface CreatePaymentBody {
+  openid: string;
+  sandbox: boolean;
 }
-
-interface ShowBookByIdOrSlugResponse {
-  body: Books;
+interface CreatePaymentResponse {
+  appid: string;
+  timeStamp: string;
+  nonceStr: string;
+  package: string;
+  signType: string;
+  paySign: string;
 }
-
-interface DeleteBookByIdOrSlugRequest {
-  bookIdOrSlug: string;
-  query: {
-    identify: string;
-  };
-  context?: Object;
+interface GetSignatureResponse {
+  debug: boolean;
+  appId: string;
+  timestamp: string;
+  nonceStr: string;
+  signature: string;
+  jsApiList: Array<string>;
 }
-
-interface UpdateBookByIdOrSlugRequest {
-  bookIdOrSlug: string;
-  query: {
-    identify: string;
-  };
-  body: Books;
-  context?: Object;
-}
-
-interface UpdateBookByIdOrSlugResponse {
-  body: Books;
-}
-
-interface Books {
-  date: string;
-  holiday: string;
-  solarTerm: string;
-  slogan: string;
-  book: string;
-  author: string;
-  summary: string;
-  content: string;
-  audio: string;
-  audioUrl: string;
+interface WechatPayCallback {
+  appid: string;
 }
 interface Err {
   code: string;
