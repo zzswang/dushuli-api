@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/zzswang/dushuli/compare/v0.2.0...v0.3.0) (2019-05-06)
+
+
+### Features
+
+* add wechat api and wechat pay ([#12](https://github.com/zzswang/dushuli/issues/12)) ([e22723f](https://github.com/zzswang/dushuli/commit/e22723f))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/zzswang/dushuli/compare/v0.1.5...v0.2.0) (2019-01-13)
 
