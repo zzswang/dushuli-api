@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/zzswang/dushuli/compare/v0.3.1...v0.4.0) (2019-05-10)
+
+
+### Features
+
+* add  period, product and order ([#17](https://github.com/zzswang/dushuli/issues/17)) ([f4c09d2](https://github.com/zzswang/dushuli/commit/f4c09d2))
+* add co-wechat to handle push message ([#18](https://github.com/zzswang/dushuli/issues/18)) ([7d2d2c3](https://github.com/zzswang/dushuli/commit/7d2d2c3))
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/zzswang/dushuli/compare/v0.3.0...v0.3.1) (2019-05-06)
 
