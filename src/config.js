@@ -61,6 +61,16 @@ export const WECHAT_PAY = {
  * wechat
  */
 export const WECHAT = {
-  APP_ID: env("WECHAT_APP_ID", ""),
-  APP_SECRET: env("WECHAT_APP_SECRET", ""),
+  APP_ID: env("WECHAT_OFFICIAL_APP_ID", ""),
+  APP_SECRET: env("WECHAT_OFFICIAL_APP_SECRET", ""),
+};
+
+/**
+ * wechat mini program
+ */
+export const WECHAT_APP = {
+  APP_ID: env("WECHAT_APP_APP_ID", ""),
+  APP_SECRET: env("WECHAT_APP_APP_SECRET", ""),
+  TOKEN: env("WECHAT_APP_TOKEN", ""),
+  ENCODING_AES_KEY: env("WECHAT_APP_ENCODING_AES_KEY", ""),
 };

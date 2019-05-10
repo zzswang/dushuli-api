@@ -1,7 +1,7 @@
 import createError from "http-errors";
 
 import API from "../api/wechat";
-import { wechatApi, wechatPayApi } from "../wechat";
+import { wechatApi, wechatPayApi, wechat, wechatAppApi } from "../wechat";
 import { PAYMENT_METHOD } from "../constants";
 
 import Product from "../models/product";
@@ -169,6 +169,21 @@ export class Service extends API {
     }
 
     ctx.reply();
+  }
+
+  message() {
+    return wechat.middleware(async (message, ctx) => {
+      if (
+        message.MsgType === "event" &&
+        message.Event === "user_enter_tempsession"
+      ) {
+        wechatAppApi.sendText(
+          message.FromUserName,
+          "hello world https://wwww.baidu.com"
+        );
+      }
+      return "success";
+    });
   }
 }
 

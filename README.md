@@ -1,6 +1,17 @@
-# @36node/template-service
+# dushuli-api
 
-[![version][0]][1] [![downloads][2]][3]
+## .env
+```
+APP_WECHAT_APP_ID=wxe8fc40117734ec1f
+APP_WECHAT_APP_SECRET=b75286f8096fdebf065aa8c79a3746bd
+APP_WECHAT_PAY_MCH_ID=1527752781
+APP_WECHAT_PAY_PARTNER_KEY=4tG7HUc784E2o49GChKyoqnrG2b7hTVF
+APP_WECHAT_PAY_NOTIFY_URL=https://dushuli.api.36node.com/dushuli/v0/wechat/payment-callback
+APP_WECHAT_APP_APP_ID=wxbc6e84f450dfb210
+APP_WECHAT_APP_APP_SECRET=664ae6d75d84af6a4577bc431627d88c
+APP_WECHAT_APP_TOKEN=kECckzxoFyW96Qu293447i4AWKf8Zfpq
+APP_WECHAT_APP_ENCODING_AES_KEY=BdPT4KtQzuuz9OCayed93F46ze1nVNWZl2dy5VrgUrq
+```
 
 ## Development
 

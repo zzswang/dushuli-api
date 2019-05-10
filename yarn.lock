@@ -2007,6 +2007,16 @@ co-wechat-api@^3.9.1:
     httpx "^2.1.1"
     json-bigint "^0.3.0"
 
+co-wechat@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npm.taobao.org/co-wechat/download/co-wechat-2.3.0.tgz#089ea0d5986f0338d39137ddfc8b93235a28cde6"
+  integrity sha1-CJ6g1ZhvAzjTkTfd/IuTI1oozeY=
+  dependencies:
+    ejs ">=1.0.0"
+    raw-body "^2.2.0"
+    wechat-crypto "0.0.2"
+    xml2js "0.4.4"
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -2669,6 +2679,11 @@ ecdsa-sig-formatter@1.0.10:
 ee-first@1.1.1, ee-first@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
+
+ejs@>=1.0.0:
+  version "2.6.1"
+  resolved "https://registry.npm.taobao.org/ejs/download/ejs-2.6.1.tgz#498ec0d495655abc6f23cd61868d926464071aa0"
+  integrity sha1-SY7A1JVlWrxvI81hho2SZGQHGqA=
 
 electron-to-chromium@^1.3.47:
   version "1.3.96"
@@ -7095,6 +7110,11 @@ saslprep@^1.0.0:
   dependencies:
     sparse-bitfield "^3.0.3"
 
+sax@0.6.x:
+  version "0.6.1"
+  resolved "https://registry.npm.taobao.org/sax/download/sax-0.6.1.tgz#563b19c7c1de892e09bfc4f2fc30e3c27f0952b9"
+  integrity sha1-VjsZx8HeiS4Jv8Ty/DDjwn8JUrk=
+
 sax@>=0.6.0, sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
@@ -8011,6 +8031,11 @@ webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
 
+wechat-crypto@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.npm.taobao.org/wechat-crypto/download/wechat-crypto-0.0.2.tgz#a55443ec0810f4c1992a293a27860839700c6369"
+  integrity sha1-pVRD7AgQ9MGZKik6J4YIOXAMY2k=
+
 whatwg-encoding@^1.0.1, whatwg-encoding@^1.0.3:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/whatwg-encoding/-/whatwg-encoding-1.0.5.tgz#5abacf777c32166a51d085d6b4f3e7d27113ddb0"
@@ -8140,12 +8165,25 @@ xml-parse-from-string@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/xml-parse-from-string/-/xml-parse-from-string-1.0.1.tgz#a9029e929d3dbcded169f3c6e28238d95a5d5a28"
 
+xml2js@0.4.4:
+  version "0.4.4"
+  resolved "https://registry.npm.taobao.org/xml2js/download/xml2js-0.4.4.tgz#3111010003008ae19240eba17497b57c729c555d"
+  integrity sha1-MREBAAMAiuGSQOuhdJe1fHKcVV0=
+  dependencies:
+    sax "0.6.x"
+    xmlbuilder ">=1.0.0"
+
 xml2js@^0.4.19, xml2js@^0.4.5:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.19.tgz#686c20f213209e94abf0d1bcf1efaa291c7827a7"
   dependencies:
     sax ">=0.6.0"
     xmlbuilder "~9.0.1"
+
+xmlbuilder@>=1.0.0:
+  version "13.0.0"
+  resolved "https://registry.npm.taobao.org/xmlbuilder/download/xmlbuilder-13.0.0.tgz#51d5dfabaada7385c6861d74f274849b5d037ede"
+  integrity sha1-UdXfq6rac4XGhh108nSEm10Dft4=
 
 xmlbuilder@~9.0.1:
   version "9.0.7"

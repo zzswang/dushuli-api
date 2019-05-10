@@ -52,6 +52,7 @@ router.post(
   wechatPayApi.middleware("pay"),
   wechatService.paymentCallback
 );
+router.all("/wechat", wechatService.message());
 productService.bind(router);
 orderService.bind(router);
 memberService.bind(router);
@@ -89,6 +90,7 @@ app
       path: [
         `${BASE}/openapi.yml`,
         `${BASE}/health`,
+        `${BASE}/wechat`,
         `${BASE}/wechat/payment-callback`,
       ],
     })
