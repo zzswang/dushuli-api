@@ -40,20 +40,6 @@ export default class API {
       ctx.status = 200;
     };
 
-    const wechatPayCallback = async ctx => {
-      const req = {
-        body: ctx.request.body,
-        context: ctx, // here we put koa context in request
-      };
-
-      const res = await this.wechatPayCallback(req);
-
-      if (!res.body) throw createError(500, "should have body in response");
-
-      ctx.body = res.body;
-      ctx.status = 200;
-    };
-
     router.post(
       "/wechat/payment",
       ...this.middlewares("createPayment"),
@@ -63,11 +49,6 @@ export default class API {
       "/wechat/signature",
       ...this.middlewares("getSignature"),
       getSignature
-    );
-    router.post(
-      "/wechat/payment-callback",
-      ...this.middlewares("wechatPayCallback"),
-      wechatPayCallback
     );
   }
 
@@ -104,17 +85,6 @@ export default class API {
    * @returns {GetSignatureResponse} Expected response to a valid request
    */
   getSignature(req) {
-    throw new Error("not implemented");
-  }
-
-  /**
-   * wechat pay callback
-   *
-   * @abstract
-   * @param {WechatPayCallbackRequest} req wechatPayCallback request
-   * @returns {WechatPayCallbackResponse} Expected response to a valid request
-   */
-  wechatPayCallback(req) {
     throw new Error("not implemented");
   }
 }

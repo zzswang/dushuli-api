@@ -42,7 +42,7 @@ export const BASE = env("BASE", "/dushuli/v0");
 
 export const MONGODB_CONNECTION = env(
   "MONGODB_CONNECTION",
-  "mongodb://localhost/dushulistore"
+  "mongodb://localhost/dushuli"
 );
 
 /**

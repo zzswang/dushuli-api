@@ -15,7 +15,4 @@ const config = {
 
 export const wechatPayApi = new tenpay(config, true);
 
-export let wechatPaySandbox;
-tenpay.sandbox(config).then(api => (wechatPaySandbox = api));
-
 export const wechatApi = new WechatAPI(WECHAT.APP_ID, WECHAT.APP_SECRET);

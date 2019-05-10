@@ -65,26 +65,113 @@ paths:
           $ref: "#/components/responses/NotFound"
         "500":
           $ref: "#/components/responses/InternalError"
-  /wechat/payment-callback:
-    post:
-      summary: wechat pay callback
-      operationId: wechatPayCallback
+    
+  /members:
+    get:
+      summary: list all members
+      operationId: listMembers
       tags:
-        - wechat
+        - member
+      parameters:
+        - name: _select
+          in: query
+          description: select which fields from db
+          required: false
+          schema:
+            type: string
+        - name: _limit
+          in: query
+          description: how many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: _offset
+          in: query
+          description: How many items will be skip
+          required: false
+          schema:
+            type: string
+        - name: _sort
+          in: query
+          description: specifies which document fields to sort
+          required: false
+          schema:
+            type: string
+        - name: users
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: active
+          in: query
+          required: false
+          schema: 
+            type: boolean
+      responses:
+        "200":
+          description: a paged array of members
+          headers:
+            X-Total-Count:
+              description: total count of all members match the query
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Member"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+    
+    post:
+      summary: create a member
+      operationId: createMember
+      tags:
+        - member
       requestBody:
-        description: wechat pay callback data
+        description: member to be created
         required: true
         content:
           application/json:
+            schema:
+              $ref: "#/components/schemas/Member" 
+      responses:
+        "201":
+          description: the member created
+          content:
+            application/json:
               schema:
-                $ref: "#/components/schemas/WechatPayCallback"
+                $ref: "#/components/schemas/Member"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+          
+  /members/{user}:
+    get:
+      summary: get member by user
+      operationId: getMember
+      tags:
+        - member
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: the user of the member to retrieve
+          schema:
+            type: string
       responses:
         "200":
           description: Expected response to a valid request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/WechatPayCallbackResponse"
+                $ref: "#/components/schemas/Member"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "404":
@@ -92,9 +179,399 @@ paths:
         "500":
           $ref: "#/components/responses/InternalError"
         
+    delete:
+      summary: delete a member
+      operationId: deleteMember
+      tags:
+        - member
+      parameters:
+        - name: user
+          in: path
+          description: the user of the member to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: member deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: update a member
+      operationId: updateMember
+      tags:
+        - member
+      parameters:
+        - name: user
+          in: path
+          description: the user of the member to be updated
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: member to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Member"
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Member"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"    
+
+  /products:
+    get:
+      summary: list all products
+      operationId: listProducts
+      tags:
+        - product
+      parameters:
+        - name: _select
+          in: query
+          description: select which fields from db
+          required: false
+          schema:
+            type: string
+        - name: _limit
+          in: query
+          description: how many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: _offset
+          in: query
+          description: How many items will be skip
+          required: false
+          schema:
+            type: string
+        - name: _sort
+          in: query
+          description: specifies which document fields to sort
+          required: false
+          schema:
+            type: string
+        - name: published
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: a paged array of products
+          headers:
+            X-Total-Count:
+              description: total count of all products match the query
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+    
+    post:
+      summary: create a product
+      operationId: createProduct
+      tags:
+        - product
+      requestBody:
+        description: product to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product" 
+      responses:
+        "201":
+          description: the product created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+          
+  /products/{productId}:
+    get:
+      summary: get product by productId
+      operationId: getProduct
+      tags:
+        - product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: the productId of the product to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+        
+    delete:
+      summary: delete a product
+      operationId: deleteProduct
+      tags:
+        - product
+      parameters:
+        - name: productId
+          in: path
+          description: the productId of the product to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: product deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: update product
+      operationId: updateProduct
+      tags:
+        - product
+      parameters:
+        - name: productId
+          in: path
+          description: the user of the product to be updated
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: product to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"    
+
+  /orders:
+    get:
+      summary: list all orders
+      operationId: listOrders
+      tags:
+        - order
+      parameters:
+        - name: _select
+          in: query
+          description: select which fields from db
+          required: false
+          schema:
+            type: string
+        - name: _limit
+          in: query
+          description: how many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: _offset
+          in: query
+          description: How many items will be skip
+          required: false
+          schema:
+            type: string
+        - name: _sort
+          in: query
+          description: specifies which document fields to sort
+          required: false
+          schema:
+            type: string
+        - name: paid
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: method
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: createdBy
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: a paged array of orders
+          headers:
+            X-Total-Count:
+              description: total count of all orders match the query
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+    
+    post:
+      summary: create a order
+      operationId: createOrder
+      tags:
+        - order
+      requestBody:
+        description: order to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order" 
+      responses:
+        "201":
+          description: the order created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+          
+  /orders/{orderId}:
+    get:
+      summary: get order by orderId
+      operationId: getOrder
+      tags:
+        - order
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: the orderId of the order to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+        
+    delete:
+      summary: delete a order
+      operationId: deleteOrder
+      tags:
+        - order
+      parameters:
+        - name: orderId
+          in: path
+          description: the orderId of the order to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: order deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: update order
+      operationId: updateOrder
+      tags:
+        - order
+      parameters:
+        - name: orderId
+          in: path
+          description: the user of the order to be updated
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: order to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"    
 
 
-      
+
 security:
   - bearerAuth: []
 
@@ -225,18 +702,137 @@ components:
             "openCard",
             "chooseWXPay"
           ]
-        
-    WechatPayCallback:
+      
+    Period:
       type: object
       properties:
-        appid:
+        start: 
           type: string
-          description: 公众号 appid
-          example: "wx8888888888888888"
+          format: date-time
+          description: 有效期起始时间
+        end:
+          type: string
+          format: date-time
+          description: 有效期结束时间
+        trial:
+          type: boolean
+          description: 是否是试用
+        product:
+          type: string
+          description: 商品 id
+        active: 
+          type: string
+          description: 是否有效
     
-    WechatPayCallbackResponse:
-      type: string
+    Member:
+      type: object
+      required:
+        - user
+      properties:
+        id:
+          type: string
+          description: id
+        createdAt:
+          type: string
+          format: date-time
+          description: 创建时间
+        updatedAt:
+          type: string
+          format: date-time
+          description: 更新时间
+        user:
+          type: string
+          description: 用户id
+        period:
+          type: array
+          items:
+            $ref: "#/components/schemas/Period"
+        active:
+          type: boolean
+          description: 是否激活
 
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id
+        createdAt:
+          type: string
+          format: date-time
+          description: 创建时间
+        updatedAt:
+          type: string
+          format: date-time
+          description: 更新时间
+        no:
+          type: string
+          description: 订单号
+        paid:
+          type: boolean
+          description: 是否付款
+        product:
+          type: string
+          description: 商品 id
+        method:
+          type: string
+          description: 支付方式
+        paidAt:
+          type: string
+          format: date-time
+          description: 付款时间
+        data:
+          type: object
+          description: 支付回调数据
+        createdBy:
+          type: string
+          description: 购买的用户 id
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          description: id
+        createdAt:
+          type: string
+          format: date-time
+          description: 创建时间
+        updatedAt:
+          type: string
+          format: date-time
+          description: 更新时间
+        slug:
+          type: string
+          description: slug
+        price:
+          type: number
+          description: 价格
+        name:
+          type: string
+          description: 商品名称
+        description:
+          type: string
+          description: 商品描述
+        start:
+          type: string
+          format: date-time
+          description: 有效期起始时间
+        end:
+          type: string
+          format: date-time
+          description: 有效期结束时间
+        period:
+          type: number
+          description: 延长有效期（毫秒）
+        published:
+          type: boolean
+          description: 是否发布
+        publishedAt:
+          type: string
+          format: date-time
+          description: 发布时间
+    
     Err:
       type: object
       properties:

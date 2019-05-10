@@ -1,5 +1,12 @@
+import createError from "http-errors";
+
 import API from "../api/wechat";
 import { wechatApi, wechatPayApi } from "../wechat";
+import { PAYMENT_METHOD } from "../constants";
+
+import Product from "../models/product";
+import Order from "../models/order";
+import Member from "../models/member";
 
 const jsApiList = [
   "checkJsApi",
@@ -49,17 +56,41 @@ export class Service extends API {
   }
 
   async createPayment(req) {
-    const { openid, description, fee } = req.body;
+    const { openid, product, user } = req.body;
 
-    const outTradeNo = `${new Date().valueOf()}${Math.round(
-      Math.random() * 10000
-    )}`;
+    // 查找对应的商品
+    const productDoc = await Product.findById(product);
+    if (!productDoc) {
+      throw createError("Product not found", 500);
+    }
+
+    // 创建订单 或 查找该用户的待支付订单
+    const orderDoc = await Order.findOneAndUpdate(
+      {
+        createdBy: user,
+        paid: false,
+        product: product,
+        method: PAYMENT_METHOD.WECHAT_APY,
+      },
+      {
+        no: `${new Date().valueOf()}${Math.round(Math.random() * 10000)}`,
+        paid: false,
+        product: product,
+        method: PAYMENT_METHOD.WECHAT_APY,
+        data: {},
+        createdBy: user,
+      },
+      {
+        new: true,
+        upsert: true,
+      }
+    );
 
     const params = await wechatPayApi.getPayParams({
-      out_trade_no: outTradeNo,
-      body: description || "读书历会员",
-      total_fee: fee || "1",
-      openid: openid,
+      out_trade_no: orderDoc.no,
+      body: productDoc.name,
+      total_fee: productDoc.price * 100,
+      openid,
     });
     return { body: params };
   }
@@ -72,13 +103,72 @@ export class Service extends API {
     return { body: res };
   }
 
-  wechatPayCallback(req) {
-    const { context } = req;
+  async paymentCallback(ctx) {
+    const data = ctx.request.weixin;
 
-    const data = context.request.weixin;
-    console.info("wechatPayCallback", data);
+    // 更新订单
+    const order = await Order.findOneAndUpdate(
+      {
+        no: data.out_trade_no,
+        paid: false,
+      },
+      {
+        paid: true,
+        paidAt: new Date(),
+        method: PAYMENT_METHOD.WECHAT_PAY,
+        data,
+        deleted: false,
+      },
+      {
+        new: true,
+      }
+    );
 
-    context.reply();
+    const product = await Product.findById(order.product);
+
+    const member = await Member.findOne({
+      user: order.createdBy,
+      active: true,
+    });
+
+    // 更新有效期
+    if (member) {
+      const period =
+        Array.isArray(member.period) &&
+        member.period.find(period => period.product === product.id);
+
+      if (!period) {
+        if (!Array.isArray(member.period)) {
+          member.period = [];
+        }
+
+        member.period.push({
+          start: product.start,
+          end: product.end,
+          trial: false,
+          product: product.id,
+          active: true,
+        });
+
+        await member.save();
+      }
+    } else {
+      await Member.create({
+        user: order.createdBy,
+        period: [
+          {
+            start: product.start,
+            end: product.end,
+            trial: false,
+            product: product.id,
+            active: true,
+          },
+        ],
+        active: true,
+      });
+    }
+
+    ctx.reply();
   }
 }
 
