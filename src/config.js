@@ -49,7 +49,7 @@ export const MONGODB_CONNECTION = env(
  * wechat pay
  */
 export const WECHAT_PAY = {
-  APP_ID: env("WECHAT_APP_ID", ""),
+  APP_ID: env("WECHAT_OFFICIAL_APP_ID", ""),
   MCH_ID: env("WECHAT_PAY_MCH_ID", ""),
   PARTNER_KEY: env("WECHAT_PAY_PARTNER_KEY", ""),
   PFX: env("WECHAT_PAY_PFX", ""),
