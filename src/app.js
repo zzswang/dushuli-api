@@ -20,6 +20,7 @@ import wechatService from "./services/wechat";
 import productService from "./services/product";
 import orderService from "./services/order";
 import memberService from "./services/member";
+import settingService from "./services/setting";
 
 import initProducts from "./tasks/init-products";
 
@@ -56,6 +57,7 @@ router.all("/wechat", wechatService.message());
 productService.bind(router);
 orderService.bind(router);
 memberService.bind(router);
+settingService.bind(router);
 
 /**
  * spec openapi.yml

@@ -568,7 +568,90 @@ paths:
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
+          $ref: "#/components/responses/InternalError"
+
+  /settings/{user}:
+    get:
+      summary: get setting by user
+      operationId: getSetting
+      tags:
+        - setting
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: the user of the setting to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Setting"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+        
+    delete:
+      summary: delete a setting
+      operationId: deleteSetting
+      tags:
+        - setting
+      parameters:
+        - name: user
+          in: path
+          description: the user of the setting to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: setting deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: update a setting
+      operationId: updateSetting
+      tags:
+        - setting
+      parameters:
+        - name: user
+          in: path
+          description: the user of the setting to be updated
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: setting to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Setting"
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Setting"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
           $ref: "#/components/responses/InternalError"    
+    
 
 
 
@@ -833,6 +916,16 @@ components:
           format: date-time
           description: 发布时间
     
+    Setting:
+      type: object
+      properties:
+        user:
+          type: string
+        birthday:
+          type: string
+        alarm:
+          type: string
+
     Err:
       type: object
       properties:
