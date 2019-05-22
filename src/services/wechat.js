@@ -7,6 +7,7 @@ import { PAYMENT_METHOD } from "../constants";
 import Product from "../models/product";
 import Order from "../models/order";
 import Member from "../models/member";
+import Config from "../models/config";
 
 const jsApiList = [
   "checkJsApi",
@@ -177,10 +178,8 @@ export class Service extends API {
         message.MsgType === "event" &&
         message.Event === "user_enter_tempsession"
       ) {
-        wechatAppApi.sendText(
-          message.FromUserName,
-          "hello world https://wwww.baidu.com"
-        );
+        const config = await Config.findOne({ active: true });
+        wechatAppApi.sendText(message.FromUserName, config.autoReply);
       }
       return "success";
     });
