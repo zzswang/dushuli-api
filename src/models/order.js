@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import helper from "@36node/mongoose-helper";
 
-import { PAYMENT_METHOD } from "../constants.js";
+import { PAYMENT_METHOD, ORDER_STATUS } from "../constants";
 
 const orderSchema = new mongoose.Schema(
   {
@@ -9,20 +9,24 @@ const orderSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
-    paid: {
-      type: Boolean,
-      default: false,
-    },
     product: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "product",
+      ref: "Product",
     },
     method: {
       type: String,
       enum: Object.values(PAYMENT_METHOD),
       default: PAYMENT_METHOD.WECHAT_PAY,
     },
+    fee: Number,
+    comment: String,
+    status: {
+      type: String,
+      enum: Object.values(ORDER_STATUS),
+      default: ORDER_STATUS.CREATED,
+    },
     paidAt: Date,
+    user: Object,
     data: Object,
     createdBy: String,
   },
@@ -47,7 +51,11 @@ class Order {
   paid;
   product;
   method;
+  price;
+  comment;
+  status;
   paidAt;
+  user;
   data;
   createdBy;
 

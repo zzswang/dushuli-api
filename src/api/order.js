@@ -15,6 +15,7 @@ export default class API {
           _limit: ctx.query._limit,
           _offset: ctx.query._offset,
           _sort: ctx.query._sort,
+          _populate: ctx.query._populate,
           paid: ctx.query.paid,
           method: ctx.query.method,
           createdBy: ctx.query.createdBy,

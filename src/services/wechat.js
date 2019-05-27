@@ -2,7 +2,7 @@ import createError from "http-errors";
 
 import API from "../api/wechat";
 import { wechatApi, wechatPayApi, wechat, wechatAppApi } from "../wechat";
-import { PAYMENT_METHOD } from "../constants";
+import { PAYMENT_METHOD, ORDER_STATUS } from "../constants";
 
 import Product from "../models/product";
 import Order from "../models/order";
@@ -68,18 +68,19 @@ export class Service extends API {
     // 创建订单 或 查找该用户的待支付订单
     const orderDoc = await Order.findOneAndUpdate(
       {
-        createdBy: user,
-        paid: false,
+        createdBy: user.id,
+        status: ORDER_STATUS.CREATED,
         product: product,
         method: PAYMENT_METHOD.WECHAT_APY,
       },
       {
         no: `${new Date().valueOf()}${Math.round(Math.random() * 10000)}`,
-        paid: false,
+        status: ORDER_STATUS.CREATED,
         product: product,
         method: PAYMENT_METHOD.WECHAT_APY,
         data: {},
-        createdBy: user,
+        user,
+        createdBy: user.id,
       },
       {
         new: true,
@@ -111,13 +112,14 @@ export class Service extends API {
     const order = await Order.findOneAndUpdate(
       {
         no: data.out_trade_no,
-        paid: false,
+        status: ORDER_STATUS.CREATED,
       },
       {
-        paid: true,
+        status: ORDER_STATUS.PAID,
         paidAt: new Date(),
         method: PAYMENT_METHOD.WECHAT_PAY,
         data,
+        fee: data.total_fee / 100,
         deleted: false,
       },
       {

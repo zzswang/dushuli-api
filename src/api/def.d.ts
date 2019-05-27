@@ -127,6 +127,7 @@ interface ListOrdersRequest {
     _limit?: number;
     _offset?: string;
     _sort?: string;
+    _populate?: string;
     paid?: boolean;
     method?: string;
     createdBy?: string;
@@ -174,6 +175,30 @@ interface UpdateOrderResponse {
   body: Order;
 }
 
+interface GetSettingRequest {
+  user: string;
+  context?: Object;
+}
+
+interface GetSettingResponse {
+  body: Setting;
+}
+
+interface DeleteSettingRequest {
+  user: string;
+  context?: Object;
+}
+
+interface UpdateSettingRequest {
+  user: string;
+  body: Setting;
+  context?: Object;
+}
+
+interface UpdateSettingResponse {
+  body: Setting;
+}
+
 interface CreatePaymentBody {
   openid: string;
   sandbox: boolean;
@@ -194,13 +219,25 @@ interface GetSignatureResponse {
   signature: string;
   jsApiList: Array<string>;
 }
+interface Period {
+  start: string;
+  end: string;
+  trial: boolean;
+  product: string;
+  active: string;
+}
 interface Member {
   id: string;
   createdAt: string;
   updatedAt: string;
   user: string;
-  start: string;
-  end: string;
+  period: Array<{
+    start: string;
+    end: string;
+    trial: boolean;
+    product: string;
+    active: string;
+  }>;
   active: boolean;
 }
 interface Order {
@@ -228,6 +265,11 @@ interface Product {
   period: number;
   published: boolean;
   publishedAt: string;
+}
+interface Setting {
+  user: string;
+  birthday: string;
+  alarm: string;
 }
 interface Err {
   code: string;
