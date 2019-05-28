@@ -1,6 +1,6 @@
 {
   "name": "dushuli",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A service boilerplate with openapi,rest and mongodb.",
   "repository": {
     "url": "zzswang/dushuli",

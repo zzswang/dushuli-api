@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/zzswang/dushuli/compare/v0.4.1...v0.8.0) (2019-05-28)
+
+
+### Bug Fixes
+
+* update js api list ([#28](https://github.com/zzswang/dushuli/issues/28)) ([5c2d8c9](https://github.com/zzswang/dushuli/commit/5c2d8c9))
+
+
+### Features
+
+* add setting ([#21](https://github.com/zzswang/dushuli/issues/21)) ([c8245aa](https://github.com/zzswang/dushuli/commit/c8245aa))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/zzswang/dushuli/compare/v0.4.1...v0.7.0) (2019-05-27)
 
