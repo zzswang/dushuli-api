@@ -46,6 +46,8 @@ const jsApiList = [
   "addCard",
   "openCard",
   "chooseWXPay",
+  "updateAppMessageShareData",
+  "updateTimelineShareData",
 ];
 
 export class Service extends API {
