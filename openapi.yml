@@ -659,6 +659,102 @@ paths:
         "500":
           $ref: "#/components/responses/InternalError"    
     
+  /stats:
+    post:
+      summary: create or update stats
+      operationId: createStats
+      tags:
+        - stats
+      requestBody:
+        description: stats body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Stats"
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Stats"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    get:
+      summary: list stats
+      operationId: listStats
+      tags:
+        - stats
+      parameters:
+        - name: _select
+          in: query
+          description: select which fields from db
+          required: false
+          schema:
+            type: string
+        - name: _limit
+          in: query
+          description: how many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: _offset
+          in: query
+          description: How many items will be skip
+          required: false
+          schema:
+            type: string
+        - name: _sort
+          in: query
+          description: specifies which document fields to sort
+          required: false
+          schema:
+            type: string
+        - name: user
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: date_gt
+          in: query
+          required: false
+          schema: 
+            type: string
+            format: date-time
+        - name: date_lt
+          in: query
+          required: false
+          schema: 
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: a paged array of members
+          headers:
+            X-Total-Count:
+              description: total count of all members match the query
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Member"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+
 
 
 
@@ -688,6 +784,40 @@ components:
           schema:
             $ref: "#/components/schemas/Err"
   schemas:
+      
+    StatsData:
+      type: object
+      properties:
+        value:
+          type: number
+          description: 音频播放进度
+
+    Stats:
+      type: object
+      required:
+        - user
+      properties:
+        id:
+          type: string
+          description: id
+        createdAt:
+          type: string
+          format: date-time
+          description: 创建时间
+        updatedAt:
+          type: string
+          format: date-time
+          description: 更新时间
+        user:
+          type: string
+          description: 用户 id
+        date:
+          type: string
+          description: 阅读统计的日期
+        data:
+          $ref: "#/components/schemas/StatsData"
+          description: 数据对象
+
     CreatePaymentBody:
       type: object
       required:

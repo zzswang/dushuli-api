@@ -199,9 +199,52 @@ interface UpdateSettingResponse {
   body: Setting;
 }
 
+interface CreateStatsRequest {
+  body: Stats;
+  context?: Object;
+}
+
+interface CreateStatsResponse {
+  body: Stats;
+}
+
+interface ListStatsRequest {
+  query: {
+    _select?: string;
+    _limit?: number;
+    _offset?: string;
+    _sort?: string;
+    user: string;
+    date_gt?: string;
+    date_lt?: string;
+  };
+  context?: Object;
+}
+
+interface ListStatsResponse {
+  body: Array<Member>;
+  headers: {
+    xTotalCount: string;
+  };
+}
+
+interface StatsData {
+  value: number;
+}
+interface Stats {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  user: string;
+  date: string;
+  data: {
+    value: number;
+  };
+}
 interface CreatePaymentBody {
   openid: string;
-  sandbox: boolean;
+  product: string;
+  user: {};
 }
 interface CreatePaymentResponse {
   appid: string;
@@ -245,11 +288,14 @@ interface Order {
   createdAt: string;
   updatedAt: string;
   no: string;
-  paid: boolean;
   product: string;
   method: string;
   paidAt: string;
   data: {};
+  user: {};
+  status: string;
+  comment: string;
+  fee: number;
   createdBy: string;
 }
 interface Product {

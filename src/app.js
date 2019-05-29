@@ -21,6 +21,7 @@ import productService from "./services/product";
 import orderService from "./services/order";
 import memberService from "./services/member";
 import settingService from "./services/setting";
+import statsService from "./services/stats";
 
 import initProducts from "./tasks/init-products";
 import initConfig from "./tasks/init-config";
@@ -59,6 +60,7 @@ productService.bind(router);
 orderService.bind(router);
 memberService.bind(router);
 settingService.bind(router);
+statsService.bind(router);
 
 /**
  * spec openapi.yml

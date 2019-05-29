@@ -786,6 +786,10 @@
                 {
                   "key": "Content-type",
                   "value": "application/json"
+                },
+                {
+                  "key": "X-Total-Count",
+                  "value": "unset"
                 }
               ],
               "cookie": [],
@@ -796,7 +800,32 @@
                     "payment"
                   ],
                   "host": "{{host}}",
-                  "query": [],
+                  "query": [
+                    {
+                      "key": "_select",
+                      "value": ""
+                    },
+                    {
+                      "key": "_limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "_offset",
+                      "value": ""
+                    },
+                    {
+                      "key": "_sort",
+                      "value": ""
+                    },
+                    {
+                      "key": "users",
+                      "value": ""
+                    },
+                    {
+                      "key": "active",
+                      "value": ""
+                    }
+                  ],
                   "variable": []
                 },
                 "header": [
@@ -863,7 +892,32 @@
                 "payment"
               ],
               "host": "{{host}}",
-              "query": [],
+              "query": [
+                {
+                  "key": "_select",
+                  "value": ""
+                },
+                {
+                  "key": "_limit",
+                  "value": ""
+                },
+                {
+                  "key": "_offset",
+                  "value": ""
+                },
+                {
+                  "key": "_sort",
+                  "value": ""
+                },
+                {
+                  "key": "users",
+                  "value": ""
+                },
+                {
+                  "key": "active",
+                  "value": ""
+                }
+              ],
               "variable": []
             },
             "header": [
@@ -894,6 +948,618 @@
           },
           "name": "initiate a payment process",
           "description": "initiate a payment process"
+        },
+        {
+          "id": "d931f6aa-c05a-439f-b388-362be323bf8e",
+          "response": [
+            {
+              "id": "20867775-6787-48b3-abfd-97a14abeed82",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_201",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"user\": \"{{user}}\",\n  \"period\": \"{{period}}\",\n  \"active\": \"{{active}}\"\n}"
+                }
+              },
+              "code": 201,
+              "status": "the member created"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "abf01c5b-5893-4dd7-8abe-8d5bbe6ba5d1",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"required\": [",
+                  "    \"user\"",
+                  "  ],",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"id\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"创建时间\"",
+                  "    },",
+                  "    \"updatedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"更新时间\"",
+                  "    },",
+                  "    \"user\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"用户id\"",
+                  "    },",
+                  "    \"period\": {",
+                  "      \"type\": \"array\",",
+                  "      \"items\": {",
+                  "        \"type\": \"object\",",
+                  "        \"properties\": {",
+                  "          \"start\": {",
+                  "            \"type\": \"string\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"有效期起始时间\"",
+                  "          },",
+                  "          \"end\": {",
+                  "            \"type\": \"string\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"有效期结束时间\"",
+                  "          },",
+                  "          \"trial\": {",
+                  "            \"type\": \"boolean\",",
+                  "            \"description\": \"是否是试用\"",
+                  "          },",
+                  "          \"product\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"商品 id\"",
+                  "          },",
+                  "          \"active\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"是否有效\"",
+                  "          }",
+                  "        }",
+                  "      }",
+                  "    },",
+                  "    \"active\": {",
+                  "      \"type\": \"boolean\",",
+                  "      \"description\": \"是否激活\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "members"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"user\": \"{{user}}\",\n  \"period\": \"{{period}}\",\n  \"active\": \"{{active}}\"\n}"
+            }
+          },
+          "name": "create a member",
+          "description": "create a member"
+        },
+        {
+          "id": "96048229-6870-4246-ae15-c61b83ea62d2",
+          "response": [
+            {
+              "id": "39d5b244-3bba-4d48-bada-a4aca3dc8cc4",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members/:user"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "user",
+                      "type": "string",
+                      "value": "user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "d1e6fa78-a6e8-480b-94b9-c2fcbebad5f2",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"required\": [",
+                  "    \"user\"",
+                  "  ],",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"id\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"创建时间\"",
+                  "    },",
+                  "    \"updatedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"更新时间\"",
+                  "    },",
+                  "    \"user\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"用户id\"",
+                  "    },",
+                  "    \"period\": {",
+                  "      \"type\": \"array\",",
+                  "      \"items\": {",
+                  "        \"type\": \"object\",",
+                  "        \"properties\": {",
+                  "          \"start\": {",
+                  "            \"type\": \"string\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"有效期起始时间\"",
+                  "          },",
+                  "          \"end\": {",
+                  "            \"type\": \"string\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"有效期结束时间\"",
+                  "          },",
+                  "          \"trial\": {",
+                  "            \"type\": \"boolean\",",
+                  "            \"description\": \"是否是试用\"",
+                  "          },",
+                  "          \"product\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"商品 id\"",
+                  "          },",
+                  "          \"active\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"是否有效\"",
+                  "          }",
+                  "        }",
+                  "      }",
+                  "    },",
+                  "    \"active\": {",
+                  "      \"type\": \"boolean\",",
+                  "      \"description\": \"是否激活\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "members/:user"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "user",
+                  "type": "string",
+                  "value": "user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "get member by user",
+          "description": "get member by user"
+        },
+        {
+          "id": "acc7aa7a-7b4f-4fba-8995-e20b7afe47a9",
+          "response": [
+            {
+              "id": "33483a19-7a27-46d4-bceb-456ce456ec83",
+              "header": [],
+              "cookie": [],
+              "name": "Response_204",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members/:user"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "user",
+                      "type": "string",
+                      "value": "user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 204,
+              "status": "member deleted"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "bf3aedf5-6c75-4b4e-9971-722b94e7fcba",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "  pm.response.to.have.status(204);",
+                  "});",
+                  "",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "members/:user"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "user",
+                  "type": "string",
+                  "value": "user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "delete a member",
+          "description": "delete a member"
+        },
+        {
+          "id": "62d565f3-d8c2-4572-9cce-7c29010b689a",
+          "response": [
+            {
+              "id": "2ee03376-770c-45f6-bf6c-25830327ff00",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members/:user"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "user",
+                      "type": "string",
+                      "value": "user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"user\": \"{{user}}\",\n  \"period\": \"{{period}}\",\n  \"active\": \"{{active}}\"\n}"
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "42c1beff-62d4-4d1d-b777-d57f02bc4b00",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"required\": [",
+                  "    \"user\"",
+                  "  ],",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"id\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"创建时间\"",
+                  "    },",
+                  "    \"updatedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"更新时间\"",
+                  "    },",
+                  "    \"user\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"用户id\"",
+                  "    },",
+                  "    \"period\": {",
+                  "      \"type\": \"array\",",
+                  "      \"items\": {",
+                  "        \"type\": \"object\",",
+                  "        \"properties\": {",
+                  "          \"start\": {",
+                  "            \"type\": \"string\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"有效期起始时间\"",
+                  "          },",
+                  "          \"end\": {",
+                  "            \"type\": \"string\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"有效期结束时间\"",
+                  "          },",
+                  "          \"trial\": {",
+                  "            \"type\": \"boolean\",",
+                  "            \"description\": \"是否是试用\"",
+                  "          },",
+                  "          \"product\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"商品 id\"",
+                  "          },",
+                  "          \"active\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"是否有效\"",
+                  "          }",
+                  "        }",
+                  "      }",
+                  "    },",
+                  "    \"active\": {",
+                  "      \"type\": \"boolean\",",
+                  "      \"description\": \"是否激活\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "members/:user"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "user",
+                  "type": "string",
+                  "value": "user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"user\": \"{{user}}\",\n  \"period\": \"{{period}}\",\n  \"active\": \"{{active}}\"\n}"
+            }
+          },
+          "name": "update a member",
+          "description": "update a member"
         }
       ],
       "event": []
@@ -911,6 +1577,10 @@
                 {
                   "key": "Content-type",
                   "value": "application/json"
+                },
+                {
+                  "key": "X-Total-Count",
+                  "value": "unset"
                 }
               ],
               "cookie": [],
@@ -924,6 +1594,22 @@
                   "query": [
                     {
                       "key": "url",
+                      "value": ""
+                    },
+                    {
+                      "key": "_limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "_offset",
+                      "value": ""
+                    },
+                    {
+                      "key": "_sort",
+                      "value": ""
+                    },
+                    {
+                      "key": "published",
                       "value": ""
                     }
                   ],
@@ -988,6 +1674,22 @@
                 {
                   "key": "url",
                   "value": ""
+                },
+                {
+                  "key": "_limit",
+                  "value": ""
+                },
+                {
+                  "key": "_offset",
+                  "value": ""
+                },
+                {
+                  "key": "_sort",
+                  "value": ""
+                },
+                {
+                  "key": "published",
+                  "value": ""
                 }
               ],
               "variable": []
@@ -1012,6 +1714,612 @@
           },
           "name": "get wechat js sdk signature",
           "description": "get wechat js sdk signature"
+        },
+        {
+          "id": "357ca9fc-766b-4aba-8b33-02eea25df567",
+          "response": [
+            {
+              "id": "cb2e9e53-8498-4b93-901a-863d20607102",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_201",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"slug\": \"{{slug}}\",\n  \"price\": \"{{price}}\",\n  \"name\": \"{{name}}\",\n  \"description\": \"{{description}}\",\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"published\": \"{{published}}\",\n  \"publishedAt\": \"{{publishedAt}}\"\n}"
+                }
+              },
+              "code": 201,
+              "status": "the product created"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "84673a2a-8aa6-45f1-a88f-fb34ac9b6f7d",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"id\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"创建时间\"",
+                  "    },",
+                  "    \"updatedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"更新时间\"",
+                  "    },",
+                  "    \"slug\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"slug\"",
+                  "    },",
+                  "    \"price\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"价格\"",
+                  "    },",
+                  "    \"name\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"商品名称\"",
+                  "    },",
+                  "    \"description\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"商品描述\"",
+                  "    },",
+                  "    \"start\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"有效期起始时间\"",
+                  "    },",
+                  "    \"end\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"有效期结束时间\"",
+                  "    },",
+                  "    \"period\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"延长有效期（毫秒）\"",
+                  "    },",
+                  "    \"published\": {",
+                  "      \"type\": \"boolean\",",
+                  "      \"description\": \"是否发布\"",
+                  "    },",
+                  "    \"publishedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"发布时间\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "products"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"slug\": \"{{slug}}\",\n  \"price\": \"{{price}}\",\n  \"name\": \"{{name}}\",\n  \"description\": \"{{description}}\",\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"published\": \"{{published}}\",\n  \"publishedAt\": \"{{publishedAt}}\"\n}"
+            }
+          },
+          "name": "create a product",
+          "description": "create a product"
+        },
+        {
+          "id": "bf29e5bf-075d-41e1-837c-713abdaf52ce",
+          "response": [
+            {
+              "id": "f6e34598-fd96-4a69-9f29-a46c71d3acfb",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products/:productId"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "productId",
+                      "type": "string",
+                      "value": "productId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "5a05dda6-55fe-48af-886f-55c9954e1cda",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"id\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"创建时间\"",
+                  "    },",
+                  "    \"updatedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"更新时间\"",
+                  "    },",
+                  "    \"slug\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"slug\"",
+                  "    },",
+                  "    \"price\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"价格\"",
+                  "    },",
+                  "    \"name\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"商品名称\"",
+                  "    },",
+                  "    \"description\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"商品描述\"",
+                  "    },",
+                  "    \"start\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"有效期起始时间\"",
+                  "    },",
+                  "    \"end\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"有效期结束时间\"",
+                  "    },",
+                  "    \"period\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"延长有效期（毫秒）\"",
+                  "    },",
+                  "    \"published\": {",
+                  "      \"type\": \"boolean\",",
+                  "      \"description\": \"是否发布\"",
+                  "    },",
+                  "    \"publishedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"发布时间\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "products/:productId"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "productId",
+                  "type": "string",
+                  "value": "productId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "get product by productId",
+          "description": "get product by productId"
+        },
+        {
+          "id": "b6279872-bba5-4502-8edc-036c393c1a77",
+          "response": [
+            {
+              "id": "f53be0ac-d363-4dff-a62c-d64a121d83bc",
+              "header": [],
+              "cookie": [],
+              "name": "Response_204",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products/:productId"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "productId",
+                      "type": "string",
+                      "value": "productId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 204,
+              "status": "product deleted"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "0914871e-bd23-4bd0-8576-a289742e17fd",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "  pm.response.to.have.status(204);",
+                  "});",
+                  "",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "products/:productId"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "productId",
+                  "type": "string",
+                  "value": "productId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "delete a product",
+          "description": "delete a product"
+        },
+        {
+          "id": "f3773add-78e2-4b60-8270-3d00d0b82666",
+          "response": [
+            {
+              "id": "211292c2-e12d-4c09-86dc-52dca43e49df",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products/:productId"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "productId",
+                      "type": "string",
+                      "value": "productId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"slug\": \"{{slug}}\",\n  \"price\": \"{{price}}\",\n  \"name\": \"{{name}}\",\n  \"description\": \"{{description}}\",\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"published\": \"{{published}}\",\n  \"publishedAt\": \"{{publishedAt}}\"\n}"
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "59a80460-5628-4508-aa07-ea2a0c0b2174",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"id\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"创建时间\"",
+                  "    },",
+                  "    \"updatedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"更新时间\"",
+                  "    },",
+                  "    \"slug\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"slug\"",
+                  "    },",
+                  "    \"price\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"价格\"",
+                  "    },",
+                  "    \"name\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"商品名称\"",
+                  "    },",
+                  "    \"description\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"商品描述\"",
+                  "    },",
+                  "    \"start\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"有效期起始时间\"",
+                  "    },",
+                  "    \"end\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"有效期结束时间\"",
+                  "    },",
+                  "    \"period\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"延长有效期（毫秒）\"",
+                  "    },",
+                  "    \"published\": {",
+                  "      \"type\": \"boolean\",",
+                  "      \"description\": \"是否发布\"",
+                  "    },",
+                  "    \"publishedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"发布时间\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "products/:productId"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "productId",
+                  "type": "string",
+                  "value": "productId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"slug\": \"{{slug}}\",\n  \"price\": \"{{price}}\",\n  \"name\": \"{{name}}\",\n  \"description\": \"{{description}}\",\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"published\": \"{{published}}\",\n  \"publishedAt\": \"{{publishedAt}}\"\n}"
+            }
+          },
+          "name": "update product",
+          "description": "update product"
         }
       ],
       "event": []
@@ -1029,6 +2337,10 @@
                 {
                   "key": "Content-type",
                   "value": "application/json"
+                },
+                {
+                  "key": "X-Total-Count",
+                  "value": "unset"
                 }
               ],
               "cookie": [],
@@ -1039,7 +2351,40 @@
                     "wechat-pay-notifynotify"
                   ],
                   "host": "{{host}}",
-                  "query": [],
+                  "query": [
+                    {
+                      "key": "_select",
+                      "value": ""
+                    },
+                    {
+                      "key": "_limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "_offset",
+                      "value": ""
+                    },
+                    {
+                      "key": "_sort",
+                      "value": ""
+                    },
+                    {
+                      "key": "_populate",
+                      "value": ""
+                    },
+                    {
+                      "key": "paid",
+                      "value": ""
+                    },
+                    {
+                      "key": "method",
+                      "value": ""
+                    },
+                    {
+                      "key": "createdBy",
+                      "value": ""
+                    }
+                  ],
                   "variable": []
                 },
                 "header": [
@@ -1100,7 +2445,40 @@
                 "wechat-pay-notifynotify"
               ],
               "host": "{{host}}",
-              "query": [],
+              "query": [
+                {
+                  "key": "_select",
+                  "value": ""
+                },
+                {
+                  "key": "_limit",
+                  "value": ""
+                },
+                {
+                  "key": "_offset",
+                  "value": ""
+                },
+                {
+                  "key": "_sort",
+                  "value": ""
+                },
+                {
+                  "key": "_populate",
+                  "value": ""
+                },
+                {
+                  "key": "paid",
+                  "value": ""
+                },
+                {
+                  "key": "method",
+                  "value": ""
+                },
+                {
+                  "key": "createdBy",
+                  "value": ""
+                }
+              ],
               "variable": []
             },
             "header": [
@@ -1131,6 +2509,1344 @@
           },
           "name": "wechat pay callback",
           "description": "wechat pay callback"
+        },
+        {
+          "id": "0b89ca90-1224-413d-bfa2-1e808bbfafd5",
+          "response": [
+            {
+              "id": "2fc49c83-4551-4528-8d0d-e5be3366be9e",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_201",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"no\": \"{{no}}\",\n  \"product\": \"{{product}}\",\n  \"method\": \"{{method}}\",\n  \"paidAt\": \"{{paidAt}}\",\n  \"data\": \"{{data}}\",\n  \"user\": \"{{user}}\",\n  \"status\": \"{{status}}\",\n  \"comment\": \"{{comment}}\",\n  \"fee\": \"{{fee}}\",\n  \"createdBy\": \"{{createdBy}}\"\n}"
+                }
+              },
+              "code": 201,
+              "status": "the order created"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "f7bccc71-d285-44fb-a317-be4f2b133688",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"id\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"创建时间\"",
+                  "    },",
+                  "    \"updatedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"更新时间\"",
+                  "    },",
+                  "    \"no\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"订单号\"",
+                  "    },",
+                  "    \"product\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"商品 id\"",
+                  "    },",
+                  "    \"method\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"支付方式\"",
+                  "    },",
+                  "    \"paidAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"付款时间\"",
+                  "    },",
+                  "    \"data\": {",
+                  "      \"type\": \"object\",",
+                  "      \"description\": \"支付回调数据\"",
+                  "    },",
+                  "    \"user\": {",
+                  "      \"type\": \"object\",",
+                  "      \"description\": \"用户\"",
+                  "    },",
+                  "    \"status\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"订单状态\"",
+                  "    },",
+                  "    \"comment\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"备注\"",
+                  "    },",
+                  "    \"fee\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"支付金额\"",
+                  "    },",
+                  "    \"createdBy\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"购买的用户 id\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"no\": \"{{no}}\",\n  \"product\": \"{{product}}\",\n  \"method\": \"{{method}}\",\n  \"paidAt\": \"{{paidAt}}\",\n  \"data\": \"{{data}}\",\n  \"user\": \"{{user}}\",\n  \"status\": \"{{status}}\",\n  \"comment\": \"{{comment}}\",\n  \"fee\": \"{{fee}}\",\n  \"createdBy\": \"{{createdBy}}\"\n}"
+            }
+          },
+          "name": "create a order",
+          "description": "create a order"
+        },
+        {
+          "id": "5858becf-b738-4c93-a687-336408f4294b",
+          "response": [
+            {
+              "id": "2f42e415-a268-49f3-93a7-22f8f2957f33",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders/:orderId"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "orderId",
+                      "type": "string",
+                      "value": "orderId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "b2c5c865-ecdc-4e6d-b790-7e064cbf7b1d",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"id\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"创建时间\"",
+                  "    },",
+                  "    \"updatedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"更新时间\"",
+                  "    },",
+                  "    \"no\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"订单号\"",
+                  "    },",
+                  "    \"product\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"商品 id\"",
+                  "    },",
+                  "    \"method\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"支付方式\"",
+                  "    },",
+                  "    \"paidAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"付款时间\"",
+                  "    },",
+                  "    \"data\": {",
+                  "      \"type\": \"object\",",
+                  "      \"description\": \"支付回调数据\"",
+                  "    },",
+                  "    \"user\": {",
+                  "      \"type\": \"object\",",
+                  "      \"description\": \"用户\"",
+                  "    },",
+                  "    \"status\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"订单状态\"",
+                  "    },",
+                  "    \"comment\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"备注\"",
+                  "    },",
+                  "    \"fee\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"支付金额\"",
+                  "    },",
+                  "    \"createdBy\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"购买的用户 id\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "orders/:orderId"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "orderId",
+                  "type": "string",
+                  "value": "orderId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "get order by orderId",
+          "description": "get order by orderId"
+        },
+        {
+          "id": "f09df89a-d246-4c34-a62b-5d89fe6b73a1",
+          "response": [
+            {
+              "id": "9296613f-c2a7-4079-a84e-eae1a21a3de3",
+              "header": [],
+              "cookie": [],
+              "name": "Response_204",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders/:orderId"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "orderId",
+                      "type": "string",
+                      "value": "orderId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 204,
+              "status": "order deleted"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "b8fd4335-70c3-45b5-80cf-6c2e65ee98dd",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "  pm.response.to.have.status(204);",
+                  "});",
+                  "",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "orders/:orderId"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "orderId",
+                  "type": "string",
+                  "value": "orderId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "delete a order",
+          "description": "delete a order"
+        },
+        {
+          "id": "8dcce713-192a-49ac-97a0-ffd0f17118cd",
+          "response": [
+            {
+              "id": "558662b1-c508-463c-bf95-8012278667b1",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders/:orderId"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "orderId",
+                      "type": "string",
+                      "value": "orderId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"no\": \"{{no}}\",\n  \"product\": \"{{product}}\",\n  \"method\": \"{{method}}\",\n  \"paidAt\": \"{{paidAt}}\",\n  \"data\": \"{{data}}\",\n  \"user\": \"{{user}}\",\n  \"status\": \"{{status}}\",\n  \"comment\": \"{{comment}}\",\n  \"fee\": \"{{fee}}\",\n  \"createdBy\": \"{{createdBy}}\"\n}"
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "fe446791-d99b-4771-933c-a9a4729c1c20",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"id\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"创建时间\"",
+                  "    },",
+                  "    \"updatedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"更新时间\"",
+                  "    },",
+                  "    \"no\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"订单号\"",
+                  "    },",
+                  "    \"product\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"商品 id\"",
+                  "    },",
+                  "    \"method\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"支付方式\"",
+                  "    },",
+                  "    \"paidAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"付款时间\"",
+                  "    },",
+                  "    \"data\": {",
+                  "      \"type\": \"object\",",
+                  "      \"description\": \"支付回调数据\"",
+                  "    },",
+                  "    \"user\": {",
+                  "      \"type\": \"object\",",
+                  "      \"description\": \"用户\"",
+                  "    },",
+                  "    \"status\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"订单状态\"",
+                  "    },",
+                  "    \"comment\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"备注\"",
+                  "    },",
+                  "    \"fee\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"支付金额\"",
+                  "    },",
+                  "    \"createdBy\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"购买的用户 id\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "orders/:orderId"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "orderId",
+                  "type": "string",
+                  "value": "orderId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"no\": \"{{no}}\",\n  \"product\": \"{{product}}\",\n  \"method\": \"{{method}}\",\n  \"paidAt\": \"{{paidAt}}\",\n  \"data\": \"{{data}}\",\n  \"user\": \"{{user}}\",\n  \"status\": \"{{status}}\",\n  \"comment\": \"{{comment}}\",\n  \"fee\": \"{{fee}}\",\n  \"createdBy\": \"{{createdBy}}\"\n}"
+            }
+          },
+          "name": "update order",
+          "description": "update order"
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "2d55008c-f6c3-4537-a51b-177c357e3ebb",
+      "name": "setting",
+      "item": [
+        {
+          "id": "a393ae8e-19c1-4ae8-9ab5-f1b470a1dd19",
+          "response": [
+            {
+              "id": "bd18276d-78d2-4209-b8f4-1b8d56495b7d",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settings/:user"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "user",
+                      "type": "string",
+                      "value": "user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "eb10c202-2d83-4394-a092-38b80b486fc9",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"user\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"birthday\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"alarm\": {",
+                  "      \"type\": \"string\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "settings/:user"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "user",
+                  "type": "string",
+                  "value": "user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "get setting by user",
+          "description": "get setting by user"
+        },
+        {
+          "id": "3b7f6262-b0b7-419e-898b-c8d964f2992f",
+          "response": [
+            {
+              "id": "460402cf-498e-4d83-bfcb-5b2971d04878",
+              "header": [],
+              "cookie": [],
+              "name": "Response_204",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settings/:user"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "user",
+                      "type": "string",
+                      "value": "user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 204,
+              "status": "setting deleted"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "05ab565b-0663-462c-9e3f-7ce119dfb9c7",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "  pm.response.to.have.status(204);",
+                  "});",
+                  "",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "settings/:user"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "user",
+                  "type": "string",
+                  "value": "user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "delete a setting",
+          "description": "delete a setting"
+        },
+        {
+          "id": "442bf26a-6c97-4d94-b79d-87f709a0894d",
+          "response": [
+            {
+              "id": "1c780eba-2a40-4245-a8e9-a962ad132e90",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "settings/:user"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "user",
+                      "type": "string",
+                      "value": "user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": \"{{user}}\",\n  \"birthday\": \"{{birthday}}\",\n  \"alarm\": \"{{alarm}}\"\n}"
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "41cd7828-3456-42dc-93e0-4677cb1865ca",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"user\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"birthday\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"alarm\": {",
+                  "      \"type\": \"string\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "settings/:user"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "user",
+                  "type": "string",
+                  "value": "user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": \"{{user}}\",\n  \"birthday\": \"{{birthday}}\",\n  \"alarm\": \"{{alarm}}\"\n}"
+            }
+          },
+          "name": "update a setting",
+          "description": "update a setting"
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1545b8cb-32be-4891-8c74-3acc31a0b465",
+      "name": "stats",
+      "item": [
+        {
+          "id": "ec0f5d19-ef33-4975-808f-bf9480a41a21",
+          "response": [
+            {
+              "id": "d88d2c90-be19-4b9d-82d3-6c9ea968954d",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"user\": \"{{user}}\",\n  \"date\": \"{{date}}\",\n  \"data\": \"{{data}}\"\n}"
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "57ccb535-1ca8-47a1-b9b5-8a1aca6cd49d",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"required\": [",
+                  "    \"user\"",
+                  "  ],",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"id\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"创建时间\"",
+                  "    },",
+                  "    \"updatedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"更新时间\"",
+                  "    },",
+                  "    \"user\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"用户 id\"",
+                  "    },",
+                  "    \"date\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"阅读统计的日期\"",
+                  "    },",
+                  "    \"data\": {",
+                  "      \"type\": \"object\",",
+                  "      \"description\": \"数据对象\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "stats"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"user\": \"{{user}}\",\n  \"date\": \"{{date}}\",\n  \"data\": \"{{data}}\"\n}"
+            }
+          },
+          "name": "create or update stats",
+          "description": "create or update stats"
+        },
+        {
+          "id": "08c367a9-5880-4c8f-b4f7-d41a44e32251",
+          "response": [
+            {
+              "id": "d9d4d10a-27bd-41a9-9ff6-bbfcd64a55fb",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-Total-Count",
+                  "value": "unset"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats"
+                  ],
+                  "host": "{{host}}",
+                  "query": [
+                    {
+                      "key": "_select",
+                      "value": ""
+                    },
+                    {
+                      "key": "_limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "_offset",
+                      "value": ""
+                    },
+                    {
+                      "key": "_sort",
+                      "value": ""
+                    },
+                    {
+                      "key": "user",
+                      "value": ""
+                    },
+                    {
+                      "key": "date_gt",
+                      "value": ""
+                    },
+                    {
+                      "key": "date_lt",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "a paged array of members"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a952b150-c47f-4ed9-8b1c-a6efd0eead1a",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"array\",",
+                  "  \"items\": {",
+                  "    \"type\": \"object\",",
+                  "    \"required\": [",
+                  "      \"user\"",
+                  "    ],",
+                  "    \"properties\": {",
+                  "      \"id\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"id\"",
+                  "      },",
+                  "      \"createdAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"创建时间\"",
+                  "      },",
+                  "      \"updatedAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"更新时间\"",
+                  "      },",
+                  "      \"user\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"用户id\"",
+                  "      },",
+                  "      \"period\": {",
+                  "        \"type\": \"array\",",
+                  "        \"items\": {",
+                  "          \"type\": \"object\",",
+                  "          \"properties\": {",
+                  "            \"start\": {",
+                  "              \"type\": \"string\",",
+                  "              \"format\": \"date-time\",",
+                  "              \"description\": \"有效期起始时间\"",
+                  "            },",
+                  "            \"end\": {",
+                  "              \"type\": \"string\",",
+                  "              \"format\": \"date-time\",",
+                  "              \"description\": \"有效期结束时间\"",
+                  "            },",
+                  "            \"trial\": {",
+                  "              \"type\": \"boolean\",",
+                  "              \"description\": \"是否是试用\"",
+                  "            },",
+                  "            \"product\": {",
+                  "              \"type\": \"string\",",
+                  "              \"description\": \"商品 id\"",
+                  "            },",
+                  "            \"active\": {",
+                  "              \"type\": \"string\",",
+                  "              \"description\": \"是否有效\"",
+                  "            }",
+                  "          }",
+                  "        }",
+                  "      },",
+                  "      \"active\": {",
+                  "        \"type\": \"boolean\",",
+                  "        \"description\": \"是否激活\"",
+                  "      }",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "stats"
+              ],
+              "host": "{{host}}",
+              "query": [
+                {
+                  "key": "_select",
+                  "value": ""
+                },
+                {
+                  "key": "_limit",
+                  "value": ""
+                },
+                {
+                  "key": "_offset",
+                  "value": ""
+                },
+                {
+                  "key": "_sort",
+                  "value": ""
+                },
+                {
+                  "key": "user",
+                  "value": ""
+                },
+                {
+                  "key": "date_gt",
+                  "value": ""
+                },
+                {
+                  "key": "date_lt",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "list stats",
+          "description": "list stats"
         }
       ],
       "event": []
