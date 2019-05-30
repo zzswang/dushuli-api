@@ -151,7 +151,8 @@ export class Service extends API {
           start: product.start,
           end: product.end,
           trial: false,
-          product: product.id,
+          product,
+          order: order.no,
           active: true,
         });
 
@@ -165,7 +166,8 @@ export class Service extends API {
             start: product.start,
             end: product.end,
             trial: false,
-            product: product.id,
+            product,
+            order: order.no,
             active: true,
           },
         ],

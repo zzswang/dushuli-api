@@ -6,11 +6,12 @@ const periodSchema = new mongoose.Schema(
     start: Date,
     end: Date,
     trial: Boolean,
-    product: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "product",
+    product: Object,
+    order: String,
+    active: {
+      type: Boolean,
+      default: true,
     },
-    active: Boolean,
   },
   {
     timestamps: true,

@@ -25,12 +25,25 @@ class Service extends API {
     const { normalizedQuery } = req.context;
 
     // filter by users
-    if (normalizedQuery.filter && normalizedQuery.filter["users[]"]) {
+    if (
+      normalizedQuery &&
+      normalizedQuery.filter &&
+      normalizedQuery.filter["users[]"]
+    ) {
       normalizedQuery.filter.user = {
         $in: normalizedQuery.filter["users[]"],
       };
 
       delete normalizedQuery.filter["users[]"];
+    }
+
+    if (
+      normalizedQuery &&
+      normalizedQuery.filter &&
+      normalizedQuery.filter["users"]
+    ) {
+      normalizedQuery.filter.user = normalizedQuery.filter["users"];
+      delete normalizedQuery.filter["users"];
     }
 
     const ret = await Member.list(normalizedQuery);
