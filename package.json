@@ -71,9 +71,8 @@
     "standard-version": "^4.4.0"
   },
   "dependencies": {
-    "@36node/fetch": "^0.4.6",
-    "@36node/mongoose-helper": "^0.1.8",
-    "@36node/query-normalizr": "^0.2.3",
+    "@36node/mongoose-helper": "^0.2.2",
+    "@36node/query-normalizr": "^0.4.2",
     "@koa/cors": "^2.2.2",
     "@types/koa": "^2.0.46",
     "@types/mongoose": "^5.2.19",
@@ -86,7 +85,6 @@
     "fs-extra": "^7.0.1",
     "jsonwebtoken": "^8.4.0",
     "koa": "^2.5.2",
-    "koa-body": "^4.0.4",
     "koa-bodyparser": "^4.2.1",
     "koa-compress": "^3.0.0",
     "koa-helmet": "^4.0.0",
@@ -98,7 +96,6 @@
     "moment": "^2.24.0",
     "mongoose": "^5.2.14",
     "nanoid": "^2.0.0",
-    "pino": "^5.8.1",
     "tenpay": "^2.1.16"
   },
   "gitHead": "af636b904ca407d38325bb573d26d8213fd2db58"
