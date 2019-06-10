@@ -36,10 +36,7 @@ const publicKey = fs.readFileSync(path.join(__dirname, "../ssl/rsa_jwt.pub"));
 
 mongoose.Promise = Promise;
 mongoose
-  .connect(
-    MONGODB_CONNECTION,
-    { useNewUrlParser: true }
-  )
+  .connect(MONGODB_CONNECTION, { useNewUrlParser: true })
   .then(async () => {
     await Promise.all([initProducts(), initConfig()]);
   });
