@@ -1,4 +1,5 @@
 import createError from "http-errors";
+import { postJSON } from "co-wechat-api/lib/util";
 
 import API from "../api/wechat";
 import { wechatApi, wechatPayApi, wechat, wechatAppApi } from "../wechat";
@@ -7,7 +8,8 @@ import { PAYMENT_METHOD, ORDER_STATUS } from "../constants";
 import Product from "../models/product";
 import Order from "../models/order";
 import Member from "../models/member";
-import Config from "../models/config";
+import Reply from "../models/reply";
+import { REPLY_TYPE, MSG_TYPE } from "../constants";
 
 const jsApiList = [
   "checkJsApi",
@@ -180,15 +182,72 @@ export class Service extends API {
 
   message() {
     return wechat.middleware(async (message, ctx) => {
+      let reply;
       if (
         message.MsgType === "event" &&
         message.Event === "user_enter_tempsession"
       ) {
-        const config = await Config.findOne({ active: true });
-        wechatAppApi.sendText(message.FromUserName, config.autoReply);
+        reply = await Reply.findOne({
+          active: true,
+          type: REPLY_TYPE.AUTO,
+        });
       }
+
+      if ((message.MsgType = "text")) {
+        reply = await Reply.findOne({
+          active: true,
+          type: REPLY_TYPE.KEYWORD,
+          keyword: message.content,
+        });
+      }
+
+      if (reply) {
+        const touser = message.FromUserName;
+        switch (reply.msgtype) {
+          case MSG_TYPE.TEXT:
+            this.sendText(touser, reply.content);
+            break;
+          case MSG_TYPE.IMAGE:
+            this.sendImage(touser, reply.image);
+            break;
+          case MSG_TYPE.LINK:
+            this.sendLink(touser, reply.link);
+            break;
+          case MSG_TYPE.MINI_PROGRAM_PAGE:
+            this.sendMiniprogrampage(touser, reply.minirogrampage);
+            break;
+          default:
+            this.sendText(touser, reply.content);
+            break;
+        }
+      }
+
       return "success";
     });
+  }
+
+  async sendText(touser, content) {
+    return wechatAppApi.sendText(touser, content);
+  }
+
+  sendImage(touser, image) {
+    return wechatAppApi.sendImage(touser, image.media_id);
+  }
+
+  async sendLink(touser, link) {
+    const { accessToken } = await wechatAppApi.ensureAccessToken();
+    const prefix = "https://api.weixin.qq.com/cgi-bin/";
+    var url = prefix + "message/custom/send?access_token=" + accessToken;
+    var data = {
+      touser,
+      msgtype: "link",
+      link,
+    };
+    return wechatAppApi.request(url, postJSON(data));
+  }
+
+  sendMiniprogrampage(touser, minirogrampage) {
+    return wechatAppApi.sendMiniProgram(touser, minirogrampage);
   }
 }
 

@@ -8,3 +8,15 @@ export const ORDER_STATUS = {
   PAID: "paid",
   REFUND: "refund",
 };
+
+export const REPLY_TYPE = {
+  AUTO: "auto",
+  KEYWORD: "keyword",
+};
+
+export const MSG_TYPE = {
+  TEXT: "text",
+  IMAGE: "image",
+  LINK: "link",
+  MINI_PROGRAM_PAGE: "miniprogrampage",
+};
