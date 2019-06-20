@@ -1,5 +1,8 @@
 import createError from "http-errors";
 import { postJSON } from "co-wechat-api/lib/util";
+import path from "path";
+import fs from "fs";
+import download from "download-file";
 
 import API from "../api/wechat";
 import { wechatApi, wechatPayApi, wechat, wechatAppApi } from "../wechat";
@@ -180,6 +183,44 @@ export class Service extends API {
     ctx.reply();
   }
 
+  download(url, options) {
+    return new Promise((resolve, reject) =>
+      download(url, options, e => {
+        if (e) {
+          reject(e);
+        }
+        resolve();
+      })
+    );
+  }
+
+  async checkImageMedia(image) {
+    let error = null;
+    if (image.media_id) {
+      try {
+        await wechatAppApi.getMedia(image.media_id); // 检查图片是否过期
+      } catch (e) {
+        error = e;
+      }
+    }
+
+    if (!image.media_id || error) {
+      const filepath = path.join(__dirname, `../../images/${image.filename}`);
+      if (!fs.existsSync(filepath)) {
+        // 如果图片文件不存在则从url下载
+        const options = {
+          directory: path.join(__dirname, "../../images/"),
+          filename: image.filename,
+        };
+        await this.download(image.url, options);
+      }
+      // 重新上传图片
+      let res = await wechatAppApi.uploadImageMedia(filepath);
+      res = JSON.parse(res.toString());
+      return res.media_id;
+    }
+  }
+
   message() {
     return wechat.middleware(async (message, ctx) => {
       let reply;
@@ -208,6 +249,8 @@ export class Service extends API {
             this.sendText(touser, reply.content);
             break;
           case MSG_TYPE.IMAGE:
+            reply.image.media_id = this.checkImageMedia(reply.image);
+            reply = await reply.save();
             this.sendImage(touser, reply.image);
             break;
           case MSG_TYPE.LINK:

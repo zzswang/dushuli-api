@@ -6,6 +6,8 @@ import { REPLY_TYPE, MSG_TYPE } from "../constants";
 
 const imageSchema = new mongoose.Schema({
   media_id: String,
+  url: String,
+  filename: String,
 });
 
 const linkSchema = new mongoose.Schema({

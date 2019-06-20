@@ -59,5 +59,3 @@ tmp
 .try*
 .playground
 package-lock.json
-bin/upload.js
-bin/vip.png
