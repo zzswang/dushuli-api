@@ -249,7 +249,7 @@ export class Service extends API {
             this.sendText(touser, reply.content);
             break;
           case MSG_TYPE.IMAGE:
-            reply.image.media_id = this.checkImageMedia(reply.image);
+            reply.image.media_id = await this.checkImageMedia(reply.image);
             reply = await reply.save();
             this.sendImage(touser, reply.image);
             break;
