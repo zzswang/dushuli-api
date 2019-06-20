@@ -1020,6 +1020,32 @@ components:
           type: string
           description: 购买的用户 id
 
+    PriceItem:
+      type: object
+      properties:
+        purchaseStart:
+          type: string
+          format: date-time
+          description: 购买时间段的起始时间
+        purchaseEnd:
+          type: string
+          format: date-time
+          description: 购买时间段的结束时间
+        period: 
+          type: number
+          description: 延长有效期（毫秒）
+        start: 
+          type: date
+          format: date-time
+          description: 有效期的起始时间
+        end:
+          type: date
+          format: date-time
+          description: 有效期的结素时间
+        price: 
+          type: number
+          description: 价格
+
     Product:
       type: object
       properties:
@@ -1039,7 +1065,15 @@ components:
           description: slug
         price:
           type: number
-          description: 价格
+          description: 当前时间的现价
+        priceItems:
+          type: array
+          items:
+            $ref: "#/components/schemas/PriceItem"
+          description: 价格行项目
+        originalPrice:
+          type: number
+          description: 原价
         name:
           type: string
           description: 商品名称
@@ -1049,14 +1083,14 @@ components:
         start:
           type: string
           format: date-time
-          description: 有效期起始时间
+          description: 当前时间的有效期起始时间
         end:
           type: string
           format: date-time
-          description: 有效期结束时间
+          description: 当前时间的有效期结束时间
         period:
           type: number
-          description: 延长有效期（毫秒）
+          description: 当前时间的延长有效期（毫秒）
         published:
           type: boolean
           description: 是否发布

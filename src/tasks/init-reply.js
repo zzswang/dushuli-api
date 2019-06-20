@@ -7,7 +7,8 @@ export default async function initProducts() {
     {
       msgtype: MSG_TYPE.IMAGE,
       image: {
-        media_id: "poar0UCzzVO_nQPypRlSSKbpqJfQqDjt0m7q9MYMHrFsGBKA",
+        media_id:
+          "FGR28jXC9bf5g4n-poar0UCzzVO_nQPypRlSSKbpqJfQqDjt0m7q9MYMHrFsGBKA",
       },
       active: true,
       deleted: false,
@@ -42,24 +43,6 @@ export default async function initProducts() {
     {
       msgtype: MSG_TYPE.TEXT,
       content: "hello-world",
-      active: true,
-      deleted: false,
-    },
-    {
-      new: true,
-      upsert: true,
-    }
-  );
-
-  await Reply.findOneAndUpdate(
-    { active: true, type: REPLY_TYPE.KEYWORD, keyword: "test-miniprogrampage" },
-    {
-      msgtype: MSG_TYPE.MINI_PROGRAM_PAGE,
-      miniprogrampage: {
-        title: "测试小程序",
-        pagepath: "pages/index/main",
-        thumb_media_id: "poar0UCzzVO_nQPypRlSSKbpqJfQqDjt0m7q9MYMHrFsGBKA",
-      },
       active: true,
       deleted: false,
     },

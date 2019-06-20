@@ -18,5 +18,4 @@ export const MSG_TYPE = {
   TEXT: "text",
   IMAGE: "image",
   LINK: "link",
-  MINI_PROGRAM_PAGE: "miniprogrampage",
 };

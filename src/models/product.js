@@ -1,18 +1,28 @@
 import mongoose from "mongoose";
 import helper from "@36node/mongoose-helper";
 
+const priceItemSchema = new mongoose.Schema({
+  purchaseStart: Date,
+  purchaseEnd: Date,
+  period: Number,
+  start: Date,
+  end: Date,
+  price: Number,
+});
+
 const productSchema = new mongoose.Schema(
   {
     slug: {
       type: String,
       unique: true,
     },
-    price: Number,
+    priceItems: {
+      type: [priceItemSchema],
+      default: [],
+    },
     name: String,
     description: String,
-    start: Date,
-    end: Date,
-    period: Number,
+    originalPrice: Number,
     published: Boolean,
     publishedAt: Date,
   },
@@ -34,12 +44,10 @@ class Product {
   deleted;
   deletedAt;
   slug;
-  price;
+  priceItems;
+  originalPrice;
   name;
   description;
-  start;
-  end;
-  period;
   published;
   publishedAt;
 
@@ -51,6 +59,34 @@ class Product {
       product = await this.findOne({ slug: productId });
     }
     return product;
+  }
+
+  get price() {
+    const item = this.priceItems.find(
+      item => item.purchaseStart <= Date.now() && item.purchaseEnd >= Date.now()
+    );
+    return item ? item.price : 0;
+  }
+
+  get period() {
+    const item = this.priceItems.find(
+      item => item.purchaseStart <= Date.now() && item.purchaseEnd >= Date.now()
+    );
+    return item ? item.period : 0;
+  }
+
+  get start() {
+    const item = this.priceItems.find(
+      item => item.purchaseStart <= Date.now() && item.purchaseEnd >= Date.now()
+    );
+    return item ? item.start : null;
+  }
+
+  get end() {
+    const item = this.priceItems.find(
+      item => item.purchaseStart <= Date.now() && item.purchaseEnd >= Date.now()
+    );
+    return item ? item.start : null;
   }
 }
 

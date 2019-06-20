@@ -23,7 +23,6 @@ import memberService from "./services/member";
 import settingService from "./services/setting";
 import statsService from "./services/stats";
 
-import initProducts from "./tasks/init-products";
 import initReply from "./tasks/init-reply";
 
 const app = new Koa2();
@@ -38,7 +37,7 @@ mongoose.Promise = Promise;
 mongoose
   .connect(MONGODB_CONNECTION, { useNewUrlParser: true })
   .then(async () => {
-    await Promise.all([initProducts(), initReply()]);
+    await Promise.all([initReply()]);
   });
 mongoose.connection.on("error", console.error.bind(console, "数据库连接错误"));
 

@@ -298,12 +298,29 @@ interface Order {
   fee: number;
   createdBy: string;
 }
+interface PriceItem {
+  purchaseStart: string;
+  purchaseEnd: string;
+  period: number;
+  start: date;
+  end: date;
+  price: number;
+}
 interface Product {
   id: string;
   createdAt: string;
   updatedAt: string;
   slug: string;
   price: number;
+  priceItems: Array<{
+    purchaseStart: string;
+    purchaseEnd: string;
+    period: number;
+    start: date;
+    end: date;
+    price: number;
+  }>;
+  originalPrice: number;
   name: string;
   description: string;
   start: string;

@@ -197,7 +197,7 @@ export class Service extends API {
         reply = await Reply.findOne({
           active: true,
           type: REPLY_TYPE.KEYWORD,
-          keyword: message.content,
+          keyword: message.Content,
         });
       }
 
@@ -212,9 +212,6 @@ export class Service extends API {
             break;
           case MSG_TYPE.LINK:
             this.sendLink(touser, reply.link);
-            break;
-          case MSG_TYPE.MINI_PROGRAM_PAGE:
-            this.sendMiniprogrampage(touser, reply.minirogrampage);
             break;
           default:
             this.sendText(touser, reply.content);

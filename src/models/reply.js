@@ -15,12 +15,6 @@ const linkSchema = new mongoose.Schema({
   thumb_url: String,
 });
 
-const miniprogrampageSchema = new mongoose.Schema({
-  title: String,
-  pagepath: String,
-  thumb_media_id: String,
-});
-
 const replySchema = new mongoose.Schema(
   {
     type: {
@@ -39,8 +33,6 @@ const replySchema = new mongoose.Schema(
     content: String,
     image: imageSchema,
     link: linkSchema,
-    miniprogrampage: miniprogrampageSchema,
-
     active: Boolean,
   },
   {
