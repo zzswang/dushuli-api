@@ -86,7 +86,7 @@ class Product {
     const item = this.priceItems.find(
       item => item.purchaseStart <= Date.now() && item.purchaseEnd >= Date.now()
     );
-    return item ? item.start : null;
+    return item ? item.end : null;
   }
 }
 
