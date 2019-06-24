@@ -36,6 +36,7 @@ const replySchema = new mongoose.Schema(
     image: imageSchema,
     link: linkSchema,
     active: Boolean,
+    index: Number,
   },
   {
     timestamps: true,
@@ -55,7 +56,12 @@ class Reply {
   deleted;
   deletedAt;
 
-  autoReply;
+  type;
+  keyword;
+  msgtype;
+  content;
+  image;
+  link;
   active;
 }
 

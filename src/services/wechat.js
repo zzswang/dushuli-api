@@ -223,42 +223,58 @@ export class Service extends API {
 
   message() {
     return wechat.middleware(async (message, ctx) => {
-      let reply;
+      let replies;
       if (
         message.MsgType === "event" &&
         message.Event === "user_enter_tempsession"
       ) {
-        reply = await Reply.findOne({
-          active: true,
-          type: REPLY_TYPE.AUTO,
-        });
+        replies = await Reply.find(
+          {
+            active: true,
+            type: REPLY_TYPE.AUTO,
+          },
+          {
+            sort: {
+              index: 1,
+            },
+          }
+        );
       }
 
       if ((message.MsgType = "text")) {
-        reply = await Reply.findOne({
-          active: true,
-          type: REPLY_TYPE.KEYWORD,
-          keyword: message.Content,
-        });
+        replies = await Reply.find(
+          {
+            active: true,
+            type: REPLY_TYPE.KEYWORD,
+            keyword: message.Content,
+          },
+          {
+            sort: {
+              index: 1,
+            },
+          }
+        );
       }
 
-      if (reply) {
-        const touser = message.FromUserName;
-        switch (reply.msgtype) {
-          case MSG_TYPE.TEXT:
-            this.sendText(touser, reply.content);
-            break;
-          case MSG_TYPE.IMAGE:
-            reply.image.media_id = await this.checkImageMedia(reply.image);
-            reply = await reply.save();
-            this.sendImage(touser, reply.image);
-            break;
-          case MSG_TYPE.LINK:
-            this.sendLink(touser, reply.link);
-            break;
-          default:
-            this.sendText(touser, reply.content);
-            break;
+      if (replies) {
+        for (let reply of replies) {
+          const touser = message.FromUserName;
+          switch (reply.msgtype) {
+            case MSG_TYPE.TEXT:
+              await this.sendText(touser, reply.content);
+              break;
+            case MSG_TYPE.IMAGE:
+              reply.image.media_id = await this.checkImageMedia(reply.image);
+              reply = await reply.save();
+              await this.sendImage(touser, reply.image);
+              break;
+            case MSG_TYPE.LINK:
+              await this.sendLink(touser, reply.link);
+              break;
+            default:
+              await this.sendText(touser, reply.content);
+              break;
+          }
         }
       }
 
