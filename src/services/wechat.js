@@ -233,6 +233,7 @@ export class Service extends API {
             active: true,
             type: REPLY_TYPE.AUTO,
           },
+          null,
           {
             sort: {
               index: 1,
@@ -248,6 +249,7 @@ export class Service extends API {
             type: REPLY_TYPE.KEYWORD,
             keyword: message.Content,
           },
+          null,
           {
             sort: {
               index: 1,
