@@ -20,14 +20,17 @@ export const wechatPayApi = new tenpay(config, true);
 
 async function readToken(appid) {
   const config = await Config.findOne({ key: appid });
-  return config.value;
+  if (config) {
+    return JSON.parse(config.value);
+  }
+  return "";
 }
 async function saveToken(appid, token) {
-  await config.findOneAndUpdate(
+  await Config.findOneAndUpdate(
     { key: appid },
     {
       key: appid,
-      value: token,
+      value: JSON.stringify(token),
     },
     {
       upsert: true,
