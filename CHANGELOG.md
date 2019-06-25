@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.13.1"></a>
+## [0.13.1](https://github.com/zzswang/dushuli/compare/v0.13.0...v0.13.1) (2019-06-25)
+
+
+### Bug Fixes
+
+* fix read and save token ([3ec5168](https://github.com/zzswang/dushuli/commit/3ec5168))
+
+
+
 <a name="0.13.0"></a>
 # [0.13.0](https://github.com/zzswang/dushuli/compare/v0.12.8...v0.13.0) (2019-06-25)
 
