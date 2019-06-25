@@ -267,7 +267,7 @@ export class Service extends API {
           if (i === 0) {
             await this.send(touser, reply);
           } else {
-            await this.deplaySend(touser, reply, MESSAGE_DELAY);
+            await this.delaySend(touser, reply, MESSAGE_DELAY);
           }
         }
       }
