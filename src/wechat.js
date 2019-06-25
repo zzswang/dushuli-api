@@ -5,6 +5,8 @@ import coWechat from "co-wechat";
 
 import { WECHAT_PAY, WECHAT, WECHAT_APP } from "./config";
 
+import Config from "./models/config";
+
 const config = {
   appid: WECHAT_PAY.APP_ID,
   mchid: WECHAT_PAY.MCH_ID,
@@ -16,11 +18,36 @@ const config = {
 
 export const wechatPayApi = new tenpay(config, true);
 
-export const wechatApi = new WechatAPI(WECHAT.APP_ID, WECHAT.APP_SECRET);
+async function readToken(appid) {
+  const config = await Config.findOne({ key: appid });
+  return config.value;
+}
+async function saveToken(appid, token) {
+  await config.findOneAndUpdate(
+    { key: appid },
+    {
+      key: appid,
+      value: token,
+    },
+    {
+      upsert: true,
+      new: true,
+    }
+  );
+}
+
+export const wechatApi = new WechatAPI(
+  WECHAT.APP_ID,
+  WECHAT.APP_SECRET,
+  async () => readToken(WECHAT.APP_ID),
+  async token => saveToken(WECHAT.APP_ID, token)
+);
 
 export const wechatAppApi = new WechatAPI(
   WECHAT_APP.APP_ID,
-  WECHAT_APP.APP_SECRET
+  WECHAT_APP.APP_SECRET,
+  async () => readToken(WECHAT_APP.APP_ID),
+  async token => saveToken(WECHAT_APP.APP_ID, token)
 );
 
 export const wechat = coWechat({
