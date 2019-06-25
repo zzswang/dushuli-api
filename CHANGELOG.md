@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.12.7"></a>
+## [0.12.7](https://github.com/zzswang/dushuli/compare/v0.12.6...v0.12.7) (2019-06-25)
+
+
+### Bug Fixes
+
+* fix typo ([805c751](https://github.com/zzswang/dushuli/commit/805c751))
+
+
+
 <a name="0.12.6"></a>
 ## [0.12.6](https://github.com/zzswang/dushuli/compare/v0.12.5...v0.12.6) (2019-06-25)
 
