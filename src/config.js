@@ -35,7 +35,7 @@ export function env(name, init) {
  */
 export const PORT = env("PORT", 9527);
 export const BASE = env("BASE", "/dushuli/v0");
-
+export const MESSAGE_DELAY = env("MESSAGE_DELAY", 5000);
 /**
  * Mongodb
  */

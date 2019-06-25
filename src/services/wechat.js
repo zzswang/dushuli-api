@@ -13,6 +13,7 @@ import Order from "../models/order";
 import Member from "../models/member";
 import Reply from "../models/reply";
 import { REPLY_TYPE, MSG_TYPE } from "../constants";
+import { MESSAGE_DELAY } from "../config";
 
 const jsApiList = [
   "checkJsApi",
@@ -259,23 +260,14 @@ export class Service extends API {
       }
 
       if (replies) {
-        for (let reply of replies) {
+        for (let i = 0; i < replies.length; i++) {
           const touser = message.FromUserName;
-          switch (reply.msgtype) {
-            case MSG_TYPE.TEXT:
-              await this.sendText(touser, reply.content);
-              break;
-            case MSG_TYPE.IMAGE:
-              reply.image.media_id = await this.checkImageMedia(reply.image);
-              reply = await reply.save();
-              await this.sendImage(touser, reply.image);
-              break;
-            case MSG_TYPE.LINK:
-              await this.sendLink(touser, reply.link);
-              break;
-            default:
-              await this.sendText(touser, reply.content);
-              break;
+          const reply = replies[i];
+
+          if (i === 0) {
+            await this.send(touser, reply);
+          } else {
+            await this.deplaySend(touser, reply, MESSAGE_DELAY);
           }
         }
       }
@@ -284,7 +276,39 @@ export class Service extends API {
     });
   }
 
-  async sendText(touser, content) {
+  async send(touser, reply) {
+    switch (reply.msgtype) {
+      case MSG_TYPE.TEXT:
+        await this.sendText(touser, reply.content);
+        break;
+      case MSG_TYPE.IMAGE:
+        reply.image.media_id = await this.checkImageMedia(reply.image);
+        reply = await reply.save();
+        await this.sendImage(touser, reply.image);
+        break;
+      case MSG_TYPE.LINK:
+        await this.sendLink(touser, reply.link);
+        break;
+      default:
+        await this.sendText(touser, reply.content);
+        break;
+    }
+  }
+
+  delaySend(touser, reply, delay = MESSAGE_DELAY) {
+    return new Promise((resolve, reject) => {
+      setTimeout(async () => {
+        try {
+          await this.send(touser, reply);
+          resolve();
+        } catch (e) {
+          reject(e);
+        }
+      }, delay);
+    });
+  }
+
+  sendText(touser, content) {
     return wechatAppApi.sendText(touser, content);
   }
 
@@ -302,10 +326,6 @@ export class Service extends API {
       link,
     };
     return wechatAppApi.request(url, postJSON(data));
-  }
-
-  sendMiniprogrampage(touser, minirogrampage) {
-    return wechatAppApi.sendMiniProgram(touser, minirogrampage);
   }
 }
 
