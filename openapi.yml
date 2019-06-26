@@ -753,6 +753,216 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalError"
+  /invitations:
+    post:
+      summary: Create invitation 可以用于发送邀请码
+      operationId: createInvitation
+      tags:
+        - invitation
+      requestBody:
+        description: Body for creating invitation
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateInvitationBody"
+      responses:
+        "201":
+          description: The invitaion created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Invitation"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    get:
+      summary: List invitations
+      operationId: listInvitations
+      tags:
+        - invitation
+      parameters:
+        - name: _limit
+          in: query
+          description: How many items to return at one time
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: _offset
+          in: query
+          description: How many items will be skip
+          required: false
+          schema:
+            type: string
+        - name: ns
+          in: query
+          description: Which namespace invitations blong to
+          required: false
+          schema:
+            type: string
+        - name: sub
+          in: query
+          description: eg. ACTIVE
+          required: false
+          schema:
+            type: string
+        - name: code
+          in: query
+          description: Code
+          required: false
+          schema:
+            type: string
+        - name: code_like
+          in: query
+          description: Code 正则查询
+          required: false
+          schema:
+            type: string
+        - name: phone
+          in: query
+          description: 手机号
+          required: false
+          schema:
+            type: string
+        - name: used
+          in: query
+          description: 是否已经使用
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A paged array of invitations
+          headers:
+            X-Total-Count:
+              description: Total count of all documents match the query
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Invitation"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: bulk upsert invitations
+      operationId: updateInvitations
+      tags:
+        - invitation
+      requestBody:
+        description: Invitations to be upserted
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/UpdateInvitationsBody"
+      responses:
+        "200":
+          description: The invitations be uperted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Invitation"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /invitations/{invitationId}:
+    get:
+      summary: Get invitation by id
+      operationId: getInvitation
+      tags:
+        - invitation
+      parameters:
+        - name: invitationId
+          in: path
+          required: true
+          description: The id of invitation
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The invitation with given id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Invitation"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: Update invitation
+      operationId: updateInvitation
+      tags:
+        - invitation
+      parameters:
+        - name: invitationId
+          in: path
+          required: true
+          description: The id of invitation
+          schema:
+            type: string
+      requestBody:
+        description: Invitation to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateInvitationBody"
+      responses:
+        "200":
+          description: The invitation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Invitation"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    delete:
+      summary: delete invitation
+      operationId: deleteInvitation
+      tags:
+        - invitation
+      parameters:
+        - name: invitationId
+          in: path
+          required: true
+          description: The id of invitation
+          schema:
+            type: string
+      responses:
+        "204":
+          description: invitation deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
 
 
 
@@ -1107,6 +1317,134 @@ components:
         birthday:
           type: string
         alarm:
+          type: string
+    
+    Invitation:
+      description: 邀请函，例如用于获得邀请码，邮箱或者手机授权码
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        code:
+          type: string
+          description: 只有 admin 能看到
+        email:
+          type: string
+        phone:
+          type: string
+        expireAt:
+          type: string
+          format: date-time
+          description: 邀请码过期时间
+        period:
+          type: integer
+          description: 该邀请码生效后，发生作用的有效期, 例如激活码，代表激活用户的时长
+        start:
+          type: string
+          format: date-time
+          description: 有效时间的开始时间
+        end:
+          type: string
+          format: date-time
+          description: 有效时间的结束时间
+        used:
+          type: boolean
+          description: 是否已经使用
+        usedAt:
+          type: string
+          format: date-time
+          description: 邀请码使用时间
+        usedBy:
+          type: string
+          description: 使用邀请码的用户 id
+        user:
+          type: object
+          description: 使用邀请码的用户对象
+        source:
+          type: string
+          description: 渠道来源
+        comment:
+          type: string
+          description: 备注
+
+    UpdateInvitationBody:
+      description: 创建邀请函所需参数
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+          description: 有效时间的开始时间
+        end:
+          type: string
+          format: date-time
+          description: 有效时间的结束时间
+        period:
+          type: integer
+          description: 有效时长，指激活时刻开始一共拥有多少毫秒
+        source:
+          type: string
+          description: 渠道来源
+        comment:
+          type: string
+          description: 备注
+        used:
+          type: boolean
+          description: 是否已经使用
+        usedBy:
+          type: string
+          description: 使用邀请码的用户 id
+        user:
+          type: object
+          description: 使用邀请码的用户对象
+        email:
+          type: string
+        phone:
+          type: string
+
+    UpdateInvitationsBody:
+      description: 批量创建或修改邀请码所需参数
+      type: object
+      properties:
+        id:
+          type: string
+          description: 需要修改的邀请码 Id
+        code:
+          type: string
+          description: 需要创建或修改邀请码
+        start:
+          type: string
+          format: date-time
+          description: 有效时间的开始时间
+        end:
+          type: string
+          format: date-time
+          description: 有效时间的结束时间
+        period:
+          type: integer
+          description: 有效时长，指激活时刻开始一共拥有多少毫秒
+
+    CreateInvitationBody:
+      description: 创建邀请函所需参数
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+          description: 有效时间的开始时间
+        end:
+          type: string
+          format: date-time
+          description: 有效时间的结束时间
+        period:
+          type: integer
+          description: 有效时长，指激活时刻开始一共拥有多少毫秒
+        email:
+          type: string
+        phone:
           type: string
 
     Err:

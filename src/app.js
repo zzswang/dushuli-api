@@ -22,6 +22,7 @@ import orderService from "./services/order";
 import memberService from "./services/member";
 import settingService from "./services/setting";
 import statsService from "./services/stats";
+import invitationService from "./services/invitation";
 
 import initReply from "./tasks/init-reply";
 
@@ -57,6 +58,7 @@ orderService.bind(router);
 memberService.bind(router);
 settingService.bind(router);
 statsService.bind(router);
+invitationService.bind(router);
 
 /**
  * spec openapi.yml

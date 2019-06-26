@@ -228,6 +228,69 @@ interface ListStatsResponse {
   };
 }
 
+interface CreateInvitationRequest {
+  body: CreateInvitationBody;
+  context?: Object;
+}
+
+interface CreateInvitationResponse {
+  body: Invitation;
+}
+
+interface ListInvitationsRequest {
+  query: {
+    _limit?: number;
+    _offset?: string;
+    ns?: string;
+    sub?: string;
+    code?: string;
+    code_like?: string;
+    phone?: string;
+    used?: string;
+  };
+  context?: Object;
+}
+
+interface ListInvitationsResponse {
+  body: Array<Invitation>;
+  headers: {
+    xTotalCount: string;
+  };
+}
+
+interface UpdateInvitationsRequest {
+  body: Array<UpdateInvitationsBody>;
+  context?: Object;
+}
+
+interface UpdateInvitationsResponse {
+  body: Array<Invitation>;
+}
+
+interface GetInvitationRequest {
+  invitationId: string;
+  context?: Object;
+}
+
+interface GetInvitationResponse {
+  body: Invitation;
+}
+
+interface UpdateInvitationRequest {
+  invitationId: string;
+  body: UpdateInvitationBody;
+  context?: Object;
+}
+
+interface UpdateInvitationResponse {
+  body: Invitation;
+}
+
+interface DeleteInvitationRequest {
+  invitationId: string;
+  context?: Object;
+}
+
 interface StatsData {
   value: number;
 }
@@ -333,6 +396,37 @@ interface Setting {
   user: string;
   birthday: string;
   alarm: string;
+}
+interface Invitation {
+  id: string;
+  ns: string;
+  createdAt: string;
+  code: string;
+  email: string;
+  phone: string;
+  sub: string;
+  expireAt: string;
+  period: number;
+  until: string;
+  used: boolean;
+  usedAt: string;
+}
+interface UpdateInvitationBody {
+  until: string;
+  period: number;
+}
+interface UpdateInvitationsBody {
+  id: string;
+  code: string;
+  until: string;
+  period: number;
+}
+interface CreateInvitationBody {
+  until: string;
+  period: number;
+  email: string;
+  phone: string;
+  sub: string;
 }
 interface Err {
   code: string;
