@@ -9,6 +9,12 @@ const settingSchema = new mongoose.Schema(
     },
     birthday: String,
     alarm: String,
+    disableAlarm: {
+      type: Boolean,
+      default: false,
+    },
+    openid: String, // 服务号的 openid
+    appOpenid: String, // 小程序的 openid
   },
   {
     timestamps: true,
@@ -30,6 +36,9 @@ class Setting {
   user;
   birthday;
   alarm;
+  disableAlarm;
+  openid; // 服务号的 openid
+  appOpenid; // 小程序的 openid
 
   static async getByUser(user) {
     return await this.findOne({ user });

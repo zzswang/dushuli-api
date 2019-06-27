@@ -291,6 +291,15 @@ interface DeleteInvitationRequest {
   context?: Object;
 }
 
+interface CreateFormIdRequest {
+  body: CreateFormIdBody;
+  context?: Object;
+}
+
+interface CreateFormIdResponse {
+  body: FormId;
+}
+
 interface StatsData {
   value: number;
 }
@@ -399,34 +408,56 @@ interface Setting {
 }
 interface Invitation {
   id: string;
-  ns: string;
   createdAt: string;
   code: string;
   email: string;
   phone: string;
-  sub: string;
   expireAt: string;
   period: number;
-  until: string;
+  start: string;
+  end: string;
   used: boolean;
   usedAt: string;
+  usedBy: string;
+  user: {};
+  source: string;
+  comment: string;
 }
 interface UpdateInvitationBody {
-  until: string;
+  start: string;
+  end: string;
   period: number;
+  source: string;
+  comment: string;
+  used: boolean;
+  usedBy: string;
+  user: {};
+  email: string;
+  phone: string;
 }
 interface UpdateInvitationsBody {
   id: string;
   code: string;
-  until: string;
+  start: string;
+  end: string;
   period: number;
 }
 interface CreateInvitationBody {
-  until: string;
+  start: string;
+  end: string;
   period: number;
   email: string;
   phone: string;
-  sub: string;
+}
+interface CreateFormIdBody {
+  user: string;
+  formId: string;
+}
+interface FormId {
+  user: string;
+  formId: string;
+  used: string;
+  expiredAt: string;
 }
 interface Err {
   code: string;

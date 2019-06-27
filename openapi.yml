@@ -963,8 +963,31 @@ paths:
           $ref: "#/components/responses/NotFound"
         "500":
           $ref: "#/components/responses/InternalError"
-
-
+  
+  /formIds:
+    post: 
+      summary: Save formId 保存小程序 formId
+      operationId: createFormId
+      tags:
+        - formId
+      requestBody:
+        description: Body for save formId
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateFormIdBody"
+      responses:
+        "201":
+          description: The formId created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FormId"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
 
 
 
@@ -1318,6 +1341,12 @@ components:
           type: string
         alarm:
           type: string
+        disableAlarm:
+          type: boolean
+        openid:
+          type: string
+        appOpenid:
+          type: string
     
     Invitation:
       description: 邀请函，例如用于获得邀请码，邮箱或者手机授权码
@@ -1428,7 +1457,7 @@ components:
           description: 有效时长，指激活时刻开始一共拥有多少毫秒
 
     CreateInvitationBody:
-      description: 创建邀请函所需参数
+      description: 创建邀请所需参数
       type: object
       properties:
         start:
@@ -1446,6 +1475,35 @@ components:
           type: string
         phone:
           type: string
+
+    CreateFormIdBody:
+      description: 创建 formId 所需参数
+      type: object
+      properties:
+        user:
+          type: string
+          description: 用户 Id
+        formId:
+          type: string
+          description: 小程序formId
+    
+    FormId:
+      description: 创建 formId 所需参数
+      type: object
+      properties:
+        user:
+          type: string
+          description: 用户 Id
+        formId:
+          type: string
+          description: 小程序formId
+        used: 
+          type: string
+          description: 是否已被使用
+        expiredAt:
+          type: string
+          format: date-time
+          description: 过期时间
 
     Err:
       type: object

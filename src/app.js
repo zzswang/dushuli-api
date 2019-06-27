@@ -23,6 +23,7 @@ import memberService from "./services/member";
 import settingService from "./services/setting";
 import statsService from "./services/stats";
 import invitationService from "./services/invitation";
+import formIdService from "./services/formId";
 
 import initReply from "./tasks/init-reply";
 
@@ -59,6 +60,7 @@ memberService.bind(router);
 settingService.bind(router);
 statsService.bind(router);
 invitationService.bind(router);
+formIdService.bind(router);
 
 /**
  * spec openapi.yml
