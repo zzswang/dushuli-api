@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.15.0"></a>
+# [0.15.0](https://github.com/zzswang/dushuli/compare/v0.14.0...v0.15.0) (2019-06-27)
+
+
+### Features
+
+* notification cron job ([#41](https://github.com/zzswang/dushuli/issues/41)) ([bb30041](https://github.com/zzswang/dushuli/commit/bb30041))
+
+
+
 <a name="0.14.0"></a>
 # [0.14.0](https://github.com/zzswang/dushuli/compare/v0.13.1...v0.14.0) (2019-06-26)
 
