@@ -110,7 +110,10 @@ async function main() {
 }
 
 mongoose.connect(MONGODB_CONNECTION, { useNewUrlParser: true }).then(() => {
-  schedule.scheduleJob(`*/${SCHEDULE_INTERVAL} * * * *`, main);
+  schedule.scheduleJob(`*/${SCHEDULE_INTERVAL} * * * *`, () => {
+    console.info(`Job executed at ${moment().toISOString()}`);
+    main();
+  });
 });
 
 mongoose.connection.on("error", () => console.error("数据库连接错误"));
