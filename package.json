@@ -94,6 +94,7 @@
     "koa-logger": "^3.2.0",
     "koa-tree-router": "^0.4.2",
     "koa2-ping": "^0.3.0",
+    "line-by-line": "^0.1.6",
     "lodash": "^4.17.10",
     "moment": "^2.24.0",
     "mongoose": "^5.2.14",
