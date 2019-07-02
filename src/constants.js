@@ -19,3 +19,9 @@ export const MSG_TYPE = {
   IMAGE: "image",
   LINK: "link",
 };
+
+export const MEMBER_TYPE = {
+  TRIAL: "trial",
+  FORMAL: "formal",
+  EXPIRE: "expire",
+};

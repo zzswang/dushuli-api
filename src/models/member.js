@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import helper from "@36node/mongoose-helper";
+import { MEMBER_TYPE } from "../constants";
 
 const periodSchema = new mongoose.Schema(
   {
@@ -59,6 +60,53 @@ class Member {
 
   static async getByUser(user) {
     return await this.findOne({ user });
+  }
+
+  get type() {
+    if (this.expiredAt < new Date()) {
+      return MEMBER_TYPE.EXPIRE;
+    }
+    if (this.activePeriod && this.activePeriod.trial) {
+      return MEMBER_TYPE.TRIAL;
+    }
+    if (this.activePeriod && !this.activePeriod.trial) {
+      return MEMBER_TYPE.FORMAL;
+    }
+    return undefined;
+  }
+  get expiredAt() {
+    if (this.period.length) {
+      let expiredAt;
+      this.period.forEach(period => {
+        if (period.active) {
+          if (!expiredAt) {
+            expiredAt = period.end;
+          } else if (period.end > expiredAt) {
+            expiredAt = period.end;
+          }
+        }
+      });
+      return expiredAt;
+    }
+    return null;
+  }
+  get activePeriod() {
+    const trialPeriod = this.period.find(
+      period =>
+        period.trial &&
+        period.active &&
+        period.start <= new Date() &&
+        period.end >= new Date()
+    );
+    const formalPeriod = this.period.find(
+      period =>
+        !period.trial &&
+        period.active &&
+        period.start <= new Date() &&
+        period.end >= new Date()
+    );
+
+    return formalPeriod || trialPeriod;
   }
 }
 
