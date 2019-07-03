@@ -61,7 +61,7 @@ async function main() {
     disableAlarm: false,
     alarm: {
       $gte: start,
-      $lte: end,
+      $lt: end,
     },
   });
 
