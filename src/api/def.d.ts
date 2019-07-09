@@ -300,6 +300,57 @@ interface CreateFormIdResponse {
   body: FormId;
 }
 
+interface ListRepliesRequest {
+  query: {
+    _select?: string;
+    _limit?: number;
+    _offset?: string;
+    _sort?: string;
+    active?: boolean;
+  };
+  context?: Object;
+}
+
+interface ListRepliesResponse {
+  body: Array<Reply>;
+  headers: {
+    xTotalCount: string;
+  };
+}
+
+interface CreateReplyRequest {
+  body: Reply;
+  context?: Object;
+}
+
+interface CreateReplyResponse {
+  body: Reply;
+}
+
+interface GetReplyRequest {
+  replyId: string;
+  context?: Object;
+}
+
+interface GetReplyResponse {
+  body: Reply;
+}
+
+interface DeleteReplyRequest {
+  replyId: string;
+  context?: Object;
+}
+
+interface UpdateReplyRequest {
+  replyId: string;
+  body: Reply;
+  context?: Object;
+}
+
+interface UpdateReplyResponse {
+  body: Reply;
+}
+
 interface StatsData {
   value: number;
 }
@@ -405,6 +456,9 @@ interface Setting {
   user: string;
   birthday: string;
   alarm: string;
+  disableAlarm: boolean;
+  openid: string;
+  appOpenid: string;
 }
 interface Invitation {
   id: string;
@@ -458,6 +512,36 @@ interface FormId {
   formId: string;
   used: string;
   expiredAt: string;
+}
+interface ImageContent {
+  media_id: string;
+  url: string;
+  filename: string;
+}
+interface LinkContent {
+  title: string;
+  description: string;
+  url: string;
+  thumb_url: string;
+}
+interface Reply {
+  type: string;
+  keyword: string;
+  msgtype: string;
+  content: string;
+  image: {
+    media_id: string;
+    url: string;
+    filename: string;
+  };
+  link: {
+    title: string;
+    description: string;
+    url: string;
+    thumb_url: string;
+  };
+  active: boolean;
+  index: number;
 }
 interface Err {
   code: string;

@@ -1,22 +1,18 @@
 {
   "item": [
     {
-      "id": "886419a2-0196-4561-96ac-8ad0f23dd230",
-      "name": "books",
+      "id": "c0ac8bc7-df48-4f07-9d88-5155aba3f38e",
+      "name": "wechat",
       "item": [
         {
-          "id": "6a2dacbf-82e8-447f-a9f6-af2146dc53a1",
+          "id": "1dea592b-3dee-4d68-bfb4-64957b6669bf",
           "response": [
             {
-              "id": "c446e9f1-9867-4ea6-9ce8-e91cd4ff2248",
+              "id": "4b7b9d07-87f9-4d8e-825d-6d8d48fc9904",
               "header": [
                 {
                   "key": "Content-type",
                   "value": "application/json"
-                },
-                {
-                  "key": "X-Total-Count",
-                  "value": "unset"
                 }
               ],
               "cookie": [],
@@ -24,193 +20,10 @@
               "originalRequest": {
                 "url": {
                   "path": [
-                    "books"
+                    "wechat/payment"
                   ],
                   "host": "{{host}}",
-                  "query": [
-                    {
-                      "key": "_limit",
-                      "value": ""
-                    },
-                    {
-                      "key": "_sort",
-                      "value": ""
-                    },
-                    {
-                      "key": "date_gt",
-                      "value": ""
-                    },
-                    {
-                      "key": "date_lt",
-                      "value": ""
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "type": "string",
-                      "value": "{{token}}",
-                      "key": "token"
-                    }
-                  ]
-                },
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"openid\": \"{{openid}}\",\n  \"sandbox\": \"{{sandbox}}\"\n}"
-                }
-              },
-              "code": 200,
-              "status": "A paged array of books",
-              "body": "[\n  {\n    \"date\": \"2018-12-24\",\n    \"holiday\": \"春节1\",\n    \"solarTerm\": \"春分1\",\n    \"book\": \"一本书2\",\n    \"author\": \"作者2\",\n    \"summary\": \"一些summary123\",\n    \"content\": \"<p>dasdhadd3123<a>dasdad</a></p>\",\n    \"updatedAt\": \"2018-12-24T05:59:02.250Z\",\n    \"createdAt\": \"2018-12-24T05:59:02.250Z\",\n    \"id\": \"5c2075a6fe46ab69eec17de0\"\n  },\n  {\n    \"date\": \"2018-12-24\",\n    \"holiday\": \"春节2\",\n    \"solarTerm\": \"春分2\",\n    \"book\": \"一本书3\",\n    \"author\": \"作者3\",\n    \"summary\": \"一些summary1232344\",\n    \"content\": \"<p>dasdhadd3123<b>dasdad</b></p>\",\n    \"updatedAt\": \"2018-12-24T05:59:12.250Z\",\n    \"createdAt\": \"2018-12-24T05:59:12.250Z\",\n    \"id\": \"5c2075a6fe46ab69eec17de1\"\n  }\n]\n"
-            }
-          ],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "4b9bf78f-799e-4423-a672-e0388d079d3d",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Json body schema test\", function(){",
-                  "  var bodySchema = {",
-                  "  \"type\": \"array\",",
-                  "  \"items\": {",
-                  "    \"required\": [",
-                  "      \"date\"",
-                  "    ],",
-                  "    \"properties\": {",
-                  "      \"date\": {",
-                  "        \"type\": \"string\"",
-                  "      },",
-                  "      \"holiday\": {",
-                  "        \"type\": \"string\"",
-                  "      },",
-                  "      \"solarTerm\": {",
-                  "        \"type\": \"string\"",
-                  "      },",
-                  "      \"book\": {",
-                  "        \"type\": \"string\"",
-                  "      },",
-                  "      \"author\": {",
-                  "        \"type\": \"string\"",
-                  "      },",
-                  "      \"summary\": {",
-                  "        \"type\": \"string\"",
-                  "      },",
-                  "      \"content\": {",
-                  "        \"type\": \"string\"",
-                  "      },",
-                  "      \"audio\": {",
-                  "        \"type\": \"string\"",
-                  "      }",
-                  "    }",
-                  "  }",
-                  "};",
-                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
-                  "})",
-                  ""
-                ]
-              }
-            }
-          ],
-          "request": {
-            "url": {
-              "path": [
-                "books"
-              ],
-              "host": "{{host}}",
-              "query": [
-                {
-                  "key": "_limit",
-                  "value": ""
-                },
-                {
-                  "key": "_sort",
-                  "value": ""
-                },
-                {
-                  "key": "date_gt",
-                  "value": ""
-                },
-                {
-                  "key": "date_lt",
-                  "value": ""
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "type": "string",
-                  "value": "{{token}}",
-                  "key": "token"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"openid\": \"{{openid}}\",\n  \"sandbox\": \"{{sandbox}}\"\n}"
-            }
-          },
-          "name": "List all books",
-          "description": "List all books"
-        },
-        {
-          "id": "e076ae91-d07e-49e8-a454-931dc8f0958e",
-          "response": [
-            {
-              "id": "c582dbff-80cb-4097-bf05-93caa6fa3ed2",
-              "header": [
-                {
-                  "key": "Content-type",
-                  "value": "application/json"
-                }
-              ],
-              "cookie": [],
-              "name": "Response_201",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "books"
-                  ],
-                  "host": "{{host}}",
-                  "query": [
-                    {
-                      "key": "url",
-                      "value": ""
-                    }
-                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -236,54 +49,57 @@
                 },
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"date\": \"{{date}}\",\n  \"holiday\": \"{{holiday}}\",\n  \"solarTerm\": \"{{solarTerm}}\",\n  \"book\": \"{{book}}\",\n  \"author\": \"{{author}}\",\n  \"summary\": \"{{summary}}\",\n  \"content\": \"{{content}}\",\n  \"audio\": \"{{audio}}\"\n}"
+                  "raw": "{\n  \"openid\": \"{{openid}}\",\n  \"product\": \"{{product}}\",\n  \"user\": \"{{user}}\"\n}"
                 }
               },
-              "code": 201,
-              "status": "The Book created",
-              "body": "{\n  \"date\": \"2018-12-24\",\n  \"holiday\": \"春节1\",\n  \"solarTerm\": \"春分1\",\n  \"book\": \"一本书2\",\n  \"author\": \"作者2\",\n  \"summary\": \"一些summary123\",\n  \"content\": \"<p>dasdhadd3123<b>dasdad</b></p>\",\n  \"id\": \"5c2075a6fe46ab69eec17de1\"\n}\n"
+              "code": 200,
+              "status": "Expected response to a valid request"
             }
           ],
           "event": [
             {
               "listen": "test",
               "script": {
-                "id": "3a112ba6-2b41-4955-b02e-6eeaba47db78",
+                "id": "990920cb-4073-434e-952d-1b420978f0bf",
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status code is 201\", function () {",
-                  "  pm.response.to.have.status(201);",
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
                   "});",
                   "",
                   "pm.test(\"Json body schema test\", function(){",
                   "  var bodySchema = {",
-                  "  \"required\": [",
-                  "    \"date\"",
-                  "  ],",
+                  "  \"type\": \"object\",",
                   "  \"properties\": {",
-                  "    \"date\": {",
-                  "      \"type\": \"string\"",
+                  "    \"appid\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"公众号 appid\",",
+                  "      \"example\": \"wx8888888888888888\"",
                   "    },",
-                  "    \"holiday\": {",
-                  "      \"type\": \"string\"",
+                  "    \"timeStamp\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"时间戳\",",
+                  "      \"example\": \"1414561699\"",
                   "    },",
-                  "    \"solarTerm\": {",
-                  "      \"type\": \"string\"",
+                  "    \"nonceStr\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"随机字符串\",",
+                  "      \"example\": \"5K8264ILTKCH16CQ2502SI8ZNMTM67VS\"",
                   "    },",
-                  "    \"book\": {",
-                  "      \"type\": \"string\"",
+                  "    \"package\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"订单详情扩展字符串\",",
+                  "      \"example\": \"prepay_id=123456789\"",
                   "    },",
-                  "    \"author\": {",
-                  "      \"type\": \"string\"",
+                  "    \"signType\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"签名方式\",",
+                  "      \"example\": \"MD5\"",
                   "    },",
-                  "    \"summary\": {",
-                  "      \"type\": \"string\"",
-                  "    },",
-                  "    \"content\": {",
-                  "      \"type\": \"string\"",
-                  "    },",
-                  "    \"audio\": {",
-                  "      \"type\": \"string\"",
+                  "    \"paySign\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"签名\",",
+                  "      \"example\": \"C380BEC2BFD727A4B6845133519F3AD6\"",
                   "    }",
                   "  }",
                   "};",
@@ -297,15 +113,10 @@
           "request": {
             "url": {
               "path": [
-                "books"
+                "wechat/payment"
               ],
               "host": "{{host}}",
-              "query": [
-                {
-                  "key": "url",
-                  "value": ""
-                }
-              ],
+              "query": [],
               "variable": []
             },
             "header": [
@@ -331,17 +142,17 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"date\": \"{{date}}\",\n  \"holiday\": \"{{holiday}}\",\n  \"solarTerm\": \"{{solarTerm}}\",\n  \"book\": \"{{book}}\",\n  \"author\": \"{{author}}\",\n  \"summary\": \"{{summary}}\",\n  \"content\": \"{{content}}\",\n  \"audio\": \"{{audio}}\"\n}"
+              "raw": "{\n  \"openid\": \"{{openid}}\",\n  \"product\": \"{{product}}\",\n  \"user\": \"{{user}}\"\n}"
             }
           },
-          "name": "Create a book",
-          "description": "Create a book"
+          "name": "initiate a payment process",
+          "description": "initiate a payment process"
         },
         {
-          "id": "8a03a517-f0c3-4347-9e13-57e50c7f0d8f",
+          "id": "8bfd0c60-ed42-4379-8e08-dbc166ad1755",
           "response": [
             {
-              "id": "233a52e8-ba67-49c2-b682-24f9100f4e09",
+              "id": "4f1ba2ed-b115-4108-a97f-1a9b9fcc4adf",
               "header": [
                 {
                   "key": "Content-type",
@@ -353,30 +164,20 @@
               "originalRequest": {
                 "url": {
                   "path": [
-                    "books/:bookIdOrSlug"
+                    "wechat/signature"
                   ],
                   "host": "{{host}}",
                   "query": [
                     {
-                      "key": "identify",
+                      "key": "url",
                       "value": ""
                     }
                   ],
-                  "variable": [
-                    {
-                      "id": "bookIdOrSlug",
-                      "type": "string",
-                      "value": "bookIdOrSlug"
-                    }
-                  ]
+                  "variable": []
                 },
                 "header": [
                   {
                     "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "key": "Content-Type",
                     "value": "application/json"
                   }
                 ],
@@ -390,22 +191,17 @@
                       "key": "token"
                     }
                   ]
-                },
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"appid\": \"{{appid}}\"\n}"
                 }
               },
               "code": 200,
-              "status": "Expected response to a valid request",
-              "body": "{\n  \"date\": \"2018-12-24\",\n  \"holiday\": \"春节1\",\n  \"solarTerm\": \"春分1\",\n  \"book\": \"一本书2\",\n  \"author\": \"作者2\",\n  \"summary\": \"一些summary123\",\n  \"content\": \"<p>dasdhadd3123<b>dasdad</b></p>\",\n  \"id\": \"5c2075a6fe46ab69eec17de1\"\n}\n"
+              "status": "Expected response to a valid request"
             }
           ],
           "event": [
             {
               "listen": "test",
               "script": {
-                "id": "2738758b-5bea-43de-a3b6-b332cf4ab88e",
+                "id": "09d0b6a8-ea3f-47e3-a383-0a726003c7ba",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -414,33 +210,75 @@
                   "",
                   "pm.test(\"Json body schema test\", function(){",
                   "  var bodySchema = {",
-                  "  \"required\": [",
-                  "    \"date\"",
-                  "  ],",
+                  "  \"type\": \"object\",",
                   "  \"properties\": {",
-                  "    \"date\": {",
-                  "      \"type\": \"string\"",
+                  "    \"debug\": {",
+                  "      \"type\": \"boolean\"",
                   "    },",
-                  "    \"holiday\": {",
-                  "      \"type\": \"string\"",
+                  "    \"appId\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"公众号 appid\",",
+                  "      \"example\": \"wx8888888888888888\"",
                   "    },",
-                  "    \"solarTerm\": {",
-                  "      \"type\": \"string\"",
+                  "    \"timestamp\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"时间戳\",",
+                  "      \"example\": \"1414561699\"",
                   "    },",
-                  "    \"book\": {",
-                  "      \"type\": \"string\"",
+                  "    \"nonceStr\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"随机字符串\",",
+                  "      \"example\": \"5K8264ILTKCH16CQ2502SI8ZNMTM67VS\"",
                   "    },",
-                  "    \"author\": {",
-                  "      \"type\": \"string\"",
+                  "    \"signature\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"签名\",",
+                  "      \"example\": \"5bfc8633f9c2127508296408c64f99068ad9dcb5\"",
                   "    },",
-                  "    \"summary\": {",
-                  "      \"type\": \"string\"",
-                  "    },",
-                  "    \"content\": {",
-                  "      \"type\": \"string\"",
-                  "    },",
-                  "    \"audio\": {",
-                  "      \"type\": \"string\"",
+                  "    \"jsApiList\": {",
+                  "      \"type\": \"array\",",
+                  "      \"items\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"description\": \"js api 列表\",",
+                  "      \"example\": [",
+                  "        \"checkJsApi\",",
+                  "        \"onMenuShareTimeline\",",
+                  "        \"onMenuShareAppMessage\",",
+                  "        \"onMenuShareQQ\",",
+                  "        \"onMenuShareWeibo\",",
+                  "        \"onMenuShareQZone\",",
+                  "        \"chooseImage\",",
+                  "        \"previewImage\",",
+                  "        \"uploadImage\",",
+                  "        \"startRecord\",",
+                  "        \"stopRecord\",",
+                  "        \"onVoiceRecordEnd\",",
+                  "        \"playVoice\",",
+                  "        \"pauseVoice\",",
+                  "        \"stopVoice\",",
+                  "        \"onVoicePlayEnd\",",
+                  "        \"uploadVoice\",",
+                  "        \"downloadVoice\",",
+                  "        \"translateVoice\",",
+                  "        \"getNetworkType\",",
+                  "        \"openLocation\",",
+                  "        \"getLocation\",",
+                  "        \"startSearchBeacons\",",
+                  "        \"stopSearchBeacons\",",
+                  "        \"onSearchBeacons\",",
+                  "        \"closeWindow\",",
+                  "        \"hideMenuItems\",",
+                  "        \"showMenuItems\",",
+                  "        \"hideAllNonBaseMenuItem\",",
+                  "        \"showAllNonBaseMenuItem\",",
+                  "        \"scanQRCode\",",
+                  "        \"openProductSpecificView\",",
+                  "        \"chooseCard\",",
+                  "        \"addCard\",",
+                  "        \"openCard\",",
+                  "        \"chooseWXPay\"",
+                  "      ]",
                   "    }",
                   "  }",
                   "};",
@@ -454,30 +292,20 @@
           "request": {
             "url": {
               "path": [
-                "books/:bookIdOrSlug"
+                "wechat/signature"
               ],
               "host": "{{host}}",
               "query": [
                 {
-                  "key": "identify",
+                  "key": "url",
                   "value": ""
                 }
               ],
-              "variable": [
-                {
-                  "id": "bookIdOrSlug",
-                  "type": "string",
-                  "value": "bookIdOrSlug"
-                }
-              ]
+              "variable": []
             },
             "header": [
               {
                 "key": "Accept",
-                "value": "application/json"
-              },
-              {
-                "key": "Content-Type",
                 "value": "application/json"
               }
             ],
@@ -491,297 +319,23 @@
                   "key": "token"
                 }
               ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"appid\": \"{{appid}}\"\n}"
             }
           },
-          "name": "Find book by id or slug",
-          "description": "Find book by id or slug"
-        },
-        {
-          "id": "532be110-b918-4b09-b87c-cfc063cb1e72",
-          "response": [
-            {
-              "id": "80d45c78-b82d-4f5d-a3cc-f748f4293892",
-              "header": [],
-              "cookie": [],
-              "name": "Response_204",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "books/:bookIdOrSlug"
-                  ],
-                  "host": "{{host}}",
-                  "query": [
-                    {
-                      "key": "identify",
-                      "value": ""
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "id": "bookIdOrSlug",
-                      "type": "string",
-                      "value": "bookIdOrSlug"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "type": "string",
-                      "value": "{{token}}",
-                      "key": "token"
-                    }
-                  ]
-                }
-              },
-              "code": 204,
-              "status": "book deleted"
-            }
-          ],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "3055c295-0de9-47f2-b0a2-f8d6ae1dde75",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 204\", function () {",
-                  "  pm.response.to.have.status(204);",
-                  "});",
-                  "",
-                  ""
-                ]
-              }
-            }
-          ],
-          "request": {
-            "url": {
-              "path": [
-                "books/:bookIdOrSlug"
-              ],
-              "host": "{{host}}",
-              "query": [
-                {
-                  "key": "identify",
-                  "value": ""
-                }
-              ],
-              "variable": [
-                {
-                  "id": "bookIdOrSlug",
-                  "type": "string",
-                  "value": "bookIdOrSlug"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "type": "string",
-                  "value": "{{token}}",
-                  "key": "token"
-                }
-              ]
-            }
-          },
-          "name": "deleteBookByIdOrSlug",
-          "description": "deleteBookByIdOrSlug"
-        },
-        {
-          "id": "90fba0a6-ccfa-40e8-9199-e44cf112e017",
-          "response": [
-            {
-              "id": "72816492-bd0e-4b0a-b136-35d9f1dc14b3",
-              "header": [
-                {
-                  "key": "Content-type",
-                  "value": "application/json"
-                }
-              ],
-              "cookie": [],
-              "name": "Response_200",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "books/:bookIdOrSlug"
-                  ],
-                  "host": "{{host}}",
-                  "query": [
-                    {
-                      "key": "identify",
-                      "value": ""
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "id": "bookIdOrSlug",
-                      "type": "string",
-                      "value": "bookIdOrSlug"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "type": "string",
-                      "value": "{{token}}",
-                      "key": "token"
-                    }
-                  ]
-                },
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"date\": \"{{date}}\",\n  \"holiday\": \"{{holiday}}\",\n  \"solarTerm\": \"{{solarTerm}}\",\n  \"book\": \"{{book}}\",\n  \"author\": \"{{author}}\",\n  \"summary\": \"{{summary}}\",\n  \"content\": \"{{content}}\",\n  \"audio\": \"{{audio}}\"\n}"
-                }
-              },
-              "code": 200,
-              "status": "Expected response to a valid request",
-              "body": "{\n  \"date\": \"2018-12-24\",\n  \"holiday\": \"春节1\",\n  \"solarTerm\": \"春分1\",\n  \"book\": \"一本书2\",\n  \"author\": \"作者2\",\n  \"summary\": \"一些summary123\",\n  \"content\": \"<p>dasdhadd3123<b>dasdad</b></p>\",\n  \"id\": \"5c2075a6fe46ab69eec17de1\"\n}\n"
-            }
-          ],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "id": "0b99de1a-77ed-42f2-9490-ede7e3145d67",
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Json body schema test\", function(){",
-                  "  var bodySchema = {",
-                  "  \"required\": [",
-                  "    \"date\"",
-                  "  ],",
-                  "  \"properties\": {",
-                  "    \"date\": {",
-                  "      \"type\": \"string\"",
-                  "    },",
-                  "    \"holiday\": {",
-                  "      \"type\": \"string\"",
-                  "    },",
-                  "    \"solarTerm\": {",
-                  "      \"type\": \"string\"",
-                  "    },",
-                  "    \"book\": {",
-                  "      \"type\": \"string\"",
-                  "    },",
-                  "    \"author\": {",
-                  "      \"type\": \"string\"",
-                  "    },",
-                  "    \"summary\": {",
-                  "      \"type\": \"string\"",
-                  "    },",
-                  "    \"content\": {",
-                  "      \"type\": \"string\"",
-                  "    },",
-                  "    \"audio\": {",
-                  "      \"type\": \"string\"",
-                  "    }",
-                  "  }",
-                  "};",
-                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
-                  "})",
-                  ""
-                ]
-              }
-            }
-          ],
-          "request": {
-            "url": {
-              "path": [
-                "books/:bookIdOrSlug"
-              ],
-              "host": "{{host}}",
-              "query": [
-                {
-                  "key": "identify",
-                  "value": ""
-                }
-              ],
-              "variable": [
-                {
-                  "id": "bookIdOrSlug",
-                  "type": "string",
-                  "value": "bookIdOrSlug"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "type": "string",
-                  "value": "{{token}}",
-                  "key": "token"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"date\": \"{{date}}\",\n  \"holiday\": \"{{holiday}}\",\n  \"solarTerm\": \"{{solarTerm}}\",\n  \"book\": \"{{book}}\",\n  \"author\": \"{{author}}\",\n  \"summary\": \"{{summary}}\",\n  \"content\": \"{{content}}\",\n  \"audio\": \"{{audio}}\"\n}"
-            }
-          },
-          "name": "updateBookByIdOrSlug",
-          "description": "updateBookByIdOrSlug"
+          "name": "get wechat js sdk signature",
+          "description": "get wechat js sdk signature"
         }
       ],
       "event": []
     },
     {
-      "id": "9389766d-8cc0-4b57-b6db-b86da8535f88",
-      "name": "payment",
+      "id": "26d5646b-0d2b-4cd4-bd3b-bc5d24d787aa",
+      "name": "member",
       "item": [
         {
-          "id": "2886cbf7-494b-4045-8c84-eeb83bc5c865",
+          "id": "c12d630e-3fd2-4954-8272-2bcdac8eedaf",
           "response": [
             {
-              "id": "1b1fa0cd-b1a6-4cea-857f-f61d48f2f6f4",
+              "id": "2627cc78-d136-4b62-8366-7e44ed067d7d",
               "header": [
                 {
                   "key": "Content-type",
@@ -797,7 +351,7 @@
               "originalRequest": {
                 "url": {
                   "path": [
-                    "payment"
+                    "members"
                   ],
                   "host": "{{host}}",
                   "query": [
@@ -832,13 +386,9 @@
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
                   }
                 ],
-                "method": "POST",
+                "method": "GET",
                 "auth": {
                   "type": "bearer",
                   "bearer": [
@@ -848,21 +398,17 @@
                       "key": "token"
                     }
                   ]
-                },
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"openid\": \"{{openid}}\"\n}"
                 }
               },
               "code": 200,
-              "status": "Expected response to a valid request"
+              "status": "a paged array of members"
             }
           ],
           "event": [
             {
               "listen": "test",
               "script": {
-                "id": "13c34199-0be6-4827-bb45-9f2d13abd1ad",
+                "id": "3c5bb367-9445-441c-a522-5395c99a4dbc",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -871,11 +417,65 @@
                   "",
                   "pm.test(\"Json body schema test\", function(){",
                   "  var bodySchema = {",
-                  "  \"type\": \"object\",",
-                  "  \"properties\": {",
-                  "    \"appid\": {",
-                  "      \"type\": \"string\",",
-                  "      \"description\": \"公众号 appid\"",
+                  "  \"type\": \"array\",",
+                  "  \"items\": {",
+                  "    \"type\": \"object\",",
+                  "    \"required\": [",
+                  "      \"user\"",
+                  "    ],",
+                  "    \"properties\": {",
+                  "      \"id\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"id\"",
+                  "      },",
+                  "      \"createdAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"创建时间\"",
+                  "      },",
+                  "      \"updatedAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"更新时间\"",
+                  "      },",
+                  "      \"user\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"用户id\"",
+                  "      },",
+                  "      \"period\": {",
+                  "        \"type\": \"array\",",
+                  "        \"items\": {",
+                  "          \"type\": \"object\",",
+                  "          \"properties\": {",
+                  "            \"start\": {",
+                  "              \"type\": \"string\",",
+                  "              \"format\": \"date-time\",",
+                  "              \"description\": \"有效期起始时间\"",
+                  "            },",
+                  "            \"end\": {",
+                  "              \"type\": \"string\",",
+                  "              \"format\": \"date-time\",",
+                  "              \"description\": \"有效期结束时间\"",
+                  "            },",
+                  "            \"trial\": {",
+                  "              \"type\": \"boolean\",",
+                  "              \"description\": \"是否是试用\"",
+                  "            },",
+                  "            \"product\": {",
+                  "              \"type\": \"string\",",
+                  "              \"description\": \"商品 id\"",
+                  "            },",
+                  "            \"active\": {",
+                  "              \"type\": \"string\",",
+                  "              \"description\": \"是否有效\"",
+                  "            }",
+                  "          }",
+                  "        }",
+                  "      },",
+                  "      \"active\": {",
+                  "        \"type\": \"boolean\",",
+                  "        \"description\": \"是否激活\"",
+                  "      }",
                   "    }",
                   "  }",
                   "};",
@@ -889,7 +489,7 @@
           "request": {
             "url": {
               "path": [
-                "payment"
+                "members"
               ],
               "host": "{{host}}",
               "query": [
@@ -924,13 +524,9 @@
               {
                 "key": "Accept",
                 "value": "application/json"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
               }
             ],
-            "method": "POST",
+            "method": "GET",
             "auth": {
               "type": "bearer",
               "bearer": [
@@ -940,20 +536,16 @@
                   "key": "token"
                 }
               ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"openid\": \"{{openid}}\"\n}"
             }
           },
-          "name": "initiate a payment process",
-          "description": "initiate a payment process"
+          "name": "list all members",
+          "description": "list all members"
         },
         {
-          "id": "d931f6aa-c05a-439f-b388-362be323bf8e",
+          "id": "1019514a-6a75-4667-9b11-1c979091b1d1",
           "response": [
             {
-              "id": "20867775-6787-48b3-abfd-97a14abeed82",
+              "id": "585a81f8-6221-44a4-95ec-eee331e8e71e",
               "header": [
                 {
                   "key": "Content-type",
@@ -1005,7 +597,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "abf01c5b-5893-4dd7-8abe-8d5bbe6ba5d1",
+                "id": "a7745b7a-e766-490d-addd-2ffa2157641b",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 201\", function () {",
@@ -1119,10 +711,10 @@
           "description": "create a member"
         },
         {
-          "id": "96048229-6870-4246-ae15-c61b83ea62d2",
+          "id": "39939ea7-b566-4e3c-9520-a71cb9720bb6",
           "response": [
             {
-              "id": "39d5b244-3bba-4d48-bada-a4aca3dc8cc4",
+              "id": "f9c11736-5cb5-4917-8fc1-e72c97b79a8c",
               "header": [
                 {
                   "key": "Content-type",
@@ -1172,7 +764,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "d1e6fa78-a6e8-480b-94b9-c2fcbebad5f2",
+                "id": "df70c3e8-4966-4a40-8185-fd9892850f69",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -1284,10 +876,10 @@
           "description": "get member by user"
         },
         {
-          "id": "acc7aa7a-7b4f-4fba-8995-e20b7afe47a9",
+          "id": "c095a80c-bd36-4b8f-b398-c875e549f44e",
           "response": [
             {
-              "id": "33483a19-7a27-46d4-bceb-456ce456ec83",
+              "id": "102fa5c1-df61-435d-8cc3-471195e90f7a",
               "header": [],
               "cookie": [],
               "name": "Response_204",
@@ -1332,7 +924,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "bf3aedf5-6c75-4b4e-9971-722b94e7fcba",
+                "id": "5d4748e8-2d5c-45be-ad3e-755e245027f9",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 204\", function () {",
@@ -1381,10 +973,10 @@
           "description": "delete a member"
         },
         {
-          "id": "62d565f3-d8c2-4572-9cce-7c29010b689a",
+          "id": "44156848-a7f7-4529-8515-63f1e27d9f34",
           "response": [
             {
-              "id": "2ee03376-770c-45f6-bf6c-25830327ff00",
+              "id": "38d61c51-0b44-4226-8cdf-58efa1919b72",
               "header": [
                 {
                   "key": "Content-type",
@@ -1442,7 +1034,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "42c1beff-62d4-4d1d-b777-d57f02bc4b00",
+                "id": "755869a0-13cd-4519-a679-e38f0a22b6d4",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -1565,14 +1157,14 @@
       "event": []
     },
     {
-      "id": "e743fb60-2221-4159-9c9b-ffa39826968d",
-      "name": "signature",
+      "id": "2c156d91-4afd-433a-8fc5-78b8d86b138b",
+      "name": "product",
       "item": [
         {
-          "id": "63722f15-8a1b-4bd1-bc9e-33749d072ac3",
+          "id": "333d2904-8ce0-4d97-a173-28d7dc40e83f",
           "response": [
             {
-              "id": "8bcbdb8d-b8fa-4aaa-8443-6d8806e75261",
+              "id": "29bca1b4-4328-49b4-b00d-23ca5b8bec25",
               "header": [
                 {
                   "key": "Content-type",
@@ -1588,12 +1180,12 @@
               "originalRequest": {
                 "url": {
                   "path": [
-                    "signature"
+                    "products"
                   ],
                   "host": "{{host}}",
                   "query": [
                     {
-                      "key": "url",
+                      "key": "_select",
                       "value": ""
                     },
                     {
@@ -1634,14 +1226,14 @@
                 }
               },
               "code": 200,
-              "status": "Expected response to a valid request"
+              "status": "a paged array of products"
             }
           ],
           "event": [
             {
               "listen": "test",
               "script": {
-                "id": "4377219c-966e-4fc1-adc0-1f96d54702b0",
+                "id": "002174ed-a39d-4845-994c-94cddfa7d9e6",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -1650,10 +1242,104 @@
                   "",
                   "pm.test(\"Json body schema test\", function(){",
                   "  var bodySchema = {",
-                  "  \"type\": \"object\",",
-                  "  \"properties\": {",
-                  "    \"appid\": {",
-                  "      \"type\": \"string\"",
+                  "  \"type\": \"array\",",
+                  "  \"items\": {",
+                  "    \"type\": \"object\",",
+                  "    \"properties\": {",
+                  "      \"id\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"id\"",
+                  "      },",
+                  "      \"createdAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"创建时间\"",
+                  "      },",
+                  "      \"updatedAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"更新时间\"",
+                  "      },",
+                  "      \"slug\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"slug\"",
+                  "      },",
+                  "      \"price\": {",
+                  "        \"type\": \"number\",",
+                  "        \"description\": \"当前时间的现价\"",
+                  "      },",
+                  "      \"priceItems\": {",
+                  "        \"type\": \"array\",",
+                  "        \"items\": {",
+                  "          \"type\": \"object\",",
+                  "          \"properties\": {",
+                  "            \"purchaseStart\": {",
+                  "              \"type\": \"string\",",
+                  "              \"format\": \"date-time\",",
+                  "              \"description\": \"购买时间段的起始时间\"",
+                  "            },",
+                  "            \"purchaseEnd\": {",
+                  "              \"type\": \"string\",",
+                  "              \"format\": \"date-time\",",
+                  "              \"description\": \"购买时间段的结束时间\"",
+                  "            },",
+                  "            \"period\": {",
+                  "              \"type\": \"number\",",
+                  "              \"description\": \"延长有效期（毫秒）\"",
+                  "            },",
+                  "            \"start\": {",
+                  "              \"type\": \"date\",",
+                  "              \"format\": \"date-time\",",
+                  "              \"description\": \"有效期的起始时间\"",
+                  "            },",
+                  "            \"end\": {",
+                  "              \"type\": \"date\",",
+                  "              \"format\": \"date-time\",",
+                  "              \"description\": \"有效期的结素时间\"",
+                  "            },",
+                  "            \"price\": {",
+                  "              \"type\": \"number\",",
+                  "              \"description\": \"价格\"",
+                  "            }",
+                  "          }",
+                  "        },",
+                  "        \"description\": \"价格行项目\"",
+                  "      },",
+                  "      \"originalPrice\": {",
+                  "        \"type\": \"number\",",
+                  "        \"description\": \"原价\"",
+                  "      },",
+                  "      \"name\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"商品名称\"",
+                  "      },",
+                  "      \"description\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"商品描述\"",
+                  "      },",
+                  "      \"start\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"当前时间的有效期起始时间\"",
+                  "      },",
+                  "      \"end\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"当前时间的有效期结束时间\"",
+                  "      },",
+                  "      \"period\": {",
+                  "        \"type\": \"number\",",
+                  "        \"description\": \"当前时间的延长有效期（毫秒）\"",
+                  "      },",
+                  "      \"published\": {",
+                  "        \"type\": \"boolean\",",
+                  "        \"description\": \"是否发布\"",
+                  "      },",
+                  "      \"publishedAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"发布时间\"",
+                  "      }",
                   "    }",
                   "  }",
                   "};",
@@ -1667,12 +1353,12 @@
           "request": {
             "url": {
               "path": [
-                "signature"
+                "products"
               ],
               "host": "{{host}}",
               "query": [
                 {
-                  "key": "url",
+                  "key": "_select",
                   "value": ""
                 },
                 {
@@ -1712,14 +1398,14 @@
               ]
             }
           },
-          "name": "get wechat js sdk signature",
-          "description": "get wechat js sdk signature"
+          "name": "list all products",
+          "description": "list all products"
         },
         {
-          "id": "357ca9fc-766b-4aba-8b33-02eea25df567",
+          "id": "3f7ffea6-349b-42e6-82d9-a3aeb539a0cf",
           "response": [
             {
-              "id": "cb2e9e53-8498-4b93-901a-863d20607102",
+              "id": "35cb7f53-7893-4c8a-aa6c-b6aaaf034bc0",
               "header": [
                 {
                   "key": "Content-type",
@@ -1760,7 +1446,7 @@
                 },
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"slug\": \"{{slug}}\",\n  \"price\": \"{{price}}\",\n  \"name\": \"{{name}}\",\n  \"description\": \"{{description}}\",\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"published\": \"{{published}}\",\n  \"publishedAt\": \"{{publishedAt}}\"\n}"
+                  "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"slug\": \"{{slug}}\",\n  \"price\": \"{{price}}\",\n  \"priceItems\": \"{{priceItems}}\",\n  \"originalPrice\": \"{{originalPrice}}\",\n  \"name\": \"{{name}}\",\n  \"description\": \"{{description}}\",\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"published\": \"{{published}}\",\n  \"publishedAt\": \"{{publishedAt}}\"\n}"
                 }
               },
               "code": 201,
@@ -1771,7 +1457,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "84673a2a-8aa6-45f1-a88f-fb34ac9b6f7d",
+                "id": "f625f7bb-e2dd-4f2e-8ed1-ececc96bbd05",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 201\", function () {",
@@ -1802,7 +1488,48 @@
                   "    },",
                   "    \"price\": {",
                   "      \"type\": \"number\",",
-                  "      \"description\": \"价格\"",
+                  "      \"description\": \"当前时间的现价\"",
+                  "    },",
+                  "    \"priceItems\": {",
+                  "      \"type\": \"array\",",
+                  "      \"items\": {",
+                  "        \"type\": \"object\",",
+                  "        \"properties\": {",
+                  "          \"purchaseStart\": {",
+                  "            \"type\": \"string\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"购买时间段的起始时间\"",
+                  "          },",
+                  "          \"purchaseEnd\": {",
+                  "            \"type\": \"string\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"购买时间段的结束时间\"",
+                  "          },",
+                  "          \"period\": {",
+                  "            \"type\": \"number\",",
+                  "            \"description\": \"延长有效期（毫秒）\"",
+                  "          },",
+                  "          \"start\": {",
+                  "            \"type\": \"date\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"有效期的起始时间\"",
+                  "          },",
+                  "          \"end\": {",
+                  "            \"type\": \"date\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"有效期的结素时间\"",
+                  "          },",
+                  "          \"price\": {",
+                  "            \"type\": \"number\",",
+                  "            \"description\": \"价格\"",
+                  "          }",
+                  "        }",
+                  "      },",
+                  "      \"description\": \"价格行项目\"",
+                  "    },",
+                  "    \"originalPrice\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"原价\"",
                   "    },",
                   "    \"name\": {",
                   "      \"type\": \"string\",",
@@ -1815,16 +1542,16 @@
                   "    \"start\": {",
                   "      \"type\": \"string\",",
                   "      \"format\": \"date-time\",",
-                  "      \"description\": \"有效期起始时间\"",
+                  "      \"description\": \"当前时间的有效期起始时间\"",
                   "    },",
                   "    \"end\": {",
                   "      \"type\": \"string\",",
                   "      \"format\": \"date-time\",",
-                  "      \"description\": \"有效期结束时间\"",
+                  "      \"description\": \"当前时间的有效期结束时间\"",
                   "    },",
                   "    \"period\": {",
                   "      \"type\": \"number\",",
-                  "      \"description\": \"延长有效期（毫秒）\"",
+                  "      \"description\": \"当前时间的延长有效期（毫秒）\"",
                   "    },",
                   "    \"published\": {",
                   "      \"type\": \"boolean\",",
@@ -1876,17 +1603,17 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"slug\": \"{{slug}}\",\n  \"price\": \"{{price}}\",\n  \"name\": \"{{name}}\",\n  \"description\": \"{{description}}\",\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"published\": \"{{published}}\",\n  \"publishedAt\": \"{{publishedAt}}\"\n}"
+              "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"slug\": \"{{slug}}\",\n  \"price\": \"{{price}}\",\n  \"priceItems\": \"{{priceItems}}\",\n  \"originalPrice\": \"{{originalPrice}}\",\n  \"name\": \"{{name}}\",\n  \"description\": \"{{description}}\",\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"published\": \"{{published}}\",\n  \"publishedAt\": \"{{publishedAt}}\"\n}"
             }
           },
           "name": "create a product",
           "description": "create a product"
         },
         {
-          "id": "bf29e5bf-075d-41e1-837c-713abdaf52ce",
+          "id": "9a4fd654-5dc0-48c2-a658-f0d8d5c573d5",
           "response": [
             {
-              "id": "f6e34598-fd96-4a69-9f29-a46c71d3acfb",
+              "id": "b4fab97d-ee42-447e-872a-fa43315a1c83",
               "header": [
                 {
                   "key": "Content-type",
@@ -1936,7 +1663,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "5a05dda6-55fe-48af-886f-55c9954e1cda",
+                "id": "2e74b004-81d8-49cd-976f-a988097e8546",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -1967,7 +1694,48 @@
                   "    },",
                   "    \"price\": {",
                   "      \"type\": \"number\",",
-                  "      \"description\": \"价格\"",
+                  "      \"description\": \"当前时间的现价\"",
+                  "    },",
+                  "    \"priceItems\": {",
+                  "      \"type\": \"array\",",
+                  "      \"items\": {",
+                  "        \"type\": \"object\",",
+                  "        \"properties\": {",
+                  "          \"purchaseStart\": {",
+                  "            \"type\": \"string\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"购买时间段的起始时间\"",
+                  "          },",
+                  "          \"purchaseEnd\": {",
+                  "            \"type\": \"string\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"购买时间段的结束时间\"",
+                  "          },",
+                  "          \"period\": {",
+                  "            \"type\": \"number\",",
+                  "            \"description\": \"延长有效期（毫秒）\"",
+                  "          },",
+                  "          \"start\": {",
+                  "            \"type\": \"date\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"有效期的起始时间\"",
+                  "          },",
+                  "          \"end\": {",
+                  "            \"type\": \"date\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"有效期的结素时间\"",
+                  "          },",
+                  "          \"price\": {",
+                  "            \"type\": \"number\",",
+                  "            \"description\": \"价格\"",
+                  "          }",
+                  "        }",
+                  "      },",
+                  "      \"description\": \"价格行项目\"",
+                  "    },",
+                  "    \"originalPrice\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"原价\"",
                   "    },",
                   "    \"name\": {",
                   "      \"type\": \"string\",",
@@ -1980,16 +1748,16 @@
                   "    \"start\": {",
                   "      \"type\": \"string\",",
                   "      \"format\": \"date-time\",",
-                  "      \"description\": \"有效期起始时间\"",
+                  "      \"description\": \"当前时间的有效期起始时间\"",
                   "    },",
                   "    \"end\": {",
                   "      \"type\": \"string\",",
                   "      \"format\": \"date-time\",",
-                  "      \"description\": \"有效期结束时间\"",
+                  "      \"description\": \"当前时间的有效期结束时间\"",
                   "    },",
                   "    \"period\": {",
                   "      \"type\": \"number\",",
-                  "      \"description\": \"延长有效期（毫秒）\"",
+                  "      \"description\": \"当前时间的延长有效期（毫秒）\"",
                   "    },",
                   "    \"published\": {",
                   "      \"type\": \"boolean\",",
@@ -2046,10 +1814,10 @@
           "description": "get product by productId"
         },
         {
-          "id": "b6279872-bba5-4502-8edc-036c393c1a77",
+          "id": "d76dfc23-8b4f-41d0-bde5-54a146ca6113",
           "response": [
             {
-              "id": "f53be0ac-d363-4dff-a62c-d64a121d83bc",
+              "id": "876d6041-2224-4eb0-963e-ba34f4400883",
               "header": [],
               "cookie": [],
               "name": "Response_204",
@@ -2094,7 +1862,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "0914871e-bd23-4bd0-8576-a289742e17fd",
+                "id": "1dcd1b84-3d3b-47a5-8541-4b71543015b0",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 204\", function () {",
@@ -2143,10 +1911,10 @@
           "description": "delete a product"
         },
         {
-          "id": "f3773add-78e2-4b60-8270-3d00d0b82666",
+          "id": "6fd382e6-842b-4678-852b-acdd1717721a",
           "response": [
             {
-              "id": "211292c2-e12d-4c09-86dc-52dca43e49df",
+              "id": "5a5d89da-7c24-4e55-872a-2e5c7202a007",
               "header": [
                 {
                   "key": "Content-type",
@@ -2193,7 +1961,7 @@
                 },
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"slug\": \"{{slug}}\",\n  \"price\": \"{{price}}\",\n  \"name\": \"{{name}}\",\n  \"description\": \"{{description}}\",\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"published\": \"{{published}}\",\n  \"publishedAt\": \"{{publishedAt}}\"\n}"
+                  "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"slug\": \"{{slug}}\",\n  \"price\": \"{{price}}\",\n  \"priceItems\": \"{{priceItems}}\",\n  \"originalPrice\": \"{{originalPrice}}\",\n  \"name\": \"{{name}}\",\n  \"description\": \"{{description}}\",\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"published\": \"{{published}}\",\n  \"publishedAt\": \"{{publishedAt}}\"\n}"
                 }
               },
               "code": 200,
@@ -2204,7 +1972,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "59a80460-5628-4508-aa07-ea2a0c0b2174",
+                "id": "94782809-b206-472e-8cbb-cf713e0b06e6",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -2235,7 +2003,48 @@
                   "    },",
                   "    \"price\": {",
                   "      \"type\": \"number\",",
-                  "      \"description\": \"价格\"",
+                  "      \"description\": \"当前时间的现价\"",
+                  "    },",
+                  "    \"priceItems\": {",
+                  "      \"type\": \"array\",",
+                  "      \"items\": {",
+                  "        \"type\": \"object\",",
+                  "        \"properties\": {",
+                  "          \"purchaseStart\": {",
+                  "            \"type\": \"string\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"购买时间段的起始时间\"",
+                  "          },",
+                  "          \"purchaseEnd\": {",
+                  "            \"type\": \"string\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"购买时间段的结束时间\"",
+                  "          },",
+                  "          \"period\": {",
+                  "            \"type\": \"number\",",
+                  "            \"description\": \"延长有效期（毫秒）\"",
+                  "          },",
+                  "          \"start\": {",
+                  "            \"type\": \"date\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"有效期的起始时间\"",
+                  "          },",
+                  "          \"end\": {",
+                  "            \"type\": \"date\",",
+                  "            \"format\": \"date-time\",",
+                  "            \"description\": \"有效期的结素时间\"",
+                  "          },",
+                  "          \"price\": {",
+                  "            \"type\": \"number\",",
+                  "            \"description\": \"价格\"",
+                  "          }",
+                  "        }",
+                  "      },",
+                  "      \"description\": \"价格行项目\"",
+                  "    },",
+                  "    \"originalPrice\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"原价\"",
                   "    },",
                   "    \"name\": {",
                   "      \"type\": \"string\",",
@@ -2248,16 +2057,16 @@
                   "    \"start\": {",
                   "      \"type\": \"string\",",
                   "      \"format\": \"date-time\",",
-                  "      \"description\": \"有效期起始时间\"",
+                  "      \"description\": \"当前时间的有效期起始时间\"",
                   "    },",
                   "    \"end\": {",
                   "      \"type\": \"string\",",
                   "      \"format\": \"date-time\",",
-                  "      \"description\": \"有效期结束时间\"",
+                  "      \"description\": \"当前时间的有效期结束时间\"",
                   "    },",
                   "    \"period\": {",
                   "      \"type\": \"number\",",
-                  "      \"description\": \"延长有效期（毫秒）\"",
+                  "      \"description\": \"当前时间的延长有效期（毫秒）\"",
                   "    },",
                   "    \"published\": {",
                   "      \"type\": \"boolean\",",
@@ -2315,7 +2124,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"slug\": \"{{slug}}\",\n  \"price\": \"{{price}}\",\n  \"name\": \"{{name}}\",\n  \"description\": \"{{description}}\",\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"published\": \"{{published}}\",\n  \"publishedAt\": \"{{publishedAt}}\"\n}"
+              "raw": "{\n  \"id\": \"{{id}}\",\n  \"createdAt\": \"{{createdAt}}\",\n  \"updatedAt\": \"{{updatedAt}}\",\n  \"slug\": \"{{slug}}\",\n  \"price\": \"{{price}}\",\n  \"priceItems\": \"{{priceItems}}\",\n  \"originalPrice\": \"{{originalPrice}}\",\n  \"name\": \"{{name}}\",\n  \"description\": \"{{description}}\",\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"published\": \"{{published}}\",\n  \"publishedAt\": \"{{publishedAt}}\"\n}"
             }
           },
           "name": "update product",
@@ -2325,14 +2134,14 @@
       "event": []
     },
     {
-      "id": "5c67931b-fffc-4a8d-8841-05dbf4e5740b",
-      "name": "notify",
+      "id": "af8b5594-30e2-46d9-855d-481af6843254",
+      "name": "order",
       "item": [
         {
-          "id": "15c9f40f-526f-476b-8cfb-9787e8955581",
+          "id": "68bfe355-5cd9-4f91-b590-144672667f61",
           "response": [
             {
-              "id": "06306cba-537e-4f5e-b4b0-c89c2369cb6f",
+              "id": "888dd4f8-ef72-4e73-a927-34410dd26bf4",
               "header": [
                 {
                   "key": "Content-type",
@@ -2348,7 +2157,7 @@
               "originalRequest": {
                 "url": {
                   "path": [
-                    "wechat-pay-notifynotify"
+                    "orders"
                   ],
                   "host": "{{host}}",
                   "query": [
@@ -2391,13 +2200,9 @@
                   {
                     "key": "Accept",
                     "value": "application/json"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
                   }
                 ],
-                "method": "POST",
+                "method": "GET",
                 "auth": {
                   "type": "bearer",
                   "bearer": [
@@ -2407,21 +2212,17 @@
                       "key": "token"
                     }
                   ]
-                },
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"appid\": \"{{appid}}\"\n}"
                 }
               },
               "code": 200,
-              "status": "Expected response to a valid request"
+              "status": "a paged array of orders"
             }
           ],
           "event": [
             {
               "listen": "test",
               "script": {
-                "id": "d0b3b660-e719-41b7-8d9e-c920546c59b7",
+                "id": "f9c27057-275b-4275-9011-38d49e376f58",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -2430,7 +2231,67 @@
                   "",
                   "pm.test(\"Json body schema test\", function(){",
                   "  var bodySchema = {",
-                  "  \"type\": \"string\"",
+                  "  \"type\": \"array\",",
+                  "  \"items\": {",
+                  "    \"type\": \"object\",",
+                  "    \"properties\": {",
+                  "      \"id\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"id\"",
+                  "      },",
+                  "      \"createdAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"创建时间\"",
+                  "      },",
+                  "      \"updatedAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"更新时间\"",
+                  "      },",
+                  "      \"no\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"订单号\"",
+                  "      },",
+                  "      \"product\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"商品 id\"",
+                  "      },",
+                  "      \"method\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"支付方式\"",
+                  "      },",
+                  "      \"paidAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"付款时间\"",
+                  "      },",
+                  "      \"data\": {",
+                  "        \"type\": \"object\",",
+                  "        \"description\": \"支付回调数据\"",
+                  "      },",
+                  "      \"user\": {",
+                  "        \"type\": \"object\",",
+                  "        \"description\": \"用户\"",
+                  "      },",
+                  "      \"status\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"订单状态\"",
+                  "      },",
+                  "      \"comment\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"备注\"",
+                  "      },",
+                  "      \"fee\": {",
+                  "        \"type\": \"number\",",
+                  "        \"description\": \"支付金额\"",
+                  "      },",
+                  "      \"createdBy\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"购买的用户 id\"",
+                  "      }",
+                  "    }",
+                  "  }",
                   "};",
                   "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
                   "})",
@@ -2442,7 +2303,7 @@
           "request": {
             "url": {
               "path": [
-                "wechat-pay-notifynotify"
+                "orders"
               ],
               "host": "{{host}}",
               "query": [
@@ -2485,13 +2346,9 @@
               {
                 "key": "Accept",
                 "value": "application/json"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
               }
             ],
-            "method": "POST",
+            "method": "GET",
             "auth": {
               "type": "bearer",
               "bearer": [
@@ -2501,20 +2358,16 @@
                   "key": "token"
                 }
               ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"appid\": \"{{appid}}\"\n}"
             }
           },
-          "name": "wechat pay callback",
-          "description": "wechat pay callback"
+          "name": "list all orders",
+          "description": "list all orders"
         },
         {
-          "id": "0b89ca90-1224-413d-bfa2-1e808bbfafd5",
+          "id": "3ebc4553-9740-4e1b-875f-8507752c6e6b",
           "response": [
             {
-              "id": "2fc49c83-4551-4528-8d0d-e5be3366be9e",
+              "id": "543057e9-407b-4971-8219-855cb67b4319",
               "header": [
                 {
                   "key": "Content-type",
@@ -2566,7 +2419,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "f7bccc71-d285-44fb-a317-be4f2b133688",
+                "id": "e159be8f-9bcd-48dd-8a0b-77969bb629a6",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 201\", function () {",
@@ -2680,10 +2533,10 @@
           "description": "create a order"
         },
         {
-          "id": "5858becf-b738-4c93-a687-336408f4294b",
+          "id": "fedadb09-cbf6-4507-b48e-0a1bd5e800c6",
           "response": [
             {
-              "id": "2f42e415-a268-49f3-93a7-22f8f2957f33",
+              "id": "88d276d1-8763-447b-914e-89855e01e9c7",
               "header": [
                 {
                   "key": "Content-type",
@@ -2733,7 +2586,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "b2c5c865-ecdc-4e6d-b790-7e064cbf7b1d",
+                "id": "ce849d2c-b814-43e0-8fc2-06927c8fbf58",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -2845,10 +2698,10 @@
           "description": "get order by orderId"
         },
         {
-          "id": "f09df89a-d246-4c34-a62b-5d89fe6b73a1",
+          "id": "69cb94fe-9de4-4653-8980-7a44902b2d6b",
           "response": [
             {
-              "id": "9296613f-c2a7-4079-a84e-eae1a21a3de3",
+              "id": "6f4463da-22ef-4206-9c43-6b6766f3ba4e",
               "header": [],
               "cookie": [],
               "name": "Response_204",
@@ -2893,7 +2746,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "b8fd4335-70c3-45b5-80cf-6c2e65ee98dd",
+                "id": "d1e5d844-cadf-4b99-a161-09069d97de9d",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 204\", function () {",
@@ -2942,10 +2795,10 @@
           "description": "delete a order"
         },
         {
-          "id": "8dcce713-192a-49ac-97a0-ffd0f17118cd",
+          "id": "e7b2ce49-fffb-4b29-b1c7-8a02591ccd9e",
           "response": [
             {
-              "id": "558662b1-c508-463c-bf95-8012278667b1",
+              "id": "e6cc8412-8263-4d3b-b205-0f9f23839129",
               "header": [
                 {
                   "key": "Content-type",
@@ -3003,7 +2856,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "fe446791-d99b-4771-933c-a9a4729c1c20",
+                "id": "39efb7f7-bf51-4207-a71e-cd2e15168930",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -3126,14 +2979,14 @@
       "event": []
     },
     {
-      "id": "2d55008c-f6c3-4537-a51b-177c357e3ebb",
+      "id": "fde91281-d963-447d-856d-cb55d870f65e",
       "name": "setting",
       "item": [
         {
-          "id": "a393ae8e-19c1-4ae8-9ab5-f1b470a1dd19",
+          "id": "70afb2c3-e5c2-4b37-9f74-cf43fac8c030",
           "response": [
             {
-              "id": "bd18276d-78d2-4209-b8f4-1b8d56495b7d",
+              "id": "02e3f6ed-4e38-4533-80fd-c880c1cbe223",
               "header": [
                 {
                   "key": "Content-type",
@@ -3183,7 +3036,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "eb10c202-2d83-4394-a092-38b80b486fc9",
+                "id": "5be301e8-b833-459a-8fe9-8e5701814c49",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -3201,6 +3054,15 @@
                   "      \"type\": \"string\"",
                   "    },",
                   "    \"alarm\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"disableAlarm\": {",
+                  "      \"type\": \"boolean\"",
+                  "    },",
+                  "    \"openid\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"appOpenid\": {",
                   "      \"type\": \"string\"",
                   "    }",
                   "  }",
@@ -3249,10 +3111,10 @@
           "description": "get setting by user"
         },
         {
-          "id": "3b7f6262-b0b7-419e-898b-c8d964f2992f",
+          "id": "936fb42a-1ca7-4f22-8ea7-69f56b040921",
           "response": [
             {
-              "id": "460402cf-498e-4d83-bfcb-5b2971d04878",
+              "id": "d7fe436d-d1af-4f6e-8a5d-ecdde14aeabf",
               "header": [],
               "cookie": [],
               "name": "Response_204",
@@ -3297,7 +3159,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "05ab565b-0663-462c-9e3f-7ce119dfb9c7",
+                "id": "683453c5-f99d-489d-b966-e5f4175b3d93",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 204\", function () {",
@@ -3346,10 +3208,10 @@
           "description": "delete a setting"
         },
         {
-          "id": "442bf26a-6c97-4d94-b79d-87f709a0894d",
+          "id": "b616c4f7-4ef0-4031-9eda-bdf9396ee1cf",
           "response": [
             {
-              "id": "1c780eba-2a40-4245-a8e9-a962ad132e90",
+              "id": "658e9e94-8f23-4245-9ba9-931c32ac499f",
               "header": [
                 {
                   "key": "Content-type",
@@ -3396,7 +3258,7 @@
                 },
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"user\": \"{{user}}\",\n  \"birthday\": \"{{birthday}}\",\n  \"alarm\": \"{{alarm}}\"\n}"
+                  "raw": "{\n  \"user\": \"{{user}}\",\n  \"birthday\": \"{{birthday}}\",\n  \"alarm\": \"{{alarm}}\",\n  \"disableAlarm\": \"{{disableAlarm}}\",\n  \"openid\": \"{{openid}}\",\n  \"appOpenid\": \"{{appOpenid}}\"\n}"
                 }
               },
               "code": 200,
@@ -3407,7 +3269,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "41cd7828-3456-42dc-93e0-4677cb1865ca",
+                "id": "ffdcc6ab-78de-4dcb-96ad-21a5074a4fd7",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -3425,6 +3287,15 @@
                   "      \"type\": \"string\"",
                   "    },",
                   "    \"alarm\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"disableAlarm\": {",
+                  "      \"type\": \"boolean\"",
+                  "    },",
+                  "    \"openid\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"appOpenid\": {",
                   "      \"type\": \"string\"",
                   "    }",
                   "  }",
@@ -3474,7 +3345,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"user\": \"{{user}}\",\n  \"birthday\": \"{{birthday}}\",\n  \"alarm\": \"{{alarm}}\"\n}"
+              "raw": "{\n  \"user\": \"{{user}}\",\n  \"birthday\": \"{{birthday}}\",\n  \"alarm\": \"{{alarm}}\",\n  \"disableAlarm\": \"{{disableAlarm}}\",\n  \"openid\": \"{{openid}}\",\n  \"appOpenid\": \"{{appOpenid}}\"\n}"
             }
           },
           "name": "update a setting",
@@ -3484,14 +3355,14 @@
       "event": []
     },
     {
-      "id": "1545b8cb-32be-4891-8c74-3acc31a0b465",
+      "id": "a524f690-7ed9-4357-861a-84fdc386fe0a",
       "name": "stats",
       "item": [
         {
-          "id": "ec0f5d19-ef33-4975-808f-bf9480a41a21",
+          "id": "50a33611-2e09-40c9-bb4d-6cc07a276a8d",
           "response": [
             {
-              "id": "d88d2c90-be19-4b9d-82d3-6c9ea968954d",
+              "id": "43fcdcf4-3c47-4b29-9383-bc8e7abcc7ce",
               "header": [
                 {
                   "key": "Content-type",
@@ -3543,7 +3414,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "57ccb535-1ca8-47a1-b9b5-8a1aca6cd49d",
+                "id": "85e4e183-f4c5-4e38-9688-00d948cb834e",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -3580,8 +3451,14 @@
                   "      \"description\": \"阅读统计的日期\"",
                   "    },",
                   "    \"data\": {",
+                  "      \"description\": \"数据对象\",",
                   "      \"type\": \"object\",",
-                  "      \"description\": \"数据对象\"",
+                  "      \"properties\": {",
+                  "        \"value\": {",
+                  "          \"type\": \"number\",",
+                  "          \"description\": \"音频播放进度\"",
+                  "        }",
+                  "      }",
                   "    }",
                   "  }",
                   "};",
@@ -3631,10 +3508,10 @@
           "description": "create or update stats"
         },
         {
-          "id": "08c367a9-5880-4c8f-b4f7-d41a44e32251",
+          "id": "a54b68cf-0946-4aa7-887b-f0119514a480",
           "response": [
             {
-              "id": "d9d4d10a-27bd-41a9-9ff6-bbfcd64a55fb",
+              "id": "6e0ead7a-5581-478a-8a14-2ee74df6466e",
               "header": [
                 {
                   "key": "Content-type",
@@ -3711,7 +3588,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "a952b150-c47f-4ed9-8b1c-a6efd0eead1a",
+                "id": "d63624b5-3e16-4c55-b00a-ecb36c3c7a49",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
@@ -3850,12 +3727,2052 @@
         }
       ],
       "event": []
+    },
+    {
+      "id": "2eef1116-491c-41eb-85cb-df79369a6724",
+      "name": "invitation",
+      "item": [
+        {
+          "id": "3411b529-52ed-437d-8fda-b4580f18e922",
+          "response": [
+            {
+              "id": "9a65579c-0820-4fcf-9ffd-0983bbfe029d",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_201",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invitations"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"email\": \"{{email}}\",\n  \"phone\": \"{{phone}}\"\n}"
+                }
+              },
+              "code": 201,
+              "status": "The invitaion created"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "02d0804f-2aec-4709-96b8-2e9004011c33",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"description\": \"邀请函，例如用于获得邀请码，邮箱或者手机授权码\",",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\"",
+                  "    },",
+                  "    \"code\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"只有 admin 能看到\"",
+                  "    },",
+                  "    \"email\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"phone\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"expireAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"邀请码过期时间\"",
+                  "    },",
+                  "    \"period\": {",
+                  "      \"type\": \"integer\",",
+                  "      \"description\": \"该邀请码生效后，发生作用的有效期, 例如激活码，代表激活用户的时长\"",
+                  "    },",
+                  "    \"start\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"有效时间的开始时间\"",
+                  "    },",
+                  "    \"end\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"有效时间的结束时间\"",
+                  "    },",
+                  "    \"used\": {",
+                  "      \"type\": \"boolean\",",
+                  "      \"description\": \"是否已经使用\"",
+                  "    },",
+                  "    \"usedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"邀请码使用时间\"",
+                  "    },",
+                  "    \"usedBy\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"使用邀请码的用户 id\"",
+                  "    },",
+                  "    \"user\": {",
+                  "      \"type\": \"object\",",
+                  "      \"description\": \"使用邀请码的用户对象\"",
+                  "    },",
+                  "    \"source\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"渠道来源\"",
+                  "    },",
+                  "    \"comment\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"备注\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "invitations"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"email\": \"{{email}}\",\n  \"phone\": \"{{phone}}\"\n}"
+            }
+          },
+          "name": "Create invitation 可以用于发送邀请码",
+          "description": "Create invitation 可以用于发送邀请码"
+        },
+        {
+          "id": "a03eaec8-b73d-47dc-b5e5-d08b5a75943f",
+          "response": [
+            {
+              "id": "8b3d8f61-30c8-41db-901a-326f5849a7b3",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-Total-Count",
+                  "value": "unset"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invitations"
+                  ],
+                  "host": "{{host}}",
+                  "query": [
+                    {
+                      "key": "_limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "_offset",
+                      "value": ""
+                    },
+                    {
+                      "key": "ns",
+                      "value": ""
+                    },
+                    {
+                      "key": "sub",
+                      "value": ""
+                    },
+                    {
+                      "key": "code",
+                      "value": ""
+                    },
+                    {
+                      "key": "code_like",
+                      "value": ""
+                    },
+                    {
+                      "key": "phone",
+                      "value": ""
+                    },
+                    {
+                      "key": "used",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "A paged array of invitations"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "2e8e0e53-e65f-4571-8c9a-9302d0a303ed",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"array\",",
+                  "  \"items\": {",
+                  "    \"description\": \"邀请函，例如用于获得邀请码，邮箱或者手机授权码\",",
+                  "    \"type\": \"object\",",
+                  "    \"properties\": {",
+                  "      \"id\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"createdAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\"",
+                  "      },",
+                  "      \"code\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"只有 admin 能看到\"",
+                  "      },",
+                  "      \"email\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"phone\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"expireAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"邀请码过期时间\"",
+                  "      },",
+                  "      \"period\": {",
+                  "        \"type\": \"integer\",",
+                  "        \"description\": \"该邀请码生效后，发生作用的有效期, 例如激活码，代表激活用户的时长\"",
+                  "      },",
+                  "      \"start\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"有效时间的开始时间\"",
+                  "      },",
+                  "      \"end\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"有效时间的结束时间\"",
+                  "      },",
+                  "      \"used\": {",
+                  "        \"type\": \"boolean\",",
+                  "        \"description\": \"是否已经使用\"",
+                  "      },",
+                  "      \"usedAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"邀请码使用时间\"",
+                  "      },",
+                  "      \"usedBy\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"使用邀请码的用户 id\"",
+                  "      },",
+                  "      \"user\": {",
+                  "        \"type\": \"object\",",
+                  "        \"description\": \"使用邀请码的用户对象\"",
+                  "      },",
+                  "      \"source\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"渠道来源\"",
+                  "      },",
+                  "      \"comment\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"备注\"",
+                  "      }",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "invitations"
+              ],
+              "host": "{{host}}",
+              "query": [
+                {
+                  "key": "_limit",
+                  "value": ""
+                },
+                {
+                  "key": "_offset",
+                  "value": ""
+                },
+                {
+                  "key": "ns",
+                  "value": ""
+                },
+                {
+                  "key": "sub",
+                  "value": ""
+                },
+                {
+                  "key": "code",
+                  "value": ""
+                },
+                {
+                  "key": "code_like",
+                  "value": ""
+                },
+                {
+                  "key": "phone",
+                  "value": ""
+                },
+                {
+                  "key": "used",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "List invitations",
+          "description": "List invitations"
+        },
+        {
+          "id": "6ee01f35-9f2e-41a1-b672-889d70298115",
+          "response": [
+            {
+              "id": "d836cefe-a823-4865-b93b-8a323c28326c",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invitations"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "The invitations be uperted"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "27d4c46a-6573-4618-a37a-79b80e01c58d",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"array\",",
+                  "  \"items\": {",
+                  "    \"description\": \"邀请函，例如用于获得邀请码，邮箱或者手机授权码\",",
+                  "    \"type\": \"object\",",
+                  "    \"properties\": {",
+                  "      \"id\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"createdAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\"",
+                  "      },",
+                  "      \"code\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"只有 admin 能看到\"",
+                  "      },",
+                  "      \"email\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"phone\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"expireAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"邀请码过期时间\"",
+                  "      },",
+                  "      \"period\": {",
+                  "        \"type\": \"integer\",",
+                  "        \"description\": \"该邀请码生效后，发生作用的有效期, 例如激活码，代表激活用户的时长\"",
+                  "      },",
+                  "      \"start\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"有效时间的开始时间\"",
+                  "      },",
+                  "      \"end\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"有效时间的结束时间\"",
+                  "      },",
+                  "      \"used\": {",
+                  "        \"type\": \"boolean\",",
+                  "        \"description\": \"是否已经使用\"",
+                  "      },",
+                  "      \"usedAt\": {",
+                  "        \"type\": \"string\",",
+                  "        \"format\": \"date-time\",",
+                  "        \"description\": \"邀请码使用时间\"",
+                  "      },",
+                  "      \"usedBy\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"使用邀请码的用户 id\"",
+                  "      },",
+                  "      \"user\": {",
+                  "        \"type\": \"object\",",
+                  "        \"description\": \"使用邀请码的用户对象\"",
+                  "      },",
+                  "      \"source\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"渠道来源\"",
+                  "      },",
+                  "      \"comment\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"备注\"",
+                  "      }",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "invitations"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "bulk upsert invitations",
+          "description": "bulk upsert invitations"
+        },
+        {
+          "id": "e0d65bae-7f1e-4698-9eb6-00f695bc59bf",
+          "response": [
+            {
+              "id": "b95b2a81-4f5c-4b11-8ec0-352d137326f9",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invitations/:invitationId"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "invitationId",
+                      "type": "string",
+                      "value": "invitationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "The invitation with given id"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "87bcb0c2-2bec-4820-8471-868ee08bb50a",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"description\": \"邀请函，例如用于获得邀请码，邮箱或者手机授权码\",",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\"",
+                  "    },",
+                  "    \"code\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"只有 admin 能看到\"",
+                  "    },",
+                  "    \"email\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"phone\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"expireAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"邀请码过期时间\"",
+                  "    },",
+                  "    \"period\": {",
+                  "      \"type\": \"integer\",",
+                  "      \"description\": \"该邀请码生效后，发生作用的有效期, 例如激活码，代表激活用户的时长\"",
+                  "    },",
+                  "    \"start\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"有效时间的开始时间\"",
+                  "    },",
+                  "    \"end\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"有效时间的结束时间\"",
+                  "    },",
+                  "    \"used\": {",
+                  "      \"type\": \"boolean\",",
+                  "      \"description\": \"是否已经使用\"",
+                  "    },",
+                  "    \"usedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"邀请码使用时间\"",
+                  "    },",
+                  "    \"usedBy\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"使用邀请码的用户 id\"",
+                  "    },",
+                  "    \"user\": {",
+                  "      \"type\": \"object\",",
+                  "      \"description\": \"使用邀请码的用户对象\"",
+                  "    },",
+                  "    \"source\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"渠道来源\"",
+                  "    },",
+                  "    \"comment\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"备注\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "invitations/:invitationId"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "invitationId",
+                  "type": "string",
+                  "value": "invitationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "Get invitation by id",
+          "description": "Get invitation by id"
+        },
+        {
+          "id": "0fdee75e-b880-4599-a565-14b75cddc358",
+          "response": [
+            {
+              "id": "84accba6-1095-4cc3-9835-c1a0e5a37172",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invitations/:invitationId"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "invitationId",
+                      "type": "string",
+                      "value": "invitationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"source\": \"{{source}}\",\n  \"comment\": \"{{comment}}\",\n  \"used\": \"{{used}}\",\n  \"usedBy\": \"{{usedBy}}\",\n  \"user\": \"{{user}}\",\n  \"email\": \"{{email}}\",\n  \"phone\": \"{{phone}}\"\n}"
+                }
+              },
+              "code": 200,
+              "status": "The invitation"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "93c7efb0-b276-45da-94ff-b41bd165d5f2",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"description\": \"邀请函，例如用于获得邀请码，邮箱或者手机授权码\",",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"id\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"createdAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\"",
+                  "    },",
+                  "    \"code\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"只有 admin 能看到\"",
+                  "    },",
+                  "    \"email\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"phone\": {",
+                  "      \"type\": \"string\"",
+                  "    },",
+                  "    \"expireAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"邀请码过期时间\"",
+                  "    },",
+                  "    \"period\": {",
+                  "      \"type\": \"integer\",",
+                  "      \"description\": \"该邀请码生效后，发生作用的有效期, 例如激活码，代表激活用户的时长\"",
+                  "    },",
+                  "    \"start\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"有效时间的开始时间\"",
+                  "    },",
+                  "    \"end\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"有效时间的结束时间\"",
+                  "    },",
+                  "    \"used\": {",
+                  "      \"type\": \"boolean\",",
+                  "      \"description\": \"是否已经使用\"",
+                  "    },",
+                  "    \"usedAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"邀请码使用时间\"",
+                  "    },",
+                  "    \"usedBy\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"使用邀请码的用户 id\"",
+                  "    },",
+                  "    \"user\": {",
+                  "      \"type\": \"object\",",
+                  "      \"description\": \"使用邀请码的用户对象\"",
+                  "    },",
+                  "    \"source\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"渠道来源\"",
+                  "    },",
+                  "    \"comment\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"备注\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "invitations/:invitationId"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "invitationId",
+                  "type": "string",
+                  "value": "invitationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start\": \"{{start}}\",\n  \"end\": \"{{end}}\",\n  \"period\": \"{{period}}\",\n  \"source\": \"{{source}}\",\n  \"comment\": \"{{comment}}\",\n  \"used\": \"{{used}}\",\n  \"usedBy\": \"{{usedBy}}\",\n  \"user\": \"{{user}}\",\n  \"email\": \"{{email}}\",\n  \"phone\": \"{{phone}}\"\n}"
+            }
+          },
+          "name": "Update invitation",
+          "description": "Update invitation"
+        },
+        {
+          "id": "806e790a-9e97-4f6e-b6bc-4b815b683f37",
+          "response": [
+            {
+              "id": "49ecbf2a-1ea9-45d8-895b-2138e3b96f61",
+              "header": [],
+              "cookie": [],
+              "name": "Response_204",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invitations/:invitationId"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "invitationId",
+                      "type": "string",
+                      "value": "invitationId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 204,
+              "status": "invitation deleted"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "1e35b928-e976-4eea-97df-cbc3225ef996",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "  pm.response.to.have.status(204);",
+                  "});",
+                  "",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "invitations/:invitationId"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "invitationId",
+                  "type": "string",
+                  "value": "invitationId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "delete invitation",
+          "description": "delete invitation"
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "0f60bf36-f77d-4b7a-aa33-30701cd9133a",
+      "name": "formId",
+      "item": [
+        {
+          "id": "4ed7d928-b037-4d7e-b96a-12fb73058a6b",
+          "response": [
+            {
+              "id": "14e7c4ae-06cb-4019-92e6-6c3d8f856df3",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_201",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "formIds"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user\": \"{{user}}\",\n  \"formId\": \"{{formId}}\"\n}"
+                }
+              },
+              "code": 201,
+              "status": "The formId created"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ed32e1cd-5191-4287-b575-04f600720e33",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"description\": \"formId\",",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"user\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"用户 Id\"",
+                  "    },",
+                  "    \"formId\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"小程序formId\"",
+                  "    },",
+                  "    \"used\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"是否已被使用\"",
+                  "    },",
+                  "    \"expiredAt\": {",
+                  "      \"type\": \"string\",",
+                  "      \"format\": \"date-time\",",
+                  "      \"description\": \"过期时间\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "formIds"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": \"{{user}}\",\n  \"formId\": \"{{formId}}\"\n}"
+            }
+          },
+          "name": "Save formId 保存小程序 formId",
+          "description": "Save formId 保存小程序 formId"
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "0fc61a94-a999-4431-8f75-ab0a9eb010d2",
+      "name": "reply",
+      "item": [
+        {
+          "id": "d76baffc-d62a-47f1-98f1-9acaebbc43a0",
+          "response": [
+            {
+              "id": "35343de9-5519-4bf6-b61f-c88333071aeb",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "X-Total-Count",
+                  "value": "unset"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replies"
+                  ],
+                  "host": "{{host}}",
+                  "query": [
+                    {
+                      "key": "_select",
+                      "value": ""
+                    },
+                    {
+                      "key": "_limit",
+                      "value": ""
+                    },
+                    {
+                      "key": "_offset",
+                      "value": ""
+                    },
+                    {
+                      "key": "_sort",
+                      "value": ""
+                    },
+                    {
+                      "key": "active",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "a paged array of replies"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "7cb1e70c-721b-4ac2-8ecd-9294ac162894",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"array\",",
+                  "  \"items\": {",
+                  "    \"type\": \"object\",",
+                  "    \"properties\": {",
+                  "      \"type\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"回复类型，auto 被动回复 / keyword 关键词回复\"",
+                  "      },",
+                  "      \"keyword\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"关键词\"",
+                  "      },",
+                  "      \"msgtype\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"回复的消息类型，text 文字/image 图片/link 卡片\"",
+                  "      },",
+                  "      \"content\": {",
+                  "        \"type\": \"string\",",
+                  "        \"description\": \"文本消息的内容\"",
+                  "      },",
+                  "      \"image\": {",
+                  "        \"description\": \"图片消息的内容\",",
+                  "        \"type\": \"object\",",
+                  "        \"properties\": {",
+                  "          \"media_id\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"微信媒体id\"",
+                  "          },",
+                  "          \"url\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"图片 url\"",
+                  "          },",
+                  "          \"filename\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"文件名\"",
+                  "          }",
+                  "        }",
+                  "      },",
+                  "      \"link\": {",
+                  "        \"description\": \"卡片消息的内容\",",
+                  "        \"type\": \"object\",",
+                  "        \"properties\": {",
+                  "          \"title\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"卡片标题\"",
+                  "          },",
+                  "          \"description\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"卡片描述\"",
+                  "          },",
+                  "          \"url\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"卡片跳转链接\"",
+                  "          },",
+                  "          \"thumb_url\": {",
+                  "            \"type\": \"string\",",
+                  "            \"description\": \"卡片缩略图\"",
+                  "          }",
+                  "        }",
+                  "      },",
+                  "      \"active\": {",
+                  "        \"type\": \"boolean\",",
+                  "        \"description\": \"是否激活\"",
+                  "      },",
+                  "      \"index\": {",
+                  "        \"type\": \"number\",",
+                  "        \"description\": \"顺序\"",
+                  "      }",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "replies"
+              ],
+              "host": "{{host}}",
+              "query": [
+                {
+                  "key": "_select",
+                  "value": ""
+                },
+                {
+                  "key": "_limit",
+                  "value": ""
+                },
+                {
+                  "key": "_offset",
+                  "value": ""
+                },
+                {
+                  "key": "_sort",
+                  "value": ""
+                },
+                {
+                  "key": "active",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "list all replies",
+          "description": "list all replies"
+        },
+        {
+          "id": "cd22e8ec-7b0e-4fd6-913b-6a5b6429c0b2",
+          "response": [
+            {
+              "id": "497cdef6-089b-49bb-a0b1-5d58fee604ca",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_201",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replies"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"{{type}}\",\n  \"keyword\": \"{{keyword}}\",\n  \"msgtype\": \"{{msgtype}}\",\n  \"content\": \"{{content}}\",\n  \"image\": \"{{image}}\",\n  \"link\": \"{{link}}\",\n  \"active\": \"{{active}}\",\n  \"index\": \"{{index}}\"\n}"
+                }
+              },
+              "code": 201,
+              "status": "the reply created"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "e6f6b11d-e4ce-4838-9099-0fd1857fd357",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"type\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"回复类型，auto 被动回复 / keyword 关键词回复\"",
+                  "    },",
+                  "    \"keyword\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"关键词\"",
+                  "    },",
+                  "    \"msgtype\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"回复的消息类型，text 文字/image 图片/link 卡片\"",
+                  "    },",
+                  "    \"content\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"文本消息的内容\"",
+                  "    },",
+                  "    \"image\": {",
+                  "      \"description\": \"图片消息的内容\",",
+                  "      \"type\": \"object\",",
+                  "      \"properties\": {",
+                  "        \"media_id\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"微信媒体id\"",
+                  "        },",
+                  "        \"url\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"图片 url\"",
+                  "        },",
+                  "        \"filename\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"文件名\"",
+                  "        }",
+                  "      }",
+                  "    },",
+                  "    \"link\": {",
+                  "      \"description\": \"卡片消息的内容\",",
+                  "      \"type\": \"object\",",
+                  "      \"properties\": {",
+                  "        \"title\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"卡片标题\"",
+                  "        },",
+                  "        \"description\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"卡片描述\"",
+                  "        },",
+                  "        \"url\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"卡片跳转链接\"",
+                  "        },",
+                  "        \"thumb_url\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"卡片缩略图\"",
+                  "        }",
+                  "      }",
+                  "    },",
+                  "    \"active\": {",
+                  "      \"type\": \"boolean\",",
+                  "      \"description\": \"是否激活\"",
+                  "    },",
+                  "    \"index\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"顺序\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "replies"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"{{type}}\",\n  \"keyword\": \"{{keyword}}\",\n  \"msgtype\": \"{{msgtype}}\",\n  \"content\": \"{{content}}\",\n  \"image\": \"{{image}}\",\n  \"link\": \"{{link}}\",\n  \"active\": \"{{active}}\",\n  \"index\": \"{{index}}\"\n}"
+            }
+          },
+          "name": "create a reply",
+          "description": "create a reply"
+        },
+        {
+          "id": "3636b0c3-bddd-4834-97aa-8045ab92bc8f",
+          "response": [
+            {
+              "id": "dbeda47d-8a23-4876-9aa6-c7c6ab1ff04d",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replies/:replyId"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "replyId",
+                      "type": "string",
+                      "value": "replyId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "fb69d0ce-39be-4b59-ab8f-b8fb2223703b",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"type\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"回复类型，auto 被动回复 / keyword 关键词回复\"",
+                  "    },",
+                  "    \"keyword\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"关键词\"",
+                  "    },",
+                  "    \"msgtype\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"回复的消息类型，text 文字/image 图片/link 卡片\"",
+                  "    },",
+                  "    \"content\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"文本消息的内容\"",
+                  "    },",
+                  "    \"image\": {",
+                  "      \"description\": \"图片消息的内容\",",
+                  "      \"type\": \"object\",",
+                  "      \"properties\": {",
+                  "        \"media_id\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"微信媒体id\"",
+                  "        },",
+                  "        \"url\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"图片 url\"",
+                  "        },",
+                  "        \"filename\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"文件名\"",
+                  "        }",
+                  "      }",
+                  "    },",
+                  "    \"link\": {",
+                  "      \"description\": \"卡片消息的内容\",",
+                  "      \"type\": \"object\",",
+                  "      \"properties\": {",
+                  "        \"title\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"卡片标题\"",
+                  "        },",
+                  "        \"description\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"卡片描述\"",
+                  "        },",
+                  "        \"url\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"卡片跳转链接\"",
+                  "        },",
+                  "        \"thumb_url\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"卡片缩略图\"",
+                  "        }",
+                  "      }",
+                  "    },",
+                  "    \"active\": {",
+                  "      \"type\": \"boolean\",",
+                  "      \"description\": \"是否激活\"",
+                  "    },",
+                  "    \"index\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"顺序\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "replies/:replyId"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "replyId",
+                  "type": "string",
+                  "value": "replyId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "get reply",
+          "description": "get reply"
+        },
+        {
+          "id": "46b1066a-e3b0-47b2-814a-0c4256675ddb",
+          "response": [
+            {
+              "id": "df9d6289-b05f-496b-9a58-cd5359444660",
+              "header": [],
+              "cookie": [],
+              "name": "Response_204",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replies/:replyId"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "replyId",
+                      "type": "string",
+                      "value": "replyId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "code": 204,
+              "status": "reply deleted"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "20402662-8679-4e45-b3fa-e01d633243ec",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "  pm.response.to.have.status(204);",
+                  "});",
+                  "",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "replies/:replyId"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "replyId",
+                  "type": "string",
+                  "value": "replyId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "name": "delete a reply",
+          "description": "delete a reply"
+        },
+        {
+          "id": "b1837bcd-0d36-45fb-bd4f-1a1187796242",
+          "response": [
+            {
+              "id": "0e75560a-9961-4f26-bb7c-7215569af725",
+              "header": [
+                {
+                  "key": "Content-type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "name": "Response_200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "replies/:replyId"
+                  ],
+                  "host": "{{host}}",
+                  "query": [],
+                  "variable": [
+                    {
+                      "id": "replyId",
+                      "type": "string",
+                      "value": "replyId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": "{{token}}",
+                      "key": "token"
+                    }
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"{{type}}\",\n  \"keyword\": \"{{keyword}}\",\n  \"msgtype\": \"{{msgtype}}\",\n  \"content\": \"{{content}}\",\n  \"image\": \"{{image}}\",\n  \"link\": \"{{link}}\",\n  \"active\": \"{{active}}\",\n  \"index\": \"{{index}}\"\n}"
+                }
+              },
+              "code": 200,
+              "status": "Expected response to a valid request"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "37ec4f15-f233-47c5-86d2-788d99a82e6f",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Json body schema test\", function(){",
+                  "  var bodySchema = {",
+                  "  \"type\": \"object\",",
+                  "  \"properties\": {",
+                  "    \"type\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"回复类型，auto 被动回复 / keyword 关键词回复\"",
+                  "    },",
+                  "    \"keyword\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"关键词\"",
+                  "    },",
+                  "    \"msgtype\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"回复的消息类型，text 文字/image 图片/link 卡片\"",
+                  "    },",
+                  "    \"content\": {",
+                  "      \"type\": \"string\",",
+                  "      \"description\": \"文本消息的内容\"",
+                  "    },",
+                  "    \"image\": {",
+                  "      \"description\": \"图片消息的内容\",",
+                  "      \"type\": \"object\",",
+                  "      \"properties\": {",
+                  "        \"media_id\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"微信媒体id\"",
+                  "        },",
+                  "        \"url\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"图片 url\"",
+                  "        },",
+                  "        \"filename\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"文件名\"",
+                  "        }",
+                  "      }",
+                  "    },",
+                  "    \"link\": {",
+                  "      \"description\": \"卡片消息的内容\",",
+                  "      \"type\": \"object\",",
+                  "      \"properties\": {",
+                  "        \"title\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"卡片标题\"",
+                  "        },",
+                  "        \"description\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"卡片描述\"",
+                  "        },",
+                  "        \"url\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"卡片跳转链接\"",
+                  "        },",
+                  "        \"thumb_url\": {",
+                  "          \"type\": \"string\",",
+                  "          \"description\": \"卡片缩略图\"",
+                  "        }",
+                  "      }",
+                  "    },",
+                  "    \"active\": {",
+                  "      \"type\": \"boolean\",",
+                  "      \"description\": \"是否激活\"",
+                  "    },",
+                  "    \"index\": {",
+                  "      \"type\": \"number\",",
+                  "      \"description\": \"顺序\"",
+                  "    }",
+                  "  }",
+                  "};",
+                  "  pm.expect(tv4.validate(pm.response.json(), bodySchema)).to.be.true;",
+                  "})",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": {
+              "path": [
+                "replies/:replyId"
+              ],
+              "host": "{{host}}",
+              "query": [],
+              "variable": [
+                {
+                  "id": "replyId",
+                  "type": "string",
+                  "value": "replyId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"{{type}}\",\n  \"keyword\": \"{{keyword}}\",\n  \"msgtype\": \"{{msgtype}}\",\n  \"content\": \"{{content}}\",\n  \"image\": \"{{image}}\",\n  \"link\": \"{{link}}\",\n  \"active\": \"{{active}}\",\n  \"index\": \"{{index}}\"\n}"
+            }
+          },
+          "name": "update a reply",
+          "description": "update a reply"
+        }
+      ],
+      "event": []
     }
   ],
   "event": [],
   "variable": [],
   "info": {
-    "_postman_id": "70b71d95-566d-43d7-8584-ee726dce4e26",
+    "_postman_id": "db26d816-aa11-460a-9cf2-4e32c68bf440",
     "name": "Dushuli",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   }

@@ -988,6 +988,169 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalError"
+  
+  /replies:
+    get:
+      summary: list all replies
+      operationId: listReplies
+      tags:
+        - reply
+      parameters:
+        - name: _select
+          in: query
+          description: select which fields from db
+          required: false
+          schema:
+            type: string
+        - name: _limit
+          in: query
+          description: how many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: _offset
+          in: query
+          description: How many items will be skip
+          required: false
+          schema:
+            type: string
+        - name: _sort
+          in: query
+          description: specifies which document fields to sort
+          required: false
+          schema:
+            type: string
+        - name: active
+          in: query
+          required: false
+          schema: 
+            type: boolean
+      responses:
+        "200":
+          description: a paged array of replies
+          headers:
+            X-Total-Count:
+              description: total count of all replies match the query
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Reply"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+    
+    post:
+      summary: create a reply
+      operationId: createReply
+      tags:
+        - reply
+      requestBody:
+        description: reply to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Reply" 
+      responses:
+        "201":
+          description: the reply created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reply"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+          
+  /replies/{replyId}:
+    get:
+      summary: get reply
+      operationId: getReply
+      tags:
+        - reply
+      parameters:
+        - name: replyId
+          in: path
+          required: true
+          description: the id of the reply to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reply"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+        
+    delete:
+      summary: delete a reply
+      operationId: deleteReply
+      tags:
+        - reply
+      parameters:
+        - name: replyId
+          in: path
+          description: the id of the reply to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: reply deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: update a reply
+      operationId: updateReply
+      tags:
+        - reply
+      parameters:
+        - name: replyId
+          in: path
+          description: the id of the reply to be updated
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: reply to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Reply"
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reply"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"  
 
 
 
@@ -1488,7 +1651,7 @@ components:
           description: 小程序formId
     
     FormId:
-      description: 创建 formId 所需参数
+      description: formId
       type: object
       properties:
         user:
@@ -1504,6 +1667,63 @@ components:
           type: string
           format: date-time
           description: 过期时间
+
+    ImageContent:
+      type: object
+      properties:
+        media_id:
+          type: string
+          description: 微信媒体id
+        url:
+          type: string
+          description: 图片 url
+        filename:
+          type: string
+          description: 文件名
+    
+    LinkContent:
+      type: object
+      properties:
+        title: 
+          type: string
+          description: 卡片标题
+        description:
+          type: string
+          description: 卡片描述
+        url:
+          type: string
+          description: 卡片跳转链接
+        thumb_url:
+          type: string
+          description: 卡片缩略图
+ 
+    Reply:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 回复类型，auto 被动回复 / keyword 关键词回复
+        keyword: 
+          type: string
+          description: 关键词
+        msgtype:
+          type: string
+          description: 回复的消息类型，text 文字/image 图片/link 卡片
+        content:
+          type: string
+          description: 文本消息的内容
+        image:
+          $ref: "#/components/schemas/ImageContent"
+          description: 图片消息的内容
+        link:
+          $ref: "#/components/schemas/LinkContent"
+          description: 卡片消息的内容
+        active:
+          type: boolean
+          description: 是否激活
+        index:
+          type: number
+          description: 顺序
 
     Err:
       type: object
