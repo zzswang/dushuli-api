@@ -26,8 +26,6 @@ import invitationService from "./services/invitation";
 import formIdService from "./services/formId";
 import replyService from "./services/reply";
 
-import initReply from "./tasks/init-reply";
-
 const app = new Koa2();
 const router = new Router({ prefix: BASE });
 const publicKey = fs.readFileSync(path.join(__dirname, "../ssl/rsa_jwt.pub"));
@@ -37,11 +35,7 @@ const publicKey = fs.readFileSync(path.join(__dirname, "../ssl/rsa_jwt.pub"));
  */
 
 mongoose.Promise = Promise;
-mongoose
-  .connect(MONGODB_CONNECTION, { useNewUrlParser: true })
-  .then(async () => {
-    await Promise.all([initReply()]);
-  });
+mongoose.connect(MONGODB_CONNECTION, { useNewUrlParser: true });
 mongoose.connection.on("error", console.error.bind(console, "数据库连接错误"));
 
 /**
