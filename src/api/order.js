@@ -19,6 +19,9 @@ export default class API {
           paid: ctx.query.paid,
           method: ctx.query.method,
           createdBy: ctx.query.createdBy,
+          no_like: ctx.query.no_like,
+          phone: ctx.query.phone,
+          name_like: ctx.query.name_like,
         },
         context: ctx, // here we put koa context in request
       };

@@ -131,6 +131,9 @@ interface ListOrdersRequest {
     paid?: boolean;
     method?: string;
     createdBy?: string;
+    no_like?: string;
+    phone?: string;
+    name_like?: string;
   };
   context?: Object;
 }

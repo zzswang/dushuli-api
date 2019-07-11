@@ -452,6 +452,22 @@ paths:
           required: false
           schema:
             type: string
+        - name: no_like
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: phone
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: name_like
+          in: query
+          required: false
+          schema:
+            type: string
+            
       responses:
         "200":
           description: a paged array of orders

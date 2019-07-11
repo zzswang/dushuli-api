@@ -24,6 +24,16 @@ class Service extends API {
   async listOrders(req) {
     const { normalizedQuery } = req.context;
 
+    if (normalizedQuery.filter && normalizedQuery.filter.phone) {
+      normalizedQuery.filter["user.phone"] = normalizedQuery.filter.phone;
+      delete normalizedQuery.filter.phone;
+    }
+
+    if (normalizedQuery.filter && normalizedQuery.filter.name) {
+      normalizedQuery.filter["user.name"] = normalizedQuery.filter.name;
+      delete normalizedQuery.filter.name;
+    }
+
     const ret = await Order.list(normalizedQuery);
 
     return { body: ret.docs, headers: { xTotalCount: ret.total } };
