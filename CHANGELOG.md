@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.17.1"></a>
+## [0.17.1](https://github.com/zzswang/dushuli/compare/v0.17.0...v0.17.1) (2019-07-11)
+
+
+### Bug Fixes
+
+* remove init reply ([283b3c3](https://github.com/zzswang/dushuli/commit/283b3c3))
+* update list order query parameters ([9db90d8](https://github.com/zzswang/dushuli/commit/9db90d8))
+
+
+
 <a name="0.17.0"></a>
 # [0.17.0](https://github.com/zzswang/dushuli/compare/v0.16.1...v0.17.0) (2019-07-09)
 
