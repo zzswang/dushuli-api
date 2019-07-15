@@ -70,6 +70,10 @@ class Invitation {
     let invitation;
     if (mongoose.Types.ObjectId.isValid(id)) {
       invitation = await this.get(id);
+      // for some code is valid objectId
+      if (!invitation) {
+        invitation = await this.findOne({ code: id, used: false });
+      }
     } else {
       invitation = await this.findOne({ code: id, used: false });
     }
