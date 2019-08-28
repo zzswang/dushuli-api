@@ -1,5 +1,12 @@
 # dushuli-api
 
+读书历后台服务，提供和读书历业务相关的功能，包括：
+* 邀请码
+* 会员信息管理
+* 统计
+* 用户的设置
+* 付费内容相关，如：商品和订单
+
 ## .env
 ```
 APP_WECHAT_OFFICIAL_APP_ID=wxe8fc40117734ec1f
@@ -12,6 +19,18 @@ APP_WECHAT_APP_APP_SECRET=664ae6d75d84af6a4577bc431627d88c
 APP_WECHAT_APP_TOKEN=kECckzxoFyW96Qu293447i4AWKf8Zfpq
 APP_WECHAT_APP_ENCODING_AES_KEY=BdPT4KtQzuuz9OCayed93F46ze1nVNWZl2dy5VrgUrq
 ```
+
+## models
+
+* **config**，存放键值对，目前用于保存微信的token
+* **formId**，收集用户在小程序端产生的 formId，后续用于小程序的消息推送
+* **invitation**，读书历邀请码
+* **member**，读书历会员，包括会员的有效期
+* **order**，购买产生的订单
+* **product**，产品，用于定义读书历的付费内容
+* **reply**，读书历小程序的自动回复配置
+* **setting**，读书历用户的设置，目前主要是每日读书提醒时间
+* **stats**，读书历用户的统计数据，目前主要是每日音频的播放进度
 
 ## Development
 
