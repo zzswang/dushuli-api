@@ -12,6 +12,171 @@ servers:
       basePath:
         default: /dushuli/v0
 paths:
+  /wxe8fc40117734ec1f/event:
+    post:
+      summary: get wechat push event
+      operationId: getWechatPushEvent
+      tags:
+        - wechat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ComponentVerifyTicketBody"
+      parameters:
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: nonce
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: encrypt_type
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: msg_signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComponentVerifyTicket"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+  /authorizer_access_token:
+    get:
+      summary: get authorizer_access_token
+      operationId: getAuthorizerAccessToken
+      tags:
+        - wechat
+      parameters:
+        - name: auth_code
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComponentVerifyTicket"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+  /component_verify_ticket:
+    post:
+      summary: get component_verify_ticket
+      operationId: getComponentVerifyTicket
+      tags:
+        - wechat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ComponentVerifyTicketBody"
+      parameters:
+        - name: signature
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: nonce
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: encrypt_type
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: msg_signature
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComponentVerifyTicket"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+  /pre_auth_code:
+    get:
+      summary: get pre_auth_code
+      operationId: getPreAuthCode
+      tags:
+        - wechat
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComponentVerifyTicket"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+  /dev:
+    get:
+      summary: dev
+      operationId: dev
+      tags:
+        - wechat
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComponentVerifyTicket"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
   /wechat/payment:
     post:
       summary: initiate a payment process
@@ -65,7 +230,7 @@ paths:
           $ref: "#/components/responses/NotFound"
         "500":
           $ref: "#/components/responses/InternalError"
-    
+
   /members:
     get:
       summary: list all members
@@ -107,7 +272,7 @@ paths:
         - name: active
           in: query
           required: false
-          schema: 
+          schema:
             type: boolean
       responses:
         "200":
@@ -127,7 +292,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalError"
-    
+
     post:
       summary: create a member
       operationId: createMember
@@ -139,7 +304,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Member" 
+              $ref: "#/components/schemas/Member"
       responses:
         "201":
           description: the member created
@@ -151,7 +316,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalError"
-          
+
   /members/{user}:
     get:
       summary: get member by user
@@ -178,7 +343,7 @@ paths:
           $ref: "#/components/responses/NotFound"
         "500":
           $ref: "#/components/responses/InternalError"
-        
+
     delete:
       summary: delete a member
       operationId: deleteMember
@@ -232,7 +397,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
-          $ref: "#/components/responses/InternalError"    
+          $ref: "#/components/responses/InternalError"
 
   /products:
     get:
@@ -290,7 +455,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalError"
-    
+
     post:
       summary: create a product
       operationId: createProduct
@@ -302,7 +467,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Product" 
+              $ref: "#/components/schemas/Product"
       responses:
         "201":
           description: the product created
@@ -314,7 +479,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalError"
-          
+
   /products/{productId}:
     get:
       summary: get product by productId
@@ -341,7 +506,7 @@ paths:
           $ref: "#/components/responses/NotFound"
         "500":
           $ref: "#/components/responses/InternalError"
-        
+
     delete:
       summary: delete a product
       operationId: deleteProduct
@@ -395,7 +560,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
-          $ref: "#/components/responses/InternalError"    
+          $ref: "#/components/responses/InternalError"
 
   /orders:
     get:
@@ -467,7 +632,7 @@ paths:
           required: false
           schema:
             type: string
-            
+
       responses:
         "200":
           description: a paged array of orders
@@ -486,7 +651,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalError"
-    
+
     post:
       summary: create a order
       operationId: createOrder
@@ -498,7 +663,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Order" 
+              $ref: "#/components/schemas/Order"
       responses:
         "201":
           description: the order created
@@ -510,7 +675,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalError"
-          
+
   /orders/{orderId}:
     get:
       summary: get order by orderId
@@ -537,7 +702,7 @@ paths:
           $ref: "#/components/responses/NotFound"
         "500":
           $ref: "#/components/responses/InternalError"
-        
+
     delete:
       summary: delete a order
       operationId: deleteOrder
@@ -619,7 +784,7 @@ paths:
           $ref: "#/components/responses/NotFound"
         "500":
           $ref: "#/components/responses/InternalError"
-        
+
     delete:
       summary: delete a setting
       operationId: deleteSetting
@@ -673,8 +838,8 @@ paths:
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
-          $ref: "#/components/responses/InternalError"    
-    
+          $ref: "#/components/responses/InternalError"
+
   /stats:
     post:
       summary: create or update stats
@@ -742,13 +907,13 @@ paths:
         - name: date_gt
           in: query
           required: false
-          schema: 
+          schema:
             type: string
             format: date-time
         - name: date_lt
           in: query
           required: false
-          schema: 
+          schema:
             type: string
             format: date-time
       responses:
@@ -979,9 +1144,9 @@ paths:
           $ref: "#/components/responses/NotFound"
         "500":
           $ref: "#/components/responses/InternalError"
-  
+
   /formIds:
-    post: 
+    post:
       summary: Save formId 保存小程序 formId
       operationId: createFormId
       tags:
@@ -1004,7 +1169,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalError"
-  
+
   /replies:
     get:
       summary: list all replies
@@ -1041,7 +1206,7 @@ paths:
         - name: active
           in: query
           required: false
-          schema: 
+          schema:
             type: boolean
       responses:
         "200":
@@ -1061,7 +1226,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalError"
-    
+
     post:
       summary: create a reply
       operationId: createReply
@@ -1073,7 +1238,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Reply" 
+              $ref: "#/components/schemas/Reply"
       responses:
         "201":
           description: the reply created
@@ -1085,7 +1250,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "500":
           $ref: "#/components/responses/InternalError"
-          
+
   /replies/{replyId}:
     get:
       summary: get reply
@@ -1112,7 +1277,7 @@ paths:
           $ref: "#/components/responses/NotFound"
         "500":
           $ref: "#/components/responses/InternalError"
-        
+
     delete:
       summary: delete a reply
       operationId: deleteReply
@@ -1166,9 +1331,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
-          $ref: "#/components/responses/InternalError"  
-
-
+          $ref: "#/components/responses/InternalError"
 
 security:
   - bearerAuth: []
@@ -1196,7 +1359,6 @@ components:
           schema:
             $ref: "#/components/schemas/Err"
   schemas:
-      
     StatsData:
       type: object
       properties:
@@ -1230,6 +1392,13 @@ components:
           $ref: "#/components/schemas/StatsData"
           description: 数据对象
 
+    ComponentVerifyTicketBody:
+      type: object
+
+    ComponentVerifyTicket:
+      type: string
+      description: 返回字符串 success
+
     CreatePaymentBody:
       type: object
       required:
@@ -1244,7 +1413,7 @@ components:
         user:
           type: object
           description: 用户
-    
+
     CreatePaymentResponse:
       type: object
       properties:
@@ -1252,7 +1421,7 @@ components:
           type: string
           description: 公众号 appid
           example: "wx8888888888888888"
-        timeStamp: 
+        timeStamp:
           type: string
           description: 时间戳
           example: "1414561699"
@@ -1299,49 +1468,50 @@ components:
           items:
             type: string
           description: js api 列表
-          example: [
-            "checkJsApi",
-            "onMenuShareTimeline",
-            "onMenuShareAppMessage",
-            "onMenuShareQQ",
-            "onMenuShareWeibo",
-            "onMenuShareQZone",
-            "chooseImage",
-            "previewImage",
-            "uploadImage",
-            "startRecord",
-            "stopRecord",
-            "onVoiceRecordEnd",
-            "playVoice",
-            "pauseVoice",
-            "stopVoice",
-            "onVoicePlayEnd",
-            "uploadVoice",
-            "downloadVoice",
-            "translateVoice",
-            "getNetworkType",
-            "openLocation",
-            "getLocation",
-            "startSearchBeacons",
-            "stopSearchBeacons",
-            "onSearchBeacons",
-            "closeWindow",
-            "hideMenuItems",
-            "showMenuItems",
-            "hideAllNonBaseMenuItem",
-            "showAllNonBaseMenuItem",
-            "scanQRCode",
-            "openProductSpecificView",
-            "chooseCard",
-            "addCard",
-            "openCard",
-            "chooseWXPay"
-          ]
-      
+          example:
+            [
+              "checkJsApi",
+              "onMenuShareTimeline",
+              "onMenuShareAppMessage",
+              "onMenuShareQQ",
+              "onMenuShareWeibo",
+              "onMenuShareQZone",
+              "chooseImage",
+              "previewImage",
+              "uploadImage",
+              "startRecord",
+              "stopRecord",
+              "onVoiceRecordEnd",
+              "playVoice",
+              "pauseVoice",
+              "stopVoice",
+              "onVoicePlayEnd",
+              "uploadVoice",
+              "downloadVoice",
+              "translateVoice",
+              "getNetworkType",
+              "openLocation",
+              "getLocation",
+              "startSearchBeacons",
+              "stopSearchBeacons",
+              "onSearchBeacons",
+              "closeWindow",
+              "hideMenuItems",
+              "showMenuItems",
+              "hideAllNonBaseMenuItem",
+              "showAllNonBaseMenuItem",
+              "scanQRCode",
+              "openProductSpecificView",
+              "chooseCard",
+              "addCard",
+              "openCard",
+              "chooseWXPay",
+            ]
+
     Period:
       type: object
       properties:
-        start: 
+        start:
           type: string
           format: date-time
           description: 有效期起始时间
@@ -1355,10 +1525,10 @@ components:
         product:
           type: string
           description: 商品 id
-        active: 
+        active:
           type: string
           description: 是否有效
-    
+
     Member:
       type: object
       required:
@@ -1443,10 +1613,10 @@ components:
           type: string
           format: date-time
           description: 购买时间段的结束时间
-        period: 
+        period:
           type: number
           description: 延长有效期（毫秒）
-        start: 
+        start:
           type: date
           format: date-time
           description: 有效期的起始时间
@@ -1454,7 +1624,7 @@ components:
           type: date
           format: date-time
           description: 有效期的结素时间
-        price: 
+        price:
           type: number
           description: 价格
 
@@ -1510,7 +1680,7 @@ components:
           type: string
           format: date-time
           description: 发布时间
-    
+
     Setting:
       type: object
       properties:
@@ -1526,7 +1696,7 @@ components:
           type: string
         appOpenid:
           type: string
-    
+
     Invitation:
       description: 邀请函，例如用于获得邀请码，邮箱或者手机授权码
       type: object
@@ -1665,7 +1835,7 @@ components:
         formId:
           type: string
           description: 小程序formId
-    
+
     FormId:
       description: formId
       type: object
@@ -1676,7 +1846,7 @@ components:
         formId:
           type: string
           description: 小程序formId
-        used: 
+        used:
           type: string
           description: 是否已被使用
         expiredAt:
@@ -1696,11 +1866,11 @@ components:
         filename:
           type: string
           description: 文件名
-    
+
     LinkContent:
       type: object
       properties:
-        title: 
+        title:
           type: string
           description: 卡片标题
         description:
@@ -1712,14 +1882,14 @@ components:
         thumb_url:
           type: string
           description: 卡片缩略图
- 
+
     Reply:
       type: object
       properties:
         type:
           type: string
           description: 回复类型，auto 被动回复 / keyword 关键词回复
-        keyword: 
+        keyword:
           type: string
           description: 关键词
         msgtype:

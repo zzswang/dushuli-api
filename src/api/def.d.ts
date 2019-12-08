@@ -1,3 +1,54 @@
+interface GetWechatPushEventRequest {
+  query: {
+    signature: string;
+    timestamp: string;
+    nonce: string;
+    encrypt_type: string;
+    msg_signature: string;
+  };
+  body: ComponentVerifyTicketBody;
+  context?: Object;
+}
+
+interface GetWechatPushEventResponse {
+  body: ComponentVerifyTicket;
+}
+
+interface GetAuthorizerAccessTokenRequest {
+  query: {
+    auth_code: string;
+  };
+  context?: Object;
+}
+
+interface GetAuthorizerAccessTokenResponse {
+  body: ComponentVerifyTicket;
+}
+
+interface GetComponentVerifyTicketRequest {
+  query: {
+    signature: string;
+    timestamp: string;
+    nonce: string;
+    encrypt_type: string;
+    msg_signature: string;
+  };
+  body: ComponentVerifyTicketBody;
+  context?: Object;
+}
+
+interface GetComponentVerifyTicketResponse {
+  body: ComponentVerifyTicket;
+}
+
+interface GetPreAuthCodeResponse {
+  body: ComponentVerifyTicket;
+}
+
+interface DevResponse {
+  body: ComponentVerifyTicket;
+}
+
 interface CreatePaymentRequest {
   body: CreatePaymentBody;
   context?: Object;

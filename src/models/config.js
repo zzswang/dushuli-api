@@ -5,6 +5,7 @@ const configSchema = new mongoose.Schema(
   {
     key: String,
     value: String,
+    expireAt: Date,
   },
   {
     timestamps: true,
@@ -25,6 +26,7 @@ class State {
   deletedAt;
   key;
   value;
+  expireAt;
 }
 
 configSchema.plugin(helper);

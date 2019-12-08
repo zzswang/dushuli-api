@@ -14,7 +14,7 @@ import health from "koa2-ping";
 import { QueryNormalizr } from "@36node/query-normalizr";
 
 import { wechatPayApi } from "./wechat";
-import { BASE, MONGODB_CONNECTION } from "./config";
+import { BASE, MONGODB_CONNECTION, WECHAT } from "./config";
 
 import wechatService from "./services/wechat";
 import productService from "./services/product";
@@ -93,6 +93,11 @@ app
         `${BASE}/health`,
         `${BASE}/wechat`,
         `${BASE}/wechat/payment-callback`,
+        `${BASE}/component_verify_ticket`,
+        `${BASE}/pre_auth_code`,
+        `${BASE}/authorizer_access_token`,
+        `${BASE}/${WECHAT.APP_ID}/event`,
+        `${BASE}/dev`,
       ],
     })
   )

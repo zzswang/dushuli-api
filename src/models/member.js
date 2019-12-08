@@ -63,17 +63,27 @@ class Member {
   }
 
   get type() {
-    if (this.expiredAt < new Date()) {
-      return MEMBER_TYPE.EXPIRE;
-    }
-    if (this.activePeriod && this.activePeriod.trial) {
-      return MEMBER_TYPE.TRIAL;
-    }
-    if (this.activePeriod && !this.activePeriod.trial) {
+    if (this.period.length) {
+      let trial;
+
+      if (this.period.length === 1 && this.period[0].trial) {
+        trial = true;
+      }
+      if (this.expiredAt < new Date()) {
+        if (trial) {
+          return MEMBER_TYPE.TRIALEXPIRE;
+        }
+        return MEMBER_TYPE.EXPIRE;
+      }
+      if (trial) {
+        return MEMBER_TYPE.TRIAL;
+      }
       return MEMBER_TYPE.FORMAL;
     }
-    return undefined;
+
+    return null;
   }
+
   get expiredAt() {
     if (this.period.length) {
       let expiredAt;
@@ -89,24 +99,6 @@ class Member {
       return expiredAt;
     }
     return null;
-  }
-  get activePeriod() {
-    const trialPeriod = this.period.find(
-      period =>
-        period.trial &&
-        period.active &&
-        period.start <= new Date() &&
-        period.end >= new Date()
-    );
-    const formalPeriod = this.period.find(
-      period =>
-        !period.trial &&
-        period.active &&
-        period.start <= new Date() &&
-        period.end >= new Date()
-    );
-
-    return formalPeriod || trialPeriod;
   }
 }
 
