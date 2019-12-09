@@ -5,6 +5,7 @@ import fs from "fs";
 import byline from "byline";
 import download from "download-file";
 import xml2js from "xml2js";
+import moment from "moment";
 import { post } from "../lib/network";
 
 import API from "../api/wechat";
@@ -108,16 +109,18 @@ export class Service extends API {
       let resXml;
       if (xml.EventKey === "invitation") {
         const title = "以注册码来注册";
+        const desc = "提供每日好书解读及日历提醒";
         const url = "http://www.yuewen365.com/invitation-register";
 
         resXml = `<xml><ToUserName><![CDATA[${xml.FromUserName}]]></ToUserName><FromUserName><![CDATA[${xml.ToUserName}]]></FromUserName><CreateTime>${timestamp}</CreateTime><MsgType><![CDATA[news]]></MsgType><ArticleCount>1</ArticleCount><Articles>
-        <item><Title><![CDATA[${title}]]></Title><Description><![CDATA[${title}]]></Description><PicUrl><![CDATA[${PIC_URL}]]></PicUrl><Url><![CDATA[${url}]]></Url></item></Articles></xml>`;
+        <item><Title><![CDATA[${title}]]></Title><Description><![CDATA[${desc}]]></Description><PicUrl><![CDATA[${PIC_URL}]]></PicUrl><Url><![CDATA[${url}]]></Url></item></Articles></xml>`;
       } else if (/^2020\d{4}$/.test(xml.EventKey)) {
-        const title = xml.EventKey;
+        const title = `每日读书 - ${moment(xml.EventKey).format("YYYY.MM.DD")}`;
+        const desc = "提供每日好书解读及日历提醒";
         const url = `http://www.yuewen365.com/read/calendar/${xml.EventKey}`;
 
         resXml = `<xml><ToUserName><![CDATA[${xml.FromUserName}]]></ToUserName><FromUserName><![CDATA[${xml.ToUserName}]]></FromUserName><CreateTime>${timestamp}</CreateTime><MsgType><![CDATA[news]]></MsgType><ArticleCount>1</ArticleCount><Articles>
-        <item><Title><![CDATA[${title}]]></Title><Description><![CDATA[${title}]]></Description><PicUrl><![CDATA[${PIC_URL}]]></PicUrl><Url><![CDATA[${url}]]></Url></item></Articles></xml>`;
+        <item><Title><![CDATA[${title}]]></Title><Description><![CDATA[${desc}]]></Description><PicUrl><![CDATA[${PIC_URL}]]></PicUrl><Url><![CDATA[${url}]]></Url></item></Articles></xml>`;
       }
 
       if (resXml) {
