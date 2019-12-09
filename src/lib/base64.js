@@ -16,7 +16,7 @@ exports.encodeBase64 = function encodeBase64(str) {
  * @return {Buffer}
  */
 exports.decodeBase64 = function decodeBase64(str) {
-  if (!(str.length % 4 === 0 && /[\w\d\+\/]+={0,2}/.test(str)))
+  if (!(str.length % 4 === 0 && /[\w\d+/]+={0,2}/.test(str)))
     throw new Error("Invalid base64 encoded string");
   return new Buffer(str, "base64");
 };
