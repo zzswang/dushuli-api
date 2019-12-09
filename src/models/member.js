@@ -100,6 +100,25 @@ class Member {
     }
     return null;
   }
+
+  get activePeriod() {
+    const trialPeriod = this.period.find(
+      period =>
+        period.trial &&
+        period.active &&
+        period.start <= new Date() &&
+        period.end >= new Date()
+    );
+    const formalPeriod = this.period.find(
+      period =>
+        !period.trial &&
+        period.active &&
+        period.start <= new Date() &&
+        period.end >= new Date()
+    );
+
+    return formalPeriod || trialPeriod;
+  }
 }
 
 memberSchema.plugin(helper);
