@@ -108,15 +108,6 @@ export default class API {
       ctx.status = 200;
     };
 
-    const dev = async ctx => {
-      const res = await this.dev();
-
-      if (!res.body) throw createError(500, "should have body in response");
-
-      ctx.body = res.body;
-      ctx.status = 200;
-    };
-
     const createPayment = async ctx => {
       const req = {
         body: ctx.request.body,
@@ -169,7 +160,6 @@ export default class API {
       ...this.middlewares("getPreAuthCode"),
       getPreAuthCode
     );
-    router.get("/dev", ...this.middlewares("dev"), dev);
     router.post(
       "/wechat/payment",
       ...this.middlewares("createPayment"),
@@ -236,16 +226,6 @@ export default class API {
    * @returns {GetPreAuthCodeResponse} Expected response to a valid request
    */
   getPreAuthCode() {
-    throw new Error("not implemented");
-  }
-
-  /**
-   * dev
-   *
-   * @abstract
-   * @returns {DevResponse} Expected response to a valid request
-   */
-  dev() {
     throw new Error("not implemented");
   }
 

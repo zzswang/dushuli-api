@@ -45,10 +45,6 @@ interface GetPreAuthCodeResponse {
   body: ComponentVerifyTicket;
 }
 
-interface DevResponse {
-  body: ComponentVerifyTicket;
-}
-
 interface CreatePaymentRequest {
   body: CreatePaymentBody;
   context?: Object;

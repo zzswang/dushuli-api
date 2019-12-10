@@ -97,7 +97,6 @@ app
         `${BASE}/pre_auth_code`,
         `${BASE}/authorizer_access_token`,
         `${BASE}/${WECHAT.APP_ID}/event`,
-        `${BASE}/dev`,
       ],
     })
   )

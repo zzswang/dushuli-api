@@ -261,24 +261,6 @@ export class Service extends API {
     };
   }
 
-  async dev(req) {
-    let stream = fs.createReadStream("/Users/lidong/Downloads/icode.txt");
-    stream = byline.createStream(stream);
-    let i = 1;
-
-    stream.on("data", async function(line) {
-      await Invitation.create({
-        code: line.toString(),
-        start: "2019-12-31 16:00:00.000Z",
-        end: "2020-12-31 15:59:59.000Z",
-        source: "2020读书历注册码",
-      });
-      console.log(i++);
-    });
-
-    return { body: "success" };
-  }
-
   async createPayment(req) {
     const { openid, product, user } = req.body;
 
