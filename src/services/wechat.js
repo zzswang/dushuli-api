@@ -2,7 +2,11 @@ import createError from "http-errors";
 import { postJSON } from "co-wechat-api/lib/util";
 import path from "path";
 import fs from "fs";
+import byline from "byline";
 import download from "download-file";
+import xml2js from "xml2js";
+import moment from "moment";
+import { post } from "../lib/network";
 
 import API from "../api/wechat";
 import { wechatApi, wechatPayApi, wechat, wechatAppApi } from "../wechat";
@@ -12,8 +16,34 @@ import Product from "../models/product";
 import Order from "../models/order";
 import Member from "../models/member";
 import Reply from "../models/reply";
-import { REPLY_TYPE, MSG_TYPE } from "../constants";
-import { MESSAGE_DELAY } from "../config";
+import Config from "../models/config";
+import Invitation from "../models/invitation";
+import { REPLY_TYPE, MSG_TYPE, INFO_TYPE, PIC_URL } from "../constants";
+import { MESSAGE_DELAY, WECHAT } from "../config";
+import WXBizMsgCrypt from "../lib/wxCrypt";
+
+const msgCrypto = new WXBizMsgCrypt(
+  WECHAT.COMPONENT_TOKEN,
+  WECHAT.COMPONENT_KEY,
+  WECHAT.COMPONENT_APPID
+);
+
+const xmlParser = new xml2js.Parser({
+  explicitRoot: false,
+  explicitArray: false,
+});
+
+function parseXMLSync(str) {
+  return new Promise(function(resolve, reject) {
+    xmlParser.parseString(str, function(err, result) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
 
 const jsApiList = [
   "checkJsApi",
@@ -62,6 +92,173 @@ export class Service extends API {
       return [wechatPayApi.middleware("pay")];
     }
     return [];
+  }
+
+  async getWechatPushEvent(req) {
+    const { timestamp, nonce, msg_signature } = req.query;
+
+    const bodyRaw = req.body.toString();
+    const bodyXml = await parseXMLSync(bodyRaw);
+
+    const { Encrypt } = bodyXml;
+
+    const str = msgCrypto.decryptMsg(msg_signature, timestamp, nonce, Encrypt);
+    const xml = await parseXMLSync(str);
+
+    if (xml.Event === "SCAN") {
+      let resXml;
+      if (xml.EventKey === "invitation") {
+        const title = "以注册码来注册";
+        const desc = "提供每日好书解读及日历提醒";
+        const url = "http://www.yuewen365.com/invitation-register";
+
+        resXml = `<xml><ToUserName><![CDATA[${xml.FromUserName}]]></ToUserName><FromUserName><![CDATA[${xml.ToUserName}]]></FromUserName><CreateTime>${timestamp}</CreateTime><MsgType><![CDATA[news]]></MsgType><ArticleCount>1</ArticleCount><Articles>
+        <item><Title><![CDATA[${title}]]></Title><Description><![CDATA[${desc}]]></Description><PicUrl><![CDATA[${PIC_URL}]]></PicUrl><Url><![CDATA[${url}]]></Url></item></Articles></xml>`;
+      } else if (/^2020\d{4}$/.test(xml.EventKey)) {
+        const title = `每日读书 - ${moment(xml.EventKey).format("YYYY.MM.DD")}`;
+        const desc = "提供每日好书解读及日历提醒";
+        const url = `http://www.yuewen365.com/read/calendar/${xml.EventKey}`;
+
+        resXml = `<xml><ToUserName><![CDATA[${xml.FromUserName}]]></ToUserName><FromUserName><![CDATA[${xml.ToUserName}]]></FromUserName><CreateTime>${timestamp}</CreateTime><MsgType><![CDATA[news]]></MsgType><ArticleCount>1</ArticleCount><Articles>
+        <item><Title><![CDATA[${title}]]></Title><Description><![CDATA[${desc}]]></Description><PicUrl><![CDATA[${PIC_URL}]]></PicUrl><Url><![CDATA[${url}]]></Url></item></Articles></xml>`;
+      }
+
+      if (resXml) {
+        return {
+          body: msgCrypto.encryptMsg(resXml, timestamp, nonce),
+        };
+      }
+    }
+
+    return { body: "success" };
+  }
+
+  async getAuthorizerAccessToken(req) {
+    const { auth_code } = req.query;
+
+    const token = await Config.findOne({ key: INFO_TYPE.ComponentAccessToken });
+
+    const url = `https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=${token.value}`;
+
+    const body = {
+      component_appid: WECHAT.COMPONENT_APPID,
+      authorization_code: auth_code,
+    };
+    const ret = await post(url, body);
+
+    await Config.findOneAndUpdate(
+      { key: INFO_TYPE.AuthorizerAccessToken },
+      {
+        value: ret.data.authorization_info.authorizer_access_token,
+      },
+      {
+        new: true,
+        upsert: true,
+      }
+    );
+
+    await Config.findOneAndUpdate(
+      { key: INFO_TYPE.AuthorizerRefreshToken },
+      {
+        value: ret.data.authorization_info.authorizer_refresh_token,
+      },
+      {
+        new: true,
+        upsert: true,
+      }
+    );
+
+    const date = new Date();
+    date.setHours(date.getHours() + 2);
+
+    await Config.findOneAndUpdate(
+      { key: INFO_TYPE.AuthorizerExpiresAt },
+      {
+        value: date,
+      },
+      {
+        new: true,
+        upsert: true,
+      }
+    );
+
+    return { body: "success" };
+  }
+
+  async getComponentVerifyTicket(req) {
+    const { timestamp, nonce, msg_signature } = req.query;
+
+    const bodyRaw = req.body.toString();
+    const bodyXml = await parseXMLSync(bodyRaw);
+
+    const { Encrypt } = bodyXml;
+
+    const str = msgCrypto.decryptMsg(msg_signature, timestamp, nonce, Encrypt);
+    const xml = await parseXMLSync(str);
+
+    await Config.findOneAndUpdate(
+      { key: INFO_TYPE.ComponentVerifyTicket },
+      {
+        value: xml.ComponentVerifyTicket,
+      },
+      {
+        new: true,
+        upsert: true,
+      }
+    );
+
+    return { body: "success" };
+  }
+
+  async getPreAuthCode(req) {
+    const ticket = await Config.findOne({
+      key: INFO_TYPE.ComponentVerifyTicket,
+    });
+    const token = await Config.findOne({ key: INFO_TYPE.ComponentAccessToken });
+
+    let access_token;
+
+    if (!token || token.expiredAt < new Date()) {
+      const url =
+        "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
+      const body = {
+        component_appid: WECHAT.COMPONENT_APPID,
+        component_appsecret: WECHAT.COMPONENT_APPSECRET,
+        component_verify_ticket: ticket.value,
+      };
+      const ret = await post(url, body);
+
+      const date = new Date();
+      date.setHours(date.getHours() + 2);
+
+      access_token = ret.data.component_access_token;
+
+      await Config.findOneAndUpdate(
+        { key: INFO_TYPE.ComponentAccessToken },
+        {
+          value: access_token,
+          expiredAt: date,
+        },
+        {
+          new: true,
+          upsert: true,
+        }
+      );
+    } else {
+      access_token = token.value;
+    }
+
+    const url = `https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=${access_token}`;
+    const body = {
+      component_appid: WECHAT.COMPONENT_APPID,
+    };
+    const ret = await post(url, body);
+
+    return {
+      body: {
+        code: ret.data.pre_auth_code,
+      },
+    };
   }
 
   async createPayment(req) {
