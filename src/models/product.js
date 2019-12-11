@@ -65,7 +65,7 @@ class Product {
     const item = this.priceItems.find(
       item => item.purchaseStart <= Date.now() && item.purchaseEnd >= Date.now()
     );
-    return item ? item.price : item.originalPrice;
+    return item ? item.price : this.originalPrice;
   }
 
   get period() {
