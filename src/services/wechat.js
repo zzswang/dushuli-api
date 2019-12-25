@@ -2,7 +2,6 @@ import createError from "http-errors";
 import { postJSON } from "co-wechat-api/lib/util";
 import path from "path";
 import fs from "fs";
-import byline from "byline";
 import download from "download-file";
 import xml2js from "xml2js";
 import moment from "moment";
@@ -17,7 +16,6 @@ import Order from "../models/order";
 import Member from "../models/member";
 import Reply from "../models/reply";
 import Config from "../models/config";
-import Invitation from "../models/invitation";
 import { REPLY_TYPE, MSG_TYPE, INFO_TYPE, PIC_URL } from "../constants";
 import { MESSAGE_DELAY, WECHAT } from "../config";
 import WXBizMsgCrypt from "../lib/wxCrypt";
@@ -131,6 +129,22 @@ export class Service extends API {
     }
 
     return { body: "success" };
+  }
+
+  /**
+   * get wechatapp wxacode
+   *
+   * @abstract
+   * @param {GetWxacodeRequest} req getWxacode request
+   */
+  async getWxacode(ctx) {
+    const { date } = ctx.query;
+
+    ctx.type = "image/png";
+    ctx.body = await wechatAppApi.getWXACode(
+      "/pages/calendar/main?date=" + date
+    );
+    ctx.status = 200;
   }
 
   async getAuthorizerAccessToken(req) {

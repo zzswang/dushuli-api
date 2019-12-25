@@ -48,6 +48,7 @@ router.post(
   wechatPayApi.middleware("pay"),
   wechatService.paymentCallback
 );
+router.get("/wechat/wxacode", wechatService.getWxacode);
 router.all("/wechat", wechatService.message());
 productService.bind(router);
 orderService.bind(router);
@@ -93,6 +94,7 @@ app
         `${BASE}/health`,
         `${BASE}/wechat`,
         `${BASE}/wechat/payment-callback`,
+        `${BASE}/wechat/wxacode`,
         `${BASE}/component_verify_ticket`,
         `${BASE}/pre_auth_code`,
         `${BASE}/authorizer_access_token`,
