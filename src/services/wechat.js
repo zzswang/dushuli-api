@@ -112,6 +112,12 @@ export class Service extends API {
 
         resXml = `<xml><ToUserName><![CDATA[${xml.FromUserName}]]></ToUserName><FromUserName><![CDATA[${xml.ToUserName}]]></FromUserName><CreateTime>${timestamp}</CreateTime><MsgType><![CDATA[news]]></MsgType><ArticleCount>1</ArticleCount><Articles>
         <item><Title><![CDATA[${title}]]></Title><Description><![CDATA[${desc}]]></Description><PicUrl><![CDATA[${PIC_URL}]]></PicUrl><Url><![CDATA[${url}]]></Url></item></Articles></xml>`;
+      } else if (xml.EventKey === "instruction") {
+        const title = "2021读书历使用说明";
+        const url = "https://mp.weixin.qq.com/s/RRvYp7CIsvo2EQHn5Sj-1Q";
+
+        resXml = `<xml><ToUserName><![CDATA[${xml.FromUserName}]]></ToUserName><FromUserName><![CDATA[${xml.ToUserName}]]></FromUserName><CreateTime>${timestamp}</CreateTime><MsgType><![CDATA[news]]></MsgType><ArticleCount>1</ArticleCount><Articles>
+        <item><Title><![CDATA[${title}]]></Title><Description></Description><PicUrl><![CDATA[${PIC_URL}]]></PicUrl><Url><![CDATA[${url}]]></Url></item></Articles></xml>`;
       } else if (/^2020\d{4}$/.test(xml.EventKey)) {
         const title = `每日读书 - ${moment(xml.EventKey).format("YYYY.MM.DD")}`;
         const desc = "提供每日好书解读及日历提醒";
