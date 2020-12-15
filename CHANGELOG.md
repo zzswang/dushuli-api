@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.18.0"></a>
+# [0.18.0](https://github.com/zzswang/dushuli/compare/v0.17.6...v0.18.0) (2020-12-15)
+
+
+### Features
+
+* add deleted: false for getInvitationIdOrCode ([6094716](https://github.com/zzswang/dushuli/commit/6094716))
+
+
+
 <a name="0.17.6"></a>
 ## [0.17.6](https://github.com/zzswang/dushuli/compare/v0.17.5...v0.17.6) (2020-11-16)
 
