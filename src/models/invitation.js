@@ -72,10 +72,18 @@ class Invitation {
       invitation = await this.get(id);
       // for some code is valid objectId
       if (!invitation) {
-        invitation = await this.findOne({ code: id, used: false });
+        invitation = await this.findOne({
+          code: id,
+          used: false,
+          deleted: false,
+        });
       }
     } else {
-      invitation = await this.findOne({ code: id, used: false });
+      invitation = await this.findOne({
+        code: id,
+        used: false,
+        deleted: false,
+      });
     }
     return invitation;
   }
