@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.19.0"></a>
+# [0.19.0](https://github.com/zzswang/dushuli/compare/v0.18.0...v0.19.0) (2020-12-17)
+
+
+### Features
+
+* add wechat msgSecCheck api ([6f91628](https://github.com/zzswang/dushuli/commit/6f91628))
+
+
+
 <a name="0.18.0"></a>
 # [0.18.0](https://github.com/zzswang/dushuli/compare/v0.17.6...v0.18.0) (2020-12-15)
 
