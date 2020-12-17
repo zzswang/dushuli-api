@@ -544,6 +544,27 @@ export class Service extends API {
     };
     return wechatAppApi.request(url, postJSON(data));
   }
+
+  /**
+   * get wechat message security check
+   *
+   * @abstract
+   * @param {GetMsgSecCheckRequest} req getMsgSecCheck request
+   * @returns {GetMsgSecCheckResponse} Expected response to a valid request
+   */
+  async getMsgSecCheck(req) {
+    const { content } = req.query;
+    const { accessToken } = await wechatAppApi.ensureAccessToken();
+
+    const url = `https://api.weixin.qq.com/wxa/msg_sec_check?access_token=${accessToken}`;
+
+    const body = {
+      content,
+    };
+    const ret = await post(url, body);
+
+    return { body: ret.data };
+  }
 }
 
 export default new Service();

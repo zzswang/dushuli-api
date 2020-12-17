@@ -65,6 +65,17 @@ interface GetSignatureResponse {
   body: GetSignatureResponse;
 }
 
+interface GetMsgSecCheckRequest {
+  query: {
+    content: string;
+  };
+  context?: Object;
+}
+
+interface GetMsgSecCheckResponse {
+  body: GetMsgSecCheckResponse;
+}
+
 interface ListMembersRequest {
   query: {
     _select?: string;
@@ -426,6 +437,10 @@ interface CreatePaymentResponse {
   package: string;
   signType: string;
   paySign: string;
+}
+interface GetMsgSecCheckResponse {
+  errcode: number;
+  errMsg: string;
 }
 interface GetSignatureResponse {
   debug: boolean;

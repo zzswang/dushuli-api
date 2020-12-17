@@ -140,6 +140,25 @@ export default class API {
       ctx.status = 200;
     };
 
+    const getMsgSecCheck = async ctx => {
+      if (!ctx.query.content)
+        throw createError(400, "content in query is required.");
+
+      const req = {
+        query: {
+          content: ctx.query.content,
+        },
+        context: ctx, // here we put koa context in request
+      };
+
+      const res = await this.getMsgSecCheck(req);
+
+      if (!res.body) throw createError(500, "should have body in response");
+
+      ctx.body = res.body;
+      ctx.status = 200;
+    };
+
     router.post(
       "/wxe8fc40117734ec1f/event",
       ...this.middlewares("getWechatPushEvent"),
@@ -169,6 +188,11 @@ export default class API {
       "/wechat/signature",
       ...this.middlewares("getSignature"),
       getSignature
+    );
+    router.get(
+      "/wechat/msgSecCheck",
+      ...this.middlewares("getMsgSecCheck"),
+      getMsgSecCheck
     );
   }
 
@@ -248,6 +272,17 @@ export default class API {
    * @returns {GetSignatureResponse} Expected response to a valid request
    */
   getSignature(req) {
+    throw new Error("not implemented");
+  }
+
+  /**
+   * get wechat message security check
+   *
+   * @abstract
+   * @param {GetMsgSecCheckRequest} req getMsgSecCheck request
+   * @returns {GetMsgSecCheckResponse} Expected response to a valid request
+   */
+  getMsgSecCheck(req) {
     throw new Error("not implemented");
   }
 }

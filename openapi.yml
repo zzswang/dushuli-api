@@ -212,6 +212,33 @@ paths:
         "500":
           $ref: "#/components/responses/InternalError"
 
+  /wechat/msgSecCheck:
+    get:
+      summary: get wechat message security check
+      operationId: getMsgSecCheck
+      tags:
+        - wechat
+      parameters:
+        - name: content
+          in: query
+          description: content
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetMsgSecCheckResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
   /members:
     get:
       summary: list all members
@@ -1422,6 +1449,14 @@ components:
           type: string
           description: 签名
           example: "C380BEC2BFD727A4B6845133519F3AD6"
+      
+    GetMsgSecCheckResponse:
+      type: object
+      properties:
+        errcode:
+          type: number
+        errMsg:
+          type: string
 
     GetSignatureResponse:
       type: object
